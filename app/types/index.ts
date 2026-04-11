@@ -1,8 +1,12 @@
 export interface Project {
   id: number
+  slug: string
   title: string
   description: string
+  longDescription?: string
   tags: string[]
+  features?: string[]
+  images?: string[]
   githubUrl: string
   liveUrl?: string
   featured?: boolean

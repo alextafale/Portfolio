@@ -3,7 +3,15 @@
     <div class="container footer__inner">
       <div class="footer__left">
         <span class="footer__name gradient-text">Alejandro Alejandre Tafolla</span>
-        <p class="footer__copy">&copy; {{ year }} — Built with Nuxt & Vue</p>
+        <div class="footer__status">
+          <p class="footer__copy">&copy; {{ year }} — Built with Nuxt & Vue</p>
+          <Transition name="fade">
+            <p v-if="lastActivity" class="footer__activity">
+              <span class="activity-dot" />
+              {{ lastActivity }}
+            </p>
+          </Transition>
+        </div>
       </div>
 
       <div class="footer__social">
@@ -24,9 +32,30 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import { socialLinks } from '~/data/profile'
 
 const year = new Date().getFullYear()
+const lastActivity = ref<string | null>(null)
+
+async function fetchGitHubActivity() {
+  try {
+    const response = await fetch('https://api.github.com/users/alextafale/events/public')
+    const events = await response.json()
+    const pushEvent = events.find((e: any) => e.type === 'PushEvent')
+    
+    if (pushEvent) {
+      const date = new Date(pushEvent.created_at)
+      lastActivity.value = `Last commit: ${date.toLocaleDateString()}`
+    }
+  } catch (error) {
+    console.error('Failed to fetch GitHub activity', error)
+  }
+}
+
+onMounted(() => {
+  fetchGitHubActivity()
+})
 
 function getIcon(name: string) {
   // Returns inline SVG icons as functional components
@@ -62,9 +91,47 @@ function getIcon(name: string) {
 }
 
 .footer__copy {
-  margin-top: 4px;
   font-size: 0.8rem;
   color: var(--color-text-muted);
+}
+
+.footer__status {
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.footer__activity {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: var(--color-accent-3);
+  font-weight: 500;
+}
+
+.activity-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--color-accent-2);
+  border-radius: 50%;
+  animation: pulse-small 2s infinite;
+}
+
+@keyframes pulse-small {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.1); }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 
 .footer__social {

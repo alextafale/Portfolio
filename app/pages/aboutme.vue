@@ -82,9 +82,29 @@ const timelineRef = ref<HTMLElement | null>(null)
 const { initGsap } = useAnimations()
 
 onMounted(async () => {
-  const { gsap } = await initGsap()
+  const { gsap, ScrollTrigger } = await initGsap()
+  
   gsap.fromTo(bioRef.value, { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.8, ease: 'power3.out' })
   gsap.fromTo(timelineRef.value, { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.8, delay: 0.15, ease: 'power3.out' })
+
+  // Scroll triggered animations for individual timeline items
+  const items = document.querySelectorAll('.about__timeline-list > *')
+  items.forEach((item, index) => {
+    gsap.fromTo(item, 
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: item,
+          start: 'top 90%',
+          once: true
+        }
+      }
+    )
+  })
 })
 </script>
 

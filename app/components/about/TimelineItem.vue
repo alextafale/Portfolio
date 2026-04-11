@@ -42,6 +42,11 @@ defineProps<{ item: Experience }>()
   grid-template-columns: 28px 1fr;
   gap: 0 20px;
   position: relative;
+  transition: transform 0.3s ease;
+}
+
+.timeline-item:hover {
+  transform: translateX(4px);
 }
 
 /* Vertical line */
@@ -53,6 +58,11 @@ defineProps<{ item: Experience }>()
   bottom: -32px;
   width: 2px;
   background: var(--color-border);
+  transition: background 0.3s ease;
+}
+
+.timeline-item:hover:not(:last-child)::after {
+  background: var(--color-accent-1);
 }
 
 /* Dot */
@@ -66,6 +76,12 @@ defineProps<{ item: Experience }>()
   flex-shrink: 0;
   margin-top: 2px;
   z-index: 1;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 0 0 rgba(124, 58, 237, 0);
+}
+
+.timeline-item:hover .timeline-item__dot {
+  transform: scale(1.2);
 }
 
 .timeline-item--work .timeline-item__dot {
@@ -74,10 +90,20 @@ defineProps<{ item: Experience }>()
   border: 1.5px solid rgba(124, 58, 237, 0.4);
 }
 
+.timeline-item--work:hover .timeline-item__dot {
+  box-shadow: 0 0 15px rgba(124, 58, 237, 0.4);
+  border-color: var(--color-accent-1);
+}
+
 .timeline-item--education .timeline-item__dot {
   background: rgba(6, 182, 212, 0.15);
   color: var(--color-cyan-1);
   border: 1.5px solid rgba(6, 182, 212, 0.35);
+}
+
+.timeline-item--education:hover .timeline-item__dot {
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+  border-color: var(--color-cyan-2);
 }
 
 .timeline-item--certification .timeline-item__dot {
@@ -86,9 +112,19 @@ defineProps<{ item: Experience }>()
   border: 1.5px solid rgba(245, 158, 11, 0.35);
 }
 
+.timeline-item--certification:hover .timeline-item__dot {
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+  border-color: #fbbf24;
+}
+
 /* Content */
 .timeline-item__content {
   padding-bottom: 36px;
+  transition: opacity 0.3s ease;
+}
+
+.timeline-item:hover .timeline-item__content {
+  opacity: 1;
 }
 
 .timeline-item__period {
@@ -104,6 +140,11 @@ defineProps<{ item: Experience }>()
   font-weight: 700;
   color: var(--color-text-primary);
   margin-top: 6px;
+  transition: color 0.3s ease;
+}
+
+.timeline-item:hover .timeline-item__title {
+  color: var(--color-accent-1);
 }
 
 .timeline-item__company {
@@ -135,5 +176,11 @@ defineProps<{ item: Experience }>()
   background: rgba(124, 58, 237, 0.1);
   color: var(--color-accent-3);
   border: 1px solid rgba(124, 58, 237, 0.2);
+  transition: all 0.3s ease;
+}
+
+.timeline-item:hover .timeline-item__tag {
+  background: rgba(124, 58, 237, 0.2);
+  transform: translateY(-2px);
 }
 </style>
