@@ -28,6 +28,7 @@ export const stackItems: StackItem[] = [
 
   //DevOps
   { name: 'Git', category: 'devops', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg', level: 'advanced', color: '#F05032' },
+  { name: 'GitHub', category: 'devops', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg', level: 'advanced', color: '#181717' },
   { name: 'Docker', category: 'devops', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg', level: 'advanced', color: '#2496ED' },
   { name: 'Vercel', category: 'devops', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-original.svg', level: 'advanced', color: '#000000' },
 ]
