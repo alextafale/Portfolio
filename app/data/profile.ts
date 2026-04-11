@@ -40,6 +40,15 @@ export const experiences: Experience[] = [
   },
   {
     id: 2,
+    type: 'work',
+    title: ' Go Developer',
+    company: 'Altrueer',
+    period: 'Feb 2026 - Present',
+    description: '',
+    tags: ['Go', 'Cosmos SDK']
+  },
+  {
+    id: 3,
     type: 'education',
     title: 'Computer Systems Engineering',
     company: 'Tecnológico Nacional de México',
@@ -48,7 +57,7 @@ export const experiences: Experience[] = [
     tags: ['Software Engineering', 'System Architecture'],
   },
   {
-    id: 3,
+    id: 4,
     type: 'certification',
     title: 'Building with the Claude API',
     company: 'Anthropic Academy',
@@ -57,7 +66,7 @@ export const experiences: Experience[] = [
     tags: ['AI', 'LLM', 'Claude'],
   },
   {
-    id: 4,
+    id: 5,
     type: 'certification',
     title: 'AWS Academy Graduate – Cloud Foundations',
     company: 'Amazon Web Services',
@@ -66,7 +75,7 @@ export const experiences: Experience[] = [
     tags: ['AWS', 'Cloud Computing'],
   },
   {
-    id: 5,
+    id: 6,
     type: 'certification',
     title: 'Exploring AI Use Cases and Applications',
     company: 'Amazon Web Services',
@@ -75,7 +84,7 @@ export const experiences: Experience[] = [
     tags: ['AWS', 'AI Applications'],
   },
   {
-    id: 6,
+    id: 7,
     type: 'certification',
     title: 'TypeScript: Tu completa guía y manual de mano',
     company: 'Udemy',
