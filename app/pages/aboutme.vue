@@ -55,7 +55,7 @@
 
         <!-- Right: Timeline -->
         <div class="about__timeline" ref="timelineRef">
-          <h3 class="about__timeline-title">Experience & Education</h3>
+          <h3 class="about__timeline-title">Experience, Education & Certifications</h3>
           <div class="about__timeline-list">
             <TimelineItem
               v-for="exp in experiences"

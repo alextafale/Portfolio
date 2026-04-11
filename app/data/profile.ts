@@ -52,4 +52,13 @@ export const experiences: Experience[] = [
     description: 'Studied software engineering, algorithms, databases and software architecture.',
     tags: ['Java', 'Python', 'SQL', 'Algorithms'],
   },
+  {
+    id: 3,
+    type: 'certification',
+    title: 'AWS Certified Cloud Practitioner',
+    company: 'Amazon Web Services',
+    period: '2023',
+    description: 'Foundational understanding of AWS Cloud concepts, security, and architecture.',
+    tags: ['AWS', 'Cloud'],
+  },
 ]

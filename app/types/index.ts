@@ -10,7 +10,7 @@ export interface Project {
 
 export interface StackItem {
   name: string
-  category: 'frontend' | 'backend' | 'mobile' | 'database' | 'devops' | 'tools'
+  category: 'frontend' | 'backend' | 'mobile' | 'database' | 'devops' | 'tools' | 'ai'
   icon: string
   level: 'beginner' | 'intermediate' | 'advanced' | 'expert'
   color: string
@@ -18,7 +18,7 @@ export interface StackItem {
 
 export interface Experience {
   id: number
-  type: 'work' | 'education'
+  type: 'work' | 'education' | 'certification'
   title: string
   company: string
   period: string

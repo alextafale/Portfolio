@@ -7,9 +7,14 @@
         <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
       </svg>
       <!-- Education icon -->
-      <svg v-else width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <svg v-else-if="item.type === 'education'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
         <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
         <path d="M6 12v5c3 3 9 3 12 0v-5" />
+      </svg>
+      <!-- Certification icon -->
+      <svg v-else width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <circle cx="12" cy="8" r="6" />
+        <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
       </svg>
     </div>
 
@@ -73,6 +78,12 @@ defineProps<{ item: Experience }>()
   background: rgba(6, 182, 212, 0.15);
   color: var(--color-cyan-1);
   border: 1.5px solid rgba(6, 182, 212, 0.35);
+}
+
+.timeline-item--certification .timeline-item__dot {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+  border: 1.5px solid rgba(245, 158, 11, 0.35);
 }
 
 /* Content */

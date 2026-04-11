@@ -31,6 +31,10 @@ export const stackItems: StackItem[] = [
   { name: 'GitHub', category: 'devops', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg', level: 'advanced', color: '#181717' },
   { name: 'Docker', category: 'devops', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg', level: 'advanced', color: '#2496ED' },
   { name: 'Vercel', category: 'devops', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-original.svg', level: 'advanced', color: '#000000' },
+
+  // AI & LLMs
+  { name: 'LLMs (GPT, Claude)', category: 'ai', icon: 'https://api.iconify.design/lucide:brain-circuit.svg?color=%237C3AED', level: 'advanced', color: '#7C3AED' },
+  { name: 'MCP', category: 'ai', icon: 'https://api.iconify.design/lucide:network.svg?color=%2306B6D4', level: 'intermediate', color: '#06B6D4' },
 ]
 
 export const stackCategories = [
@@ -38,4 +42,5 @@ export const stackCategories = [
   { key: 'mobile', label: 'Mobile' },
   { key: 'backend', label: 'Backend' },
   { key: 'database', label: 'Database' },
+  { key: 'ai', label: 'AI & LLMs' },
 ] as const
