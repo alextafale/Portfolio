@@ -16,6 +16,7 @@ export default defineNuxtConfig({
       { code: 'es', iso: 'es-ES', name: 'Español', file: 'es.json' }
     ],
     defaultLocale: 'es',
+    restructureDir: 'app/i18n',
     langDir: 'locales',
     strategy: 'prefix_except_default',
     detectBrowserLanguage: {
