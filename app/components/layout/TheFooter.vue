@@ -4,7 +4,7 @@
       <div class="footer__left">
         <span class="footer__name gradient-text">Alejandro Alejandre Tafolla</span>
         <div class="footer__status">
-          <p class="footer__copy">&copy; {{ year }} — Built with Nuxt & Vue</p>
+          <p class="footer__copy">&copy; {{ year }} — {{ $t('footer.built_with') }}</p>
           <Transition name="fade">
             <p v-if="lastActivity" class="footer__activity">
               <span class="activity-dot" />
@@ -35,6 +35,7 @@
 import { ref, onMounted } from 'vue'
 import { socialLinks } from '~/data/profile'
 
+const { t } = useI18n()
 const year = new Date().getFullYear()
 const lastActivity = ref<string | null>(null)
 
@@ -46,7 +47,7 @@ async function fetchGitHubActivity() {
     
     if (pushEvent) {
       const date = new Date(pushEvent.created_at)
-      lastActivity.value = `Last commit: ${date.toLocaleDateString()}`
+      lastActivity.value = `${t('footer.activity.last_commit')}: ${date.toLocaleDateString()}`
     }
   } catch (error) {
     console.error('Failed to fetch GitHub activity', error)

@@ -1,0 +1,64 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "about": "Sobre mí",
+    "projects": "Proyectos",
+    "stack": "Stack",
+    "contact": "Contacto"
+  },
+  "home": {
+    "hero": {
+      "greeting": "Hola, soy",
+      "status": "Disponible para trabajar",
+      "cta_projects": "Ver Proyectos",
+      "cta_contact": "Contactar"
+    }
+  },
+  "about": {
+    "headline": "Quién soy",
+    "title": "Sobre mí",
+    "subtitle": "Un poco sobre mi trayectoria, habilidades y lo que me motiva.",
+    "info": {
+      "location": "Ubicación",
+      "status": "Estado",
+      "focus": "Enfoque",
+      "languages": "Idiomas",
+      "available": "Disponible"
+    },
+    "timeline": {
+      "title": "Experiencia, Educación y Certificaciones"
+    }
+  },
+  "projects": {
+    "headline": "Mi Trabajo",
+    "title": "Proyectos",
+    "subtitle": "Una colección de proyectos que he construido.",
+    "filters": {
+      "all": "Todos"
+    },
+    "empty": "Ningún proyecto coincide con este filtro.",
+    "detail": {
+      "back": "Volver a Proyectos",
+      "overview": "Resumen",
+      "features": "Funcionalidades Clave",
+      "showcase": "Galería",
+      "tech": "Tecnologías",
+      "role": "Rol",
+      "year": "Año",
+      "repo": "Repositorio",
+      "live": "Demo en vivo"
+    }
+  },
+  "footer": {
+    "built_with": "Construido con Nuxt & Vue",
+    "activity": {
+      "last_commit": "Último commit"
+    }
+  },
+  "error": {
+    "title": "¿Te has perdido en el ciberespacio?",
+    "message": "La página que buscas ha sido movida a otra dimensión o simplemente no existe.",
+    "cta_home": "Llévame a Inicio",
+    "cta_projects": "Ver Proyectos"
+  }
+}

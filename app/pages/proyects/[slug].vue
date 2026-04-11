@@ -3,11 +3,11 @@
     <!-- Header/Hero section for the project -->
     <header class="project-header" ref="headerRef">
       <div class="container project-header__inner">
-        <NuxtLink to="/proyects" class="back-link">
+        <NuxtLink :to="localePath('/proyects')" class="back-link">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <path d="m15 18-6-6 6-6"/>
           </svg>
-          Back to Projects
+          {{ $t('projects.detail.back') }}
         </NuxtLink>
 
         <div class="project-header__content">
@@ -17,14 +17,14 @@
               {{ tag }}
             </span>
           </div>
-          <p class="project-description">{{ project.description }}</p>
+          <p class="project-description">{{ project.description[locale as 'en' | 'es'] }}</p>
           
           <div class="project-links">
             <AppButton :to="project.githubUrl" target="_blank" variant="primary">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
               </svg>
-              Repository
+              {{ $t('projects.detail.repo') }}
             </AppButton>
             <AppButton v-if="project.liveUrl" :to="project.liveUrl" target="_blank" variant="secondary">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -32,7 +32,7 @@
                 <polyline points="15 3 21 3 21 9" />
                 <line x1="10" y1="14" x2="21" y2="3" />
               </svg>
-              Live Demo
+              {{ $t('projects.detail.live') }}
             </AppButton>
           </div>
         </div>
@@ -44,14 +44,14 @@
         <!-- Left column: Detailed info -->
         <article class="project-main" ref="mainRef">
           <section class="project-section">
-            <h2 class="section-title-sm">Overview</h2>
-            <p class="text-long">{{ project.longDescription || project.description }}</p>
+            <h2 class="section-title-sm">{{ $t('projects.detail.overview') }}</h2>
+            <p class="text-long">{{ project.longDescription ? project.longDescription[locale as 'en' | 'es'] : project.description[locale as 'en' | 'es'] }}</p>
           </section>
 
-          <section v-if="project.features?.length" class="project-section">
-            <h2 class="section-title-sm">Key Features</h2>
+          <section v-if="project.features && project.features[locale as 'en' | 'es']?.length" class="project-section">
+            <h2 class="section-title-sm">{{ $t('projects.detail.features') }}</h2>
             <ul class="features-list">
-              <li v-for="feature in project.features" :key="feature" class="feature-item">
+              <li v-for="feature in project.features[locale as 'en' | 'es']" :key="feature" class="feature-item">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="3">
                   <path d="M20 6L9 17L4 12" />
                 </svg>
@@ -64,7 +64,7 @@
         <!-- Right column: Extra details/sidebar -->
         <aside class="project-sidebar" ref="sidebarRef">
           <div class="sidebar-box">
-            <h3 class="sidebar-title">Tech Stack</h3>
+            <h3 class="sidebar-title">{{ $t('projects.detail.tech') }}</h3>
             <div class="sidebar-tags">
               <span v-for="tag in project.tags" :key="tag" class="sidebar-tag">
                 {{ tag }}
@@ -73,12 +73,12 @@
           </div>
 
           <div class="sidebar-box">
-            <h3 class="sidebar-title">Role</h3>
+            <h3 class="sidebar-title">{{ $t('projects.detail.role') }}</h3>
             <p class="sidebar-text">Solo Developer</p>
           </div>
 
           <div class="sidebar-box">
-            <h3 class="sidebar-title">Year</h3>
+            <h3 class="sidebar-title">{{ $t('projects.detail.year') }}</h3>
             <p class="sidebar-text">2024</p>
           </div>
         </aside>
@@ -86,7 +86,7 @@
 
       <!-- Optional showcase images -->
       <section v-if="project.images?.length" class="project-gallery section" ref="galleryRef">
-        <h2 class="section-title-sm">Showcase</h2>
+        <h2 class="section-title-sm">{{ $t('projects.detail.showcase') }}</h2>
         <div class="gallery-grid">
           <div v-for="(img, idx) in project.images" :key="idx" class="gallery-item">
             <img :src="img" :alt="`${project.title} screenshot ${idx + 1}`" />
@@ -97,7 +97,7 @@
   </div>
   <div v-else class="project-not-found container section">
     <h1 class="gradient-text">Project not found</h1>
-    <AppButton to="/proyects" variant="primary">Back to Projects</AppButton>
+    <AppButton :to="localePath('/proyects')" variant="primary">{{ $t('projects.detail.back') }}</AppButton>
   </div>
 </template>
 
@@ -108,6 +108,9 @@ import { projects } from '~/data/projects'
 import { useAnimations } from '~/composables/useAnimations'
 
 const route = useRoute()
+const { locale } = useI18n()
+const localePath = useLocalePath()
+
 const project = computed(() => projects.find(p => p.slug === route.params.slug))
 
 definePageMeta({ layout: 'default' })

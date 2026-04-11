@@ -9,26 +9,28 @@
         <div class="hero__content" ref="contentRef">
           <div class="hero__eyebrow">
             <span class="hero__status-dot" />
-            <span>Available for work</span>
+            <span>{{ $t('home.hero.status') }}</span>
           </div>
 
           <h1 class="hero__heading">
-            Hi, I'm
+            {{ $t('home.hero.greeting') }}
             <span class="gradient-text">Alejandro</span>
             <br />
-            <span class="hero__role">Full Stack Developer</span>
+            <span class="hero__role">{{ profile.title[locale] }}</span>
           </h1>
 
-          <p class="hero__bio">{{ profile.shortBio }}</p>
+          <p class="hero__bio">{{ profile.shortBio[locale] }}</p>
 
           <div class="hero__actions">
-            <AppButton variant="primary" to="/proyects">
-              View Projects
+            <AppButton variant="primary" :to="localePath('/proyects')">
+              {{ $t('home.hero.cta_projects') }}
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <path d="m9 18 6-6-6-6" />
               </svg>
             </AppButton>
-            <AppButton variant="secondary" to="/contact">Contact Me</AppButton>
+            <AppButton variant="secondary" :to="localePath('/contact')">
+              {{ $t('home.hero.cta_contact') }}
+            </AppButton>
           </div>
 
           <!-- Tech badges row -->
@@ -71,6 +73,9 @@
 import { ref, onMounted } from 'vue'
 import { profile } from '~/data/profile'
 import { useAnimations } from '~/composables/useAnimations'
+
+const { locale } = useI18n()
+const localePath = useLocalePath()
 
 definePageMeta({ layout: 'default' })
 

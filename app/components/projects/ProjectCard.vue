@@ -1,6 +1,6 @@
 <template>
   <NuxtLink 
-    :to="`/proyects/${project.slug}`" 
+    :to="localePath(`/proyects/${project.slug}`)" 
     class="project-card" 
     :class="{ 'project-card--featured': project.featured }"
   >
@@ -17,7 +17,7 @@
       </div>
 
       <h3 class="project-card__title">{{ project.title }}</h3>
-      <p class="project-card__description">{{ project.description }}</p>
+      <p class="project-card__description">{{ project.description[locale as 'en' | 'es'] }}</p>
 
       <!-- Tags -->
       <div class="project-card__tags">
@@ -66,6 +66,9 @@
 
 <script setup lang="ts">
 import type { Project } from '~/types'
+
+const { locale } = useI18n()
+const localePath = useLocalePath()
 
 defineProps<{ project: Project }>()
 </script>

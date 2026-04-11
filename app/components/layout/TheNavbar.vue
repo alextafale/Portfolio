@@ -12,18 +12,19 @@
         <NuxtLink
           v-for="link in navLinks"
           :key="link.to"
-          :to="link.to"
+          :to="localePath(link.to)"
           class="navbar__link"
-          :class="{ 'navbar__link--active': route.path === link.to }"
+          :class="{ 'navbar__link--active': route.path === localePath(link.to) }"
         >
-          {{ link.label }}
+          {{ $t(`nav.${link.key}`) }}
         </NuxtLink>
       </nav>
 
       <!-- CTA + Mobile toggle -->
       <div class="navbar__actions">
-        <AppButton variant="primary" size="sm" to="/contact">
-          Let's talk
+        <LanguageSwitcher />
+        <AppButton variant="primary" size="sm" :to="localePath('/contact')">
+          {{ $t('home.hero.cta_contact') }}
         </AppButton>
         <button
           class="navbar__burger"
@@ -42,11 +43,11 @@
         <NuxtLink
           v-for="link in navLinks"
           :key="link.to"
-          :to="link.to"
+          :to="localePath(link.to)"
           class="navbar__mobile-link"
           @click="menuOpen = false"
         >
-          {{ link.label }}
+          {{ $t(`nav.${link.key}`) }}
         </NuxtLink>
       </nav>
     </Transition>
@@ -57,15 +58,16 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 
 const route = useRoute()
+const localePath = useLocalePath()
 const isScrolled = ref(false)
 const menuOpen = ref(false)
 
 const navLinks = [
-  { to: '/', label: 'Home' },
-  { to: '/aboutme', label: 'About' },
-  { to: '/proyects', label: 'Projects' },
-  { to: '/stack', label: 'Stack' },
-  { to: '/contact', label: 'Contact' },
+  { to: '/', key: 'home' },
+  { to: '/aboutme', key: 'about' },
+  { to: '/proyects', key: 'projects' },
+  { to: '/stack', key: 'stack' },
+  { to: '/contact', key: 'contact' },
 ]
 
 const onScroll = () => {

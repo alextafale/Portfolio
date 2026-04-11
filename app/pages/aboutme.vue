@@ -1,8 +1,8 @@
 <template>
   <div class="about-page section">
     <div class="container">
-      <SectionTitle eyebrow="Who I am" subtitle="A little bit about my journey, skills and what drives me.">
-        About Me
+      <SectionTitle :eyebrow="$t('about.headline')" :subtitle="$t('about.subtitle')">
+        {{ $t('about.title') }}
       </SectionTitle>
 
       <div class="about__grid">
@@ -14,26 +14,26 @@
 
           <div class="about__bio-card">
             <h2 class="about__name gradient-text">Alejandro Alejandre Tafolla</h2>
-            <p class="about__role">Full Stack Developer · Mexico</p>
-            <p class="about__bio">{{ profile.longBio }}</p>
+            <p class="about__role">{{ profile.title[locale] }} · {{ profile.location[locale] }}</p>
+            <p class="about__bio">{{ profile.longBio[locale] }}</p>
 
             <div class="about__info-grid">
               <div class="about__info-item">
-                <span class="about__info-label">Location</span>
-                <span class="about__info-value">Mexico 🇲🇽</span>
+                <span class="about__info-label">{{ $t('about.info.location') }}</span>
+                <span class="about__info-value">{{ profile.location[locale] }} 🇲🇽</span>
               </div>
               <div class="about__info-item">
-                <span class="about__info-label">Status</span>
+                <span class="about__info-label">{{ $t('about.info.status') }}</span>
                 <span class="about__info-value about__info-value--available">
-                  <span class="dot" />Available
+                  <span class="dot" />{{ $t('about.info.available') }}
                 </span>
               </div>
               <div class="about__info-item">
-                <span class="about__info-label">Focus</span>
+                <span class="about__info-label">{{ $t('about.info.focus') }}</span>
                 <span class="about__info-value">Web & Mobile</span>
               </div>
               <div class="about__info-item">
-                <span class="about__info-label">Languages</span>
+                <span class="about__info-label">{{ $t('about.info.languages') }}</span>
                 <span class="about__info-value">Spanish (Native), English (B2)</span>
               </div>
             </div>
@@ -55,7 +55,7 @@
 
         <!-- Right: Timeline -->
         <div class="about__timeline" ref="timelineRef">
-          <h3 class="about__timeline-title">Experience, Education & Certifications</h3>
+          <h3 class="about__timeline-title">{{ $t('about.timeline.title') }}</h3>
           <div class="about__timeline-list">
             <TimelineItem
               v-for="exp in experiences"
@@ -73,6 +73,8 @@
 import { ref, onMounted } from 'vue'
 import { profile, socialLinks, experiences } from '~/data/profile'
 import { useAnimations } from '~/composables/useAnimations'
+
+const { locale } = useI18n()
 
 definePageMeta({ layout: 'default' })
 

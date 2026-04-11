@@ -3,17 +3,17 @@
     <div class="error-page">
       <div class="error-page__content" ref="contentRef">
         <div class="error-page__code">404</div>
-        <h1 class="error-page__title gradient-text">Lost in Cyberspace?</h1>
+        <h1 class="error-page__title gradient-text">{{ $t('error.title') }}</h1>
         <p class="error-page__message">
-          The page you are looking for has been moved to another dimension or simply doesn't exist.
+          {{ $t('error.message') }}
         </p>
         
         <div class="error-page__actions">
-          <AppButton to="/" variant="primary">
-            Take Me Home
+          <AppButton :to="localePath('/')" variant="primary">
+            {{ $t('error.cta_home') }}
           </AppButton>
-          <AppButton to="/proyects" variant="secondary">
-            View Projects
+          <AppButton :to="localePath('/proyects')" variant="secondary">
+            {{ $t('error.cta_projects') }}
           </AppButton>
         </div>
       </div>
@@ -29,6 +29,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useAnimations } from '~/composables/useAnimations'
+
+const localePath = useLocalePath()
 
 // Clear the error so navigation works correctly
 const props = defineProps({

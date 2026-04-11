@@ -1,0 +1,64 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "stack": "Stack",
+    "contact": "Contact"
+  },
+  "home": {
+    "hero": {
+      "greeting": "Hi, I'm",
+      "status": "Available for work",
+      "cta_projects": "View Projects",
+      "cta_contact": "Contact Me"
+    }
+  },
+  "about": {
+    "headline": "Who I am",
+    "title": "About Me",
+    "subtitle": "A little bit about my journey, skills and what drives me.",
+    "info": {
+      "location": "Location",
+      "status": "Status",
+      "focus": "Focus",
+      "languages": "Languages",
+      "available": "Available"
+    },
+    "timeline": {
+      "title": "Experience, Education & Certifications"
+    }
+  },
+  "projects": {
+    "headline": "My Work",
+    "title": "Projects",
+    "subtitle": "A collection of projects I've built.",
+    "filters": {
+      "all": "All"
+    },
+    "empty": "No projects match this filter.",
+    "detail": {
+      "back": "Back to Projects",
+      "overview": "Overview",
+      "features": "Key Features",
+      "showcase": "Showcase",
+      "tech": "Tech Stack",
+      "role": "Role",
+      "year": "Year",
+      "repo": "Repository",
+      "live": "Live Demo"
+    }
+  },
+  "footer": {
+    "built_with": "Built with Nuxt & Vue",
+    "activity": {
+      "last_commit": "Last commit"
+    }
+  },
+  "error": {
+    "title": "Lost in Cyberspace?",
+    "message": "The page you are looking for has been moved to another dimension or simply doesn't exist.",
+    "cta_home": "Take Me Home",
+    "cta_projects": "View Projects"
+  }
+}

@@ -1,11 +1,16 @@
+export interface Localized<T = string> {
+  en: T
+  es: T
+}
+
 export interface Project {
   id: number
   slug: string
   title: string
-  description: string
-  longDescription?: string
+  description: Localized
+  longDescription?: Localized
   tags: string[]
-  features?: string[]
+  features?: Localized<string[]>
   images?: string[]
   githubUrl: string
   liveUrl?: string
@@ -23,10 +28,10 @@ export interface StackItem {
 export interface Experience {
   id: number
   type: 'work' | 'education' | 'certification'
-  title: string
+  title: Localized
   company: string
   period: string
-  description: string
+  description: Localized
   tags?: string[]
 }
 

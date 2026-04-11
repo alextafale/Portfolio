@@ -20,9 +20,9 @@
 
     <div class="timeline-item__content">
       <span class="timeline-item__period">{{ item.period }}</span>
-      <h3 class="timeline-item__title">{{ item.title }}</h3>
+      <h3 class="timeline-item__title">{{ item.title[locale as 'en' | 'es'] }}</h3>
       <p class="timeline-item__company">{{ item.company }}</p>
-      <p class="timeline-item__description">{{ item.description }}</p>
+      <p class="timeline-item__description">{{ item.description[locale as 'en' | 'es'] }}</p>
       <div v-if="item.tags?.length" class="timeline-item__tags">
         <span v-for="tag in item.tags" :key="tag" class="timeline-item__tag">{{ tag }}</span>
       </div>
@@ -32,6 +32,8 @@
 
 <script setup lang="ts">
 import type { Experience } from '~/types'
+
+const { locale } = useI18n()
 
 defineProps<{ item: Experience }>()
 </script>

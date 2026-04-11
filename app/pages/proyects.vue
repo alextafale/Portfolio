@@ -2,10 +2,10 @@
   <div class="projects-page section">
     <div class="container">
       <SectionTitle
-        eyebrow="My Work"
-        subtitle="A collection of projects I've built. Replace the placeholders with your real GitHub repos in data/projects.ts"
+        :eyebrow="$t('projects.headline')"
+        :subtitle="$t('projects.subtitle')"
       >
-        Projects
+        {{ $t('projects.title') }}
       </SectionTitle>
 
       <!-- Filter bar -->
@@ -17,7 +17,7 @@
           :class="{ 'projects__filter--active': activeTag === tag }"
           @click="activeTag = tag"
         >
-          {{ tag }}
+          {{ tag === 'All' ? $t('projects.filters.all') : tag }}
         </button>
       </div>
 
@@ -32,7 +32,7 @@
 
       <!-- Empty state -->
       <div v-if="!filteredProjects.length" class="projects__empty">
-        <p>No projects match this filter.</p>
+        <p>{{ $t('projects.empty') }}</p>
       </div>
     </div>
   </div>
@@ -42,6 +42,9 @@
 import { ref, computed, onMounted } from 'vue'
 import { projects } from '~/data/projects'
 import { useAnimations } from '~/composables/useAnimations'
+
+const { locale } = useI18n()
+const localePath = useLocalePath()
 
 definePageMeta({ layout: 'default' })
 
