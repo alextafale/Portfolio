@@ -1,0 +1,137 @@
+/* =====================================================
+   PORTFOLIO — Global Styles & Design System
+   ===================================================== */
+
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+
+/* ── CSS Custom Properties ── */
+:root {
+  /* Colors */
+  --color-bg:          #09090f;
+  --color-bg-elevated: #12121c;
+  --color-bg-card:     #15151f;
+  --color-border:      rgba(255, 255, 255, 0.06);
+  --color-border-hover: rgba(124, 58, 237, 0.4);
+
+  /* Accent: Purple */
+  --color-accent-1: #7c3aed;
+  --color-accent-2: #a855f7;
+  --color-accent-3: #c084fc;
+
+  /* Accent: Cyan */
+  --color-cyan-1: #06b6d4;
+  --color-cyan-2: #22d3ee;
+
+  /* Text */
+  --color-text-primary:   #f1f1f1;
+  --color-text-secondary: #a1a1b0;
+  --color-text-muted:     #5c5c78;
+
+  /* Gradients */
+  --gradient-hero:    linear-gradient(135deg, var(--color-accent-1) 0%, var(--color-cyan-1) 100%);
+  --gradient-card:    linear-gradient(145deg, rgba(124,58,237,0.06) 0%, rgba(6,182,212,0.03) 100%);
+  --gradient-glow:    radial-gradient(ellipse at center, rgba(124,58,237,0.15) 0%, transparent 70%);
+
+  /* Typography */
+  --font-heading: 'Outfit', sans-serif;
+  --font-body:    'Inter', sans-serif;
+
+  /* Spacing */
+  --section-padding: clamp(80px, 10vw, 140px);
+  --container-max:   1200px;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+
+  /* Transitions */
+  --transition-fast:   150ms ease;
+  --transition-normal: 300ms ease;
+  --transition-slow:   500ms ease;
+}
+
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-accent-1) transparent;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ── Layout Utilities ── */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 clamp(16px, 5vw, 48px);
+}
+
+.section {
+  padding: var(--section-padding) 0;
+}
+
+/* ── Typography ── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+/* ── Gradient Text ── */
+.gradient-text {
+  background: var(--gradient-hero);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Page Transition ── */
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(16px);
+}
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar         { width: 6px; }
+::-webkit-scrollbar-track   { background: transparent; }
+::-webkit-scrollbar-thumb   { background: var(--color-accent-1); border-radius: 3px; }
+
+/* ── Selection ── */
+::selection {
+  background: rgba(124, 58, 237, 0.35);
+  color: #fff;
+}

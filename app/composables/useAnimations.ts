@@ -1,0 +1,106 @@
+/**
+ * useAnimations — GSAP animation composable
+ * Provides reusable entrance animations for portfolio sections.
+ */
+
+import { onMounted, onUnmounted } from 'vue'
+
+interface FadeInOptions {
+  delay?: number
+  duration?: number
+  y?: number
+  stagger?: number
+}
+
+export function useAnimations() {
+  let gsap: typeof import('gsap').gsap | null = null
+  let ScrollTrigger: typeof import('gsap/ScrollTrigger').ScrollTrigger | null = null
+
+  const initGsap = async () => {
+    const gsapModule = await import('gsap')
+    const { ScrollTrigger: ST } = await import('gsap/ScrollTrigger')
+    gsap = gsapModule.gsap
+    ScrollTrigger = ST
+    gsap.registerPlugin(ST)
+    return { gsap, ScrollTrigger }
+  }
+
+  /**
+   * Fade-in-up animation for a single element or selector
+   */
+  const fadeInUp = (
+    target: string | Element,
+    options: FadeInOptions = {},
+  ) => {
+    const { delay = 0, duration = 0.8, y = 30 } = options
+
+    if (!gsap) return
+
+    gsap.fromTo(
+      target,
+      { opacity: 0, y },
+      {
+        opacity: 1,
+        y: 0,
+        duration,
+        delay,
+        ease: 'power3.out',
+      },
+    )
+  }
+
+  /**
+   * Stagger fade-in for multiple elements
+   */
+  const staggerIn = (
+    targets: string | Element[],
+    options: FadeInOptions = {},
+  ) => {
+    const { delay = 0, duration = 0.7, y = 24, stagger = 0.12 } = options
+
+    if (!gsap) return
+
+    gsap.fromTo(
+      targets,
+      { opacity: 0, y },
+      {
+        opacity: 1,
+        y: 0,
+        duration,
+        delay,
+        stagger,
+        ease: 'power3.out',
+      },
+    )
+  }
+
+  /**
+   * Scroll-triggered fade-in for sections
+   */
+  const scrollFadeIn = (
+    target: string | Element,
+    options: FadeInOptions = {},
+  ) => {
+    const { duration = 0.8, y = 40 } = options
+
+    if (!gsap || !ScrollTrigger) return
+
+    gsap.fromTo(
+      target,
+      { opacity: 0, y },
+      {
+        opacity: 1,
+        y: 0,
+        duration,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: target as string,
+          start: 'top 85%',
+          once: true,
+        },
+      },
+    )
+  }
+
+  return { initGsap, fadeInUp, staggerIn, scrollFadeIn }
+}
