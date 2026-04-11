@@ -35,7 +35,7 @@ export const socialLinks: SocialLink[] = [
   },
   {
     name: 'Email',
-    url: 'tafoyaalex32@gmail.com', // TODO: Replace with your email
+    url: 'mailto:tafoyaalex32@gmail.com',
     icon: 'mail',
   },
 ]
