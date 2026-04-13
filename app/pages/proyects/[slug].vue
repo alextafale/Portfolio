@@ -12,13 +12,13 @@
 
         <div class="project-header__grid">
           <div class="project-header__content">
-            <h1 class="project-title gradient-text">{{ project.title }}</h1>
-            <div class="project-tags">
+            <h1 class="project-title gradient-text" ref="titleRef">{{ project.title }}</h1>
+            <div class="project-tags" ref="tagsRef">
               <span v-for="tag in project.tags" :key="tag" class="project-tag">
                 {{ tag }}
               </span>
             </div>
-            <p class="project-description">{{ project.description[locale as 'en' | 'es'] }}</p>
+            <p class="project-description" ref="descRef">{{ project.description[locale as 'en' | 'es'] }}</p>
             
             <div class="project-links">
               <AppButton :to="project.githubUrl" target="_blank" variant="primary">
@@ -135,12 +135,15 @@ const isMobileProject = computed(() => {
 
 definePageMeta({ layout: 'default' })
 
+const titleRef = ref<HTMLElement | null>(null)
+const tagsRef = ref<HTMLElement | null>(null)
+const descRef = ref<HTMLElement | null>(null)
 const headerRef = ref<HTMLElement | null>(null)
 const mainRef = ref(null)
 const sidebarRef = ref(null)
 const galleryRef = ref(null)
 
-const { initGsap, fadeInUp, animateSvgHover } = useAnimations()
+const { initGsap, fadeInUp, animateSvgHover, animateTextReveal, blurFadeIn } = useAnimations()
 
 const onHover = (isHovering: boolean) => {
   if (headerRef.value) {
@@ -151,8 +154,20 @@ const onHover = (isHovering: boolean) => {
 onMounted(async () => {
   const { gsap } = await initGsap()
 
+  if (titleRef.value) {
+    animateTextReveal(titleRef.value, { delay: 0.2 })
+  }
+
+  if (tagsRef.value) {
+    fadeInUp(tagsRef.value, { delay: 0.5, y: 20 })
+  }
+
+  if (descRef.value) {
+    blurFadeIn(descRef.value, { delay: 0.7 })
+  }
+
   if (headerRef.value) {
-    fadeInUp('.project-header__content > *', { stagger: 0.1, delay: 0.2 })
+    // fadeInUp('.project-header__content > *', { stagger: 0.1, delay: 0.2 }) // Removing old stagger
   }
 
   if (mainRef.value) {

@@ -12,14 +12,15 @@
             <span>{{ $t('home.hero.status') }}</span>
           </div>
 
-          <h1 class="hero__heading">
+          <h1 class="hero__heading" ref="headingRef">
             {{ $t('home.hero.greeting') }}
             <span class="gradient-text">Alejandro</span>
-            <br />
-            <span class="hero__role">{{ profile.title[locale] }}</span>
           </h1>
+          <div class="hero__role-wrapper">
+             <span class="hero__role" ref="roleRef"></span>
+          </div>
 
-          <p class="hero__bio">{{ profile.shortBio[locale] }}</p>
+          <p class="hero__bio" ref="bioRef">{{ profile.shortBio[locale] }}</p>
 
           <div class="hero__actions">
             <AppButton variant="primary" :to="localePath('/proyects')">
@@ -79,22 +80,30 @@ const localePath = useLocalePath()
 
 definePageMeta({ layout: 'default' })
 
-const contentRef = ref<HTMLElement | null>(null)
+const headingRef = ref<HTMLElement | null>(null)
+const roleRef = ref<HTMLElement | null>(null)
+const bioRef = ref<HTMLElement | null>(null)
 const visualRef = ref<HTMLElement | null>(null)
 
 const heroTechs = ['Vue.js', 'Nuxt', 'TypeScript', 'Expo', 'Supabase', 'PostgreSQL', 'Python']
 
-const { initGsap, magneticEffect } = useAnimations()
+const { initGsap, magneticEffect, animateTextReveal, typewriterEffect, blurFadeIn } = useAnimations()
 
 onMounted(async () => {
   const { gsap } = await initGsap()
 
-  // Hero entrance
-  gsap.fromTo(
-    contentRef.value,
-    { opacity: 0, x: -40 },
-    { opacity: 1, x: 0, duration: 0.9, ease: 'power3.out' },
-  )
+  // Hero entrance sequence
+  if (headingRef.value) {
+    animateTextReveal(headingRef.value, { delay: 0.2 })
+  }
+
+  if (roleRef.value) {
+    typewriterEffect(roleRef.value, profile.title[locale.value as 'en' | 'es'], { delay: 1, speed: 0.07 })
+  }
+
+  if (bioRef.value) {
+    blurFadeIn(bioRef.value, { delay: 1.5 })
+  }
   gsap.fromTo(
     visualRef.value,
     { opacity: 0, x: 40 },

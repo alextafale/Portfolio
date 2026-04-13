@@ -1,17 +1,42 @@
 <template>
   <div class="section-title" :class="{ 'section-title--center': centered }">
-    <span v-if="eyebrow" class="section-title__eyebrow">{{ eyebrow }}</span>
-    <h2 class="section-title__heading"><slot /></h2>
-    <p v-if="subtitle" class="section-title__subtitle">{{ subtitle }}</p>
+    <span v-if="eyebrow" class="section-title__eyebrow" ref="eyebrowRef">{{ eyebrow }}</span>
+    <h2 class="section-title__heading" ref="headingRef"><slot /></h2>
+    <p v-if="subtitle" class="section-title__subtitle" ref="subtitleRef">{{ subtitle }}</p>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import { useAnimations } from '~/composables/useAnimations'
+
 defineProps<{
   eyebrow?: string
   subtitle?: string
   centered?: boolean
 }>()
+
+const headingRef = ref<HTMLElement | null>(null)
+const subtitleRef = ref<HTMLElement | null>(null)
+const eyebrowRef = ref<HTMLElement | null>(null)
+
+const { initGsap, animateTextReveal, blurFadeIn } = useAnimations()
+
+onMounted(async () => {
+  await initGsap()
+  
+  if (eyebrowRef.value) {
+    blurFadeIn(eyebrowRef.value, { delay: 0.1, duration: 1 })
+  }
+  
+  if (headingRef.value) {
+    animateTextReveal(headingRef.value, { delay: 0.2 })
+  }
+  
+  if (subtitleRef.value) {
+    blurFadeIn(subtitleRef.value, { delay: 0.4 })
+  }
+})
 </script>
 
 <style scoped>

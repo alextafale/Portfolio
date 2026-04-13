@@ -28,6 +28,7 @@ export function useAnimations() {
   /**
    * Fade-in-up animation for a single element or selector
    */
+
   const fadeInUp = (
     target: string | Element,
     options: FadeInOptions = {},
@@ -206,5 +207,98 @@ export function useAnimations() {
     }
   }
 
-  return { initGsap, fadeInUp, staggerIn, scrollFadeIn, scrollStagger, animateSvgHover, magneticEffect, pageTransition }
+  /**
+   * Split words helper to wrap each word in a span for animation
+   */
+  const splitWords = (el: HTMLElement) => {
+    const text = el.innerText
+    el.innerHTML = text
+      .split(' ')
+      .map(word => `<span class="word-wrapper" style="display: inline-block; overflow: hidden; vertical-align: bottom;">
+                      <span class="word" style="display: inline-block; transform: translateY(110%);">
+                        ${word}&nbsp;
+                      </span>
+                    </span>`)
+      .join('')
+  }
+
+  /**
+   * Enhanced text reveal animation (word by word)
+   */
+  const animateTextReveal = (target: string | HTMLElement, options: FadeInOptions = {}) => {
+    const { delay = 0, duration = 1.2, stagger = 0.03 } = options
+    if (!gsap || !ScrollTrigger) return
+
+    const g = gsap
+    const el = typeof target === 'string' ? document.querySelector(target) as HTMLElement : target
+    if (!el) return
+
+    splitWords(el)
+    const words = el.querySelectorAll('.word')
+
+    g.to(words, {
+      y: '0%',
+      duration,
+      delay,
+      stagger,
+      ease: 'expo.out',
+      scrollTrigger: {
+        trigger: el,
+        start: 'top 95%',
+        once: true
+      }
+    })
+  }
+
+  /**
+   * Simple typewriter effect
+   */
+  const typewriterEffect = (target: string | HTMLElement, text: string, options: { speed?: number, delay?: number } = {}) => {
+    const { speed = 0.05, delay = 0 } = options
+    if (!gsap) return
+
+    const el = typeof target === 'string' ? document.querySelector(target) as HTMLElement : target
+    if (!el) return
+
+    el.innerText = ''
+    const chars = text.split('')
+
+    gsap.to({}, {
+      duration: chars.length * speed,
+      delay,
+      onUpdate: function () {
+        const charIdx = Math.floor(this.progress() * chars.length)
+        if (el.innerText.length < charIdx) {
+          el.innerText = text.substring(0, charIdx)
+        }
+      }
+    })
+  }
+
+  /**
+   * Blur and fade-in (great for subtitles)
+   */
+  const blurFadeIn = (target: string | HTMLElement, options: FadeInOptions = {}) => {
+    const { delay = 0, duration = 1.5, y = 10 } = options
+    if (!gsap || !ScrollTrigger) return
+
+    gsap.fromTo(target,
+      { opacity: 0, y, filter: 'blur(10px)' },
+      {
+        opacity: 1,
+        y: 0,
+        filter: 'blur(0px)',
+        duration,
+        delay,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: target,
+          start: 'top 95%',
+          once: true
+        }
+      }
+    )
+  }
+
+  return { initGsap, fadeInUp, staggerIn, scrollFadeIn, scrollStagger, animateSvgHover, magneticEffect, animateTextReveal, typewriterEffect, blurFadeIn, pageTransition }
 }

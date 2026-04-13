@@ -13,9 +13,9 @@
           </div>
 
           <div class="about__bio-card">
-            <h2 class="about__name gradient-text">Alejandro Alejandre Tafolla</h2>
-            <p class="about__role">{{ profile.title[locale] }} · {{ profile.location[locale] }}</p>
-            <p class="about__bio">{{ profile.longBio[locale] }}</p>
+            <h2 class="about__name gradient-text" ref="nameRef">Alejandro Alejandre Tafolla</h2>
+            <p class="about__role" ref="roleStaticRef">{{ profile.title[locale] }} · {{ profile.location[locale] }}</p>
+            <p class="about__bio" ref="bioTextRef">{{ profile.longBio[locale] }}</p>
 
             <div class="about__info-grid">
               <div class="about__info-item">
@@ -80,14 +80,27 @@ definePageMeta({ layout: 'default' })
 
 const bioRef = ref<HTMLElement | null>(null)
 const timelineRef = ref<HTMLElement | null>(null)
+const nameRef = ref<HTMLElement | null>(null)
+const roleStaticRef = ref<HTMLElement | null>(null)
+const bioTextRef = ref<HTMLElement | null>(null)
 
-const { initGsap, scrollStagger } = useAnimations()
+const { initGsap, scrollStagger, animateTextReveal, blurFadeIn } = useAnimations()
 
 onMounted(async () => {
   const { gsap, ScrollTrigger } = await initGsap()
   
   gsap.fromTo(bioRef.value, { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.8, ease: 'power3.out' })
   gsap.fromTo(timelineRef.value, { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.8, delay: 0.15, ease: 'power3.out' })
+
+  if (nameRef.value) {
+    animateTextReveal(nameRef.value, { delay: 0.3 })
+  }
+  if (roleStaticRef.value) {
+    blurFadeIn(roleStaticRef.value, { delay: 0.6, y: 15 })
+  }
+  if (bioTextRef.value) {
+    blurFadeIn(bioTextRef.value, { delay: 0.8, y: 20 })
+  }
 
   // Scroll triggered animations for individual timeline items
   scrollStagger('.about__timeline-list > *', { delay: 0.1, y: 30 })
