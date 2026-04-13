@@ -29,8 +29,7 @@ export const projects: Project[] = [
       <circle cx="65" cy="25" r="4" class="anim-shape-4" fill="var(--color-accent-3)" stroke="none" />
     </svg>`,
     images: [
-      '/images/project-school/1.png',
-      '/images/project-school/2.png'
+      '/images/mockups/projectschool.png'
     ],
     githubUrl: 'https://github.com/alextafale/Project-school',
     featured: true,
@@ -59,9 +58,7 @@ export const projects: Project[] = [
       <path d="M40 50 L 50 55 L 60 50 M 50 55 L 50 65" class="anim-shape-4" />
     </svg>`,
     images: [
-      '/images/kivo/1.png',
-      '/images/kivo/2.png',
-      '/images/kivo/3.png'
+      '/images/mockups/kivo.png'
     ],
     githubUrl: 'https://github.com/alextafale/Kivo',
     featured: true,
@@ -137,8 +134,7 @@ export const projects: Project[] = [
       <path d="M50 48 L 65 48 M 57.5 40.5 L 57.5 55.5" class="anim-shape-4" stroke="var(--color-accent-3)" />
     </svg>`,
     images: [
-      '/images/quicksale/1.png',
-      '/images/quicksale/2.jpg'
+      '/images/mockups/quicksale.png'
     ],
     githubUrl: 'https://github.com/alextafale/Quik-Sale',
     featured: true,
