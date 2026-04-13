@@ -1,7 +1,7 @@
 <template>
   <div v-if="project" class="project-detail">
     <!-- Header/Hero section for the project -->
-    <header class="project-header" ref="headerRef">
+    <header class="project-header" ref="headerRef" @mouseenter="onHover(true)" @mouseleave="onHover(false)">
       <div class="container project-header__inner">
         <NuxtLink :to="localePath('/proyects')" class="back-link">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -10,31 +10,35 @@
           {{ $t('projects.detail.back') }}
         </NuxtLink>
 
-        <div class="project-header__content">
-          <h1 class="project-title gradient-text">{{ project.title }}</h1>
-          <div class="project-tags">
-            <span v-for="tag in project.tags" :key="tag" class="project-tag">
-              {{ tag }}
-            </span>
+        <div class="project-header__grid">
+          <div class="project-header__content">
+            <h1 class="project-title gradient-text">{{ project.title }}</h1>
+            <div class="project-tags">
+              <span v-for="tag in project.tags" :key="tag" class="project-tag">
+                {{ tag }}
+              </span>
+            </div>
+            <p class="project-description">{{ project.description[locale as 'en' | 'es'] }}</p>
+            
+            <div class="project-links">
+              <AppButton :to="project.githubUrl" target="_blank" variant="primary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+                </svg>
+                {{ $t('projects.detail.repo') }}
+              </AppButton>
+              <AppButton v-if="project.liveUrl" :to="project.liveUrl" target="_blank" variant="secondary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                  <polyline points="15 3 21 3 21 9" />
+                  <line x1="10" y1="14" x2="21" y2="3" />
+                </svg>
+                {{ $t('projects.detail.live') }}
+              </AppButton>
+            </div>
           </div>
-          <p class="project-description">{{ project.description[locale as 'en' | 'es'] }}</p>
           
-          <div class="project-links">
-            <AppButton :to="project.githubUrl" target="_blank" variant="primary">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
-              </svg>
-              {{ $t('projects.detail.repo') }}
-            </AppButton>
-            <AppButton v-if="project.liveUrl" :to="project.liveUrl" target="_blank" variant="secondary">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                <polyline points="15 3 21 3 21 9" />
-                <line x1="10" y1="14" x2="21" y2="3" />
-              </svg>
-              {{ $t('projects.detail.live') }}
-            </AppButton>
-          </div>
+          <div class="project-header__illustration" aria-hidden="true" v-if="project.svgVector" v-html="project.svgVector"></div>
         </div>
       </div>
     </header>
@@ -86,11 +90,22 @@
 
       <!-- Optional showcase images -->
       <section v-if="project.images?.length" class="project-gallery section" ref="galleryRef">
-        <h2 class="section-title-sm">{{ $t('projects.detail.showcase') }}</h2>
-        <div class="gallery-grid">
-          <div v-for="(img, idx) in project.images" :key="idx" class="gallery-item">
-            <img :src="img" :alt="`${project.title} screenshot ${idx + 1}`" />
-          </div>
+        <h2 class="section-title-sm" style="text-align: center; margin-bottom: 60px;">{{ $t('projects.detail.showcase') }}</h2>
+        
+        <div class="gallery-grid" :class="{ 'gallery-grid--3d': isMobileProject }">
+          <template v-if="isMobileProject">
+            <PhoneMockup 
+              v-for="(img, idx) in project.images" 
+              :key="'phone-'+idx" 
+              :src="img" 
+              :alt="`${project.title} screenshot ${idx + 1}`"
+            />
+          </template>
+          <template v-else>
+            <div v-for="(img, idx) in project.images" :key="'img-'+idx" class="gallery-item">
+              <img :src="img" :alt="`${project.title} screenshot ${idx + 1}`" />
+            </div>
+          </template>
         </div>
       </section>
     </main>
@@ -113,14 +128,25 @@ const localePath = useLocalePath()
 
 const project = computed(() => projects.find(p => p.slug === route.params.slug))
 
+const isMobileProject = computed(() => {
+  if (!project.value) return false
+  return project.value.tags.includes('Expo') || project.value.tags.includes('React Native')
+})
+
 definePageMeta({ layout: 'default' })
 
-const headerRef = ref(null)
+const headerRef = ref<HTMLElement | null>(null)
 const mainRef = ref(null)
 const sidebarRef = ref(null)
 const galleryRef = ref(null)
 
-const { initGsap, fadeInUp } = useAnimations()
+const { initGsap, fadeInUp, animateSvgHover } = useAnimations()
+
+const onHover = (isHovering: boolean) => {
+  if (headerRef.value) {
+    animateSvgHover(headerRef.value, isHovering)
+  }
+}
 
 onMounted(async () => {
   const { gsap } = await initGsap()
@@ -181,6 +207,35 @@ onMounted(async () => {
   font-weight: 800;
   margin-bottom: 20px;
   line-height: 1.1;
+}
+
+.project-header__grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: center;
+}
+
+.project-header__illustration {
+  width: 180px;
+  height: 180px;
+  color: var(--color-accent-3);
+  opacity: 0.8;
+}
+
+:deep(.project-header__illustration svg) {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 20px rgba(124, 58, 237, 0.3));
+}
+
+@media (max-width: 768px) {
+  .project-header__grid {
+    grid-template-columns: 1fr;
+  }
+  .project-header__illustration {
+    display: none;
+  }
 }
 
 .project-tags {
@@ -302,6 +357,15 @@ onMounted(async () => {
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   gap: 24px;
   margin-top: 32px;
+}
+
+.gallery-grid--3d {
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 80px;
+  padding: 40px 0;
+  perspective: 2000px;
 }
 
 .gallery-item img {

@@ -3,13 +3,22 @@
     :to="localePath(`/proyects/${project.slug}`)" 
     class="project-card" 
     :class="{ 'project-card--featured': project.featured }"
+    @mouseenter="onHover(true)"
+    @mouseleave="onHover(false)"
+    ref="cardRef"
   >
     <!-- Featured badge -->
     <span v-if="project.featured" class="project-card__badge">Featured</span>
 
     <div class="project-card__body">
-      <!-- Icon -->
-      <div class="project-card__icon" aria-hidden="true">
+      <!-- Icon / Vector Graphics -->
+      <div 
+        class="project-card__icon" 
+        aria-hidden="true" 
+        v-if="project.svgVector"
+        v-html="project.svgVector"
+      ></div>
+      <div class="project-card__icon" aria-hidden="true" v-else>
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
           <rect x="2" y="3" width="20" height="14" rx="2" />
           <path d="M8 21h8M12 17v4" />
@@ -65,12 +74,23 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import type { Project } from '~/types'
+import { useAnimations } from '~/composables/useAnimations'
 
 const { locale } = useI18n()
 const localePath = useLocalePath()
+const { animateSvgHover } = useAnimations()
 
 defineProps<{ project: Project }>()
+
+const cardRef = ref<HTMLElement | null>(null)
+
+const onHover = (isHovering: boolean) => {
+  if (cardRef.value) {
+    animateSvgHover(cardRef.value, isHovering)
+  }
+}
 </script>
 
 <style scoped>
@@ -132,16 +152,23 @@ defineProps<{ project: Project }>()
 }
 
 .project-card__icon {
-  width: 44px;
-  height: 44px;
+  width: 64px;
+  height: 64px;
   border-radius: var(--radius-sm);
-  background: rgba(124, 58, 237, 0.12);
+  background: rgba(124, 58, 237, 0.08); /* Made it slightly bigger and very transparent */
   border: 1px solid rgba(124, 58, 237, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--color-accent-2);
-  margin-bottom: 18px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+:deep(.project-card__icon svg) {
+  width: 100%;
+  height: 100%;
+  padding: 8px; /* Breathing room for vectors */
 }
 
 .project-card__title {

@@ -12,6 +12,7 @@ export interface Project {
   tags: string[]
   features?: Localized<string[]>
   images?: string[]
+  svgVector?: string
   githubUrl: string
   liveUrl?: string
   featured?: boolean
