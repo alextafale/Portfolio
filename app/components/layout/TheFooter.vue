@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer">
+  <footer class="footer" ref="footerRef">
     <div class="container footer__inner">
       <div class="footer__left">
         <span class="footer__name gradient-text">Alejandro Alejandre Tafolla</span>
@@ -31,7 +31,9 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import { socialLinks } from '~/data/profile'
+import { useAnimations } from '~/composables/useAnimations'
 
 const year = new Date().getFullYear()
 
@@ -43,6 +45,7 @@ const icons: Record<string, string> = {
 
 const { t } = useI18n()
 const lastActivity = ref<string | null>(null)
+const footerRef = ref<HTMLElement | null>(null)
 
 async function fetchGitHubActivity() {
   try {
@@ -59,8 +62,15 @@ async function fetchGitHubActivity() {
   }
 }
 
-onMounted(() => {
+const { initGsap, scrollFadeIn } = useAnimations()
+
+onMounted(async () => {
   fetchGitHubActivity()
+  
+  await initGsap()
+  if (footerRef.value) {
+    scrollFadeIn(footerRef.value, { y: 30, duration: 0.8 })
+  }
 })
 </script>
 

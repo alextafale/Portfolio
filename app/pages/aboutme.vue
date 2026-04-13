@@ -81,7 +81,7 @@ definePageMeta({ layout: 'default' })
 const bioRef = ref<HTMLElement | null>(null)
 const timelineRef = ref<HTMLElement | null>(null)
 
-const { initGsap } = useAnimations()
+const { initGsap, scrollStagger } = useAnimations()
 
 onMounted(async () => {
   const { gsap, ScrollTrigger } = await initGsap()
@@ -90,23 +90,7 @@ onMounted(async () => {
   gsap.fromTo(timelineRef.value, { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.8, delay: 0.15, ease: 'power3.out' })
 
   // Scroll triggered animations for individual timeline items
-  const items = document.querySelectorAll('.about__timeline-list > *')
-  items.forEach((item, index) => {
-    gsap.fromTo(item, 
-      { opacity: 0, y: 30 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.7,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: item,
-          start: 'top 90%',
-          once: true
-        }
-      }
-    )
-  })
+  scrollStagger('.about__timeline-list > *', { delay: 0.1, y: 30 })
 })
 </script>
 

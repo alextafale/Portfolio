@@ -64,7 +64,7 @@ const filteredProjects = computed(() =>
     : projects.filter(p => p.tags.includes(activeTag.value)),
 )
 
-const { initGsap } = useAnimations()
+const { initGsap, scrollStagger } = useAnimations()
 
 onMounted(async () => {
   const { gsap } = await initGsap()
@@ -75,11 +75,7 @@ onMounted(async () => {
     { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' },
   )
 
-  gsap.fromTo(
-    '.projects__grid > *',
-    { opacity: 0, y: 30 },
-    { opacity: 1, y: 0, stagger: 0.1, duration: 0.65, delay: 0.2, ease: 'power3.out' },
-  )
+  scrollStagger('.projects__grid > *', { stagger: 0.15, delay: 0.2, y: 50 })
 })
 </script>
 

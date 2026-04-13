@@ -44,30 +44,17 @@ function getByCategory(key: string): StackItemType[] {
   return stackItems.filter(item => item.category === key)
 }
 
-const { initGsap } = useAnimations()
+const { initGsap, scrollStagger } = useAnimations()
 
 onMounted(async () => {
-  const { gsap, ScrollTrigger } = await initGsap()
+  await initGsap()
 
   Object.values(categoryRefs).forEach((el) => {
     if (!el) return
-    gsap.fromTo(
-      el.querySelectorAll('.stack-item'),
-      { opacity: 0, y: 24, scale: 0.9 },
-      {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        stagger: 0.07,
-        duration: 0.5,
-        ease: 'back.out(1.2)',
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 85%',
-          once: true,
-        },
-      },
-    )
+    scrollStagger(el.querySelectorAll('.stack-item'), {
+      y: 20,
+      stagger: 0.08,
+    })
   })
 })
 </script>

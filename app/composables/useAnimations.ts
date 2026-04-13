@@ -102,6 +102,33 @@ export function useAnimations() {
     )
   }
 
+  const scrollStagger = (
+    targets: any, // Using any here to allow GSAP's flexible target selection
+    options: FadeInOptions = {},
+  ) => {
+    const { delay = 0, duration = 0.7, y = 40, stagger = 0.15 } = options
+
+    if (!gsap || !ScrollTrigger) return
+
+    gsap.fromTo(
+      targets,
+      { opacity: 0, y },
+      {
+        opacity: 1,
+        y: 0,
+        duration,
+        delay,
+        stagger,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: typeof targets === 'string' ? targets : targets[0] as Element,
+          start: 'top 90%',
+          once: true,
+        },
+      },
+    )
+  }
+
   /**
    * Complex hover animation for SVGs inside a container
    */
@@ -123,6 +150,36 @@ export function useAnimations() {
     } else {
       gsap.to([shapes1, shapes2, shapes3], { x: 0, y: 0, scale: 1, rotation: 0, opacity: 1, duration: 0.5, ease: 'power2.out' })
     }
+  }
+
+  /**
+   * Magnetic effect for buttons/links
+   */
+  const magneticEffect = (el: HTMLElement, strength = 0.5) => {
+    if (!gsap) return
+
+    const g = gsap
+    el.addEventListener('mousemove', (e) => {
+      const rect = el.getBoundingClientRect()
+      const x = e.clientX - rect.left - rect.width / 2
+      const y = e.clientY - rect.top - rect.height / 2
+
+      g.to(el, {
+        x: x * strength,
+        y: y * strength,
+        duration: 0.4,
+        ease: 'power2.out'
+      })
+    })
+
+    el.addEventListener('mouseleave', () => {
+      g.to(el, {
+        x: 0,
+        y: 0,
+        duration: 0.6,
+        ease: 'elastic.out(1.1, 0.4)'
+      })
+    })
   }
 
   /**
@@ -149,5 +206,5 @@ export function useAnimations() {
     }
   }
 
-  return { initGsap, fadeInUp, staggerIn, scrollFadeIn, animateSvgHover, pageTransition }
+  return { initGsap, fadeInUp, staggerIn, scrollFadeIn, scrollStagger, animateSvgHover, magneticEffect, pageTransition }
 }

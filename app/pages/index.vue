@@ -84,7 +84,7 @@ const visualRef = ref<HTMLElement | null>(null)
 
 const heroTechs = ['Vue.js', 'Nuxt', 'TypeScript', 'Expo', 'Supabase', 'PostgreSQL', 'Python']
 
-const { initGsap, fadeInUp } = useAnimations()
+const { initGsap, magneticEffect } = useAnimations()
 
 onMounted(async () => {
   const { gsap } = await initGsap()
@@ -114,6 +114,36 @@ onMounted(async () => {
     { opacity: 0, y: 10 },
     { opacity: 1, y: 0, stagger: 0.07, delay: 0.7, duration: 0.4, ease: 'power2.out' },
   )
+
+  // Parallax glow effect
+  gsap.to('.hero-page__glow', {
+    y: 150,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.hero-page',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: true
+    }
+  })
+
+  // Parallax hero visual
+  if (visualRef.value) {
+    gsap.to(visualRef.value, {
+      y: 60,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true
+      }
+    })
+  }
+
+  // Magnetic elements
+  const magnets = document.querySelectorAll('.hero__actions .btn, .navbar__link')
+  magnets.forEach(el => magneticEffect(el as HTMLElement, 0.35))
 })
 </script>
 

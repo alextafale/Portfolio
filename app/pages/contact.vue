@@ -175,12 +175,16 @@ async function handleSubmit() {
   }
 }
 
-const { initGsap } = useAnimations()
+const { initGsap, scrollFadeIn } = useAnimations()
 
 onMounted(async () => {
-  const { gsap } = await initGsap()
-  gsap.fromTo(formRef.value, { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.8, ease: 'power3.out' })
-  gsap.fromTo(infoRef.value, { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.8, delay: 0.15, ease: 'power3.out' })
+  await initGsap()
+  if (formRef.value) {
+    scrollFadeIn(formRef.value, { y: 40, duration: 1 })
+  }
+  if (infoRef.value) {
+    scrollFadeIn(infoRef.value, { y: 40, duration: 1, delay: 0.2 })
+  }
 })
 </script>
 

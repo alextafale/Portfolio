@@ -1,5 +1,5 @@
 <template>
-  <header class="navbar" :class="{ 'navbar--scrolled': isScrolled }">
+  <header class="navbar" :class="{ 'navbar--scrolled': isScrolled }" ref="navbarRef">
     <div class="container navbar__inner">
       <!-- Logo -->
       <NuxtLink to="/" class="navbar__logo">
@@ -61,6 +61,7 @@ const route = useRoute()
 const localePath = useLocalePath()
 const isScrolled = ref(false)
 const menuOpen = ref(false)
+const navbarRef = ref<HTMLElement | null>(null)
 
 const navLinks = [
   { to: '/', key: 'home' },
@@ -70,12 +71,35 @@ const navLinks = [
   { to: '/contact', key: 'contact' },
 ]
 
-const onScroll = () => {
-  isScrolled.value = window.scrollY > 20
-}
+let scrollTriggerInstance: any = null
 
-onMounted(() => window.addEventListener('scroll', onScroll, { passive: true }))
-onUnmounted(() => window.removeEventListener('scroll', onScroll))
+onMounted(async () => {
+  const gsapModule = await import('gsap')
+  const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+  gsapModule.gsap.registerPlugin(ScrollTrigger)
+
+  scrollTriggerInstance = ScrollTrigger.create({
+    start: 'top -80',
+    onUpdate: (self) => {
+      isScrolled.value = self.scroll() > 20
+      
+      // Auto-hide handling
+      if (navbarRef.value && !menuOpen.value) {
+        if (self.direction === 1 && self.scroll() > 100) {
+          gsapModule.gsap.to(navbarRef.value, { y: -100, duration: 0.3, ease: 'power2.inOut' })
+        } else {
+          gsapModule.gsap.to(navbarRef.value, { y: 0, duration: 0.3, ease: 'power2.out' })
+        }
+      }
+    }
+  })
+})
+
+onUnmounted(() => {
+  if (scrollTriggerInstance) {
+    scrollTriggerInstance.kill()
+  }
+})
 </script>
 
 <style scoped>
