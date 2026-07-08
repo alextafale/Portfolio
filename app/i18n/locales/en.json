@@ -12,6 +12,16 @@
       "status": "Available for work",
       "cta_projects": "View Projects",
       "cta_contact": "Contact Me"
+    },
+    "featured": {
+      "eyebrow": "Selected work",
+      "title": "Featured projects",
+      "view_all": "View all"
+    },
+    "ai": {
+      "eyebrow": "Workflow",
+      "title": "How I integrate AI into my workflow",
+      "subtitle": "AI is not an accessory in my process: it's the foundation of how I build software. Coding agents, MCP servers, subagents and LLMs in production — this is what it looks like in practice."
     }
   },
   "about": {
@@ -23,7 +33,11 @@
       "status": "Status",
       "focus": "Focus",
       "languages": "Languages",
-      "available": "Available"
+      "available": "Available",
+      "experience": "Experience",
+      "years": "years",
+      "current_role": "Current role",
+      "software_factory": "Software Factory · ITLP"
     },
     "timeline": {
       "title": "Experience, Education & Certifications"
@@ -50,10 +64,27 @@
     }
   },
   "footer": {
+    "cta_eyebrow": "Got a project in mind?",
     "built_with": "Built with Nuxt & Vue",
     "activity": {
       "last_commit": "Last commit"
     }
+  },
+  "robot": {
+    "hint": "Click me 🤖",
+    "dismiss": "Hide robot",
+    "greeting": "Hi! I'm Alex's AI copilot. I'll tag along while you explore his portfolio 🤖",
+    "home": "This is home base. Scroll down to see how Alex works with AI every day.",
+    "featured": "Kivo and MiCompli: real MVPs Alex took from idea to production.",
+    "ai": "My favorite part: Alex orchestrates agents like me — Claude Code, MCP servers and subagents — on every project.",
+    "about": "ITLP's software factory + MVPs for startups. Here's his full story.",
+    "projects": "You can filter by technology. Every project has its own detail page.",
+    "project_detail": "Good pick. Here's the technical breakdown of this project.",
+    "stack": "These are his tools. The AI category is where I shine ✨",
+    "contact": "Got an MVP in mind? Alex usually replies within 24 hours.",
+    "click_0": "Beep boop. Code reviewed and verified ✅",
+    "click_1": "I do the heavy lifting; Alex brings the judgment and architecture.",
+    "click_2": "Fun fact: Kivo's chatbot runs on the Claude API + FastAPI."
   },
   "error": {
     "title": "Lost in Cyberspace?",

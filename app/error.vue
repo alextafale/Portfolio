@@ -81,9 +81,11 @@ onMounted(async () => {
 
 .error-page__code {
   font-size: clamp(6rem, 15vw, 10rem);
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1;
-  color: rgba(124, 58, 237, 0.1);
+  color: transparent;
+  -webkit-text-stroke: 2px var(--color-accent);
+  opacity: 0.35;
   margin-bottom: -20px;
   font-family: var(--font-heading);
 }
@@ -120,7 +122,7 @@ onMounted(async () => {
 .glitch-orb {
   width: 300px;
   height: 300px;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(79, 70, 229, 0.12) 0%, transparent 70%);
   filter: blur(40px);
   border-radius: 50%;
 }

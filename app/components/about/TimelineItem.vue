@@ -1,25 +1,12 @@
 <template>
   <div class="timeline-item" :class="`timeline-item--${item.type}`">
-    <div class="timeline-item__dot">
-      <!-- Work icon -->
-      <svg v-if="item.type === 'work'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-        <rect x="2" y="7" width="20" height="14" rx="2" />
-        <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
-      </svg>
-      <!-- Education icon -->
-      <svg v-else-if="item.type === 'education'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-        <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-        <path d="M6 12v5c3 3 9 3 12 0v-5" />
-      </svg>
-      <!-- Certification icon -->
-      <svg v-else width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-        <circle cx="12" cy="8" r="6" />
-        <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
-      </svg>
-    </div>
+    <div class="timeline-item__marker" aria-hidden="true" />
 
     <div class="timeline-item__content">
-      <span class="timeline-item__period">{{ item.period }}</span>
+      <div class="timeline-item__head">
+        <span class="timeline-item__period">{{ item.period }}</span>
+        <span class="timeline-item__type">{{ typeLabels[item.type] }}</span>
+      </div>
       <h3 class="timeline-item__title">{{ item.title[locale as 'en' | 'es'] }}</h3>
       <p class="timeline-item__company">{{ item.company }}</p>
       <p class="timeline-item__description">{{ item.description[locale as 'en' | 'es'] }}</p>
@@ -36,13 +23,19 @@ import type { Experience } from '~/types'
 const { locale } = useI18n()
 
 defineProps<{ item: Experience }>()
+
+const typeLabels: Record<Experience['type'], string> = {
+  work: 'Work',
+  education: 'Education',
+  certification: 'Cert',
+}
 </script>
 
 <style scoped>
 .timeline-item {
   display: grid;
-  grid-template-columns: 28px 1fr;
-  gap: 0 20px;
+  grid-template-columns: 14px 1fr;
+  gap: 0 18px;
   position: relative;
   transition: transform 0.3s ease;
 }
@@ -55,103 +48,92 @@ defineProps<{ item: Experience }>()
 .timeline-item:not(:last-child)::after {
   content: '';
   position: absolute;
-  left: 13px;
-  top: 28px;
-  bottom: -32px;
-  width: 2px;
+  left: 6px;
+  top: 20px;
+  bottom: -28px;
+  width: 1.5px;
   background: var(--color-border);
   transition: background 0.3s ease;
 }
 
 .timeline-item:hover:not(:last-child)::after {
-  background: var(--color-accent-1);
+  background: var(--color-accent);
 }
 
-/* Dot */
-.timeline-item__dot {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  margin-top: 2px;
+/* Square marker, colored by type */
+.timeline-item__marker {
+  width: 13px;
+  height: 13px;
+  border-radius: 2px;
+  margin-top: 6px;
   z-index: 1;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 0 0 rgba(124, 58, 237, 0);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.timeline-item:hover .timeline-item__dot {
-  transform: scale(1.2);
+.timeline-item:hover .timeline-item__marker {
+  transform: rotate(45deg) scale(1.15);
 }
 
-.timeline-item--work .timeline-item__dot {
-  background: rgba(124, 58, 237, 0.2);
-  color: var(--color-accent-2);
-  border: 1.5px solid rgba(124, 58, 237, 0.4);
+.timeline-item--work .timeline-item__marker {
+  background: var(--color-accent);
 }
 
-.timeline-item--work:hover .timeline-item__dot {
-  box-shadow: 0 0 15px rgba(124, 58, 237, 0.4);
-  border-color: var(--color-accent-1);
+.timeline-item--education .timeline-item__marker {
+  background: var(--color-ink);
 }
 
-.timeline-item--education .timeline-item__dot {
-  background: rgba(6, 182, 212, 0.15);
-  color: var(--color-cyan-1);
-  border: 1.5px solid rgba(6, 182, 212, 0.35);
-}
-
-.timeline-item--education:hover .timeline-item__dot {
-  box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
-  border-color: var(--color-cyan-2);
-}
-
-.timeline-item--certification .timeline-item__dot {
-  background: rgba(245, 158, 11, 0.15);
-  color: #f59e0b;
-  border: 1.5px solid rgba(245, 158, 11, 0.35);
-}
-
-.timeline-item--certification:hover .timeline-item__dot {
-  box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
-  border-color: #fbbf24;
+.timeline-item--certification .timeline-item__marker {
+  background: transparent;
+  border: 2px solid var(--color-accent);
 }
 
 /* Content */
 .timeline-item__content {
-  padding-bottom: 36px;
-  transition: opacity 0.3s ease;
+  padding-bottom: 32px;
 }
 
-.timeline-item:hover .timeline-item__content {
-  opacity: 1;
+.timeline-item__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .timeline-item__period {
-  font-size: 0.75rem;
-  font-weight: 500;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
   letter-spacing: 0.05em;
   color: var(--color-text-muted);
   text-transform: uppercase;
 }
 
+.timeline-item__type {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 1px 7px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+}
+
 .timeline-item__title {
   font-size: 1.05rem;
   font-weight: 700;
-  color: var(--color-text-primary);
-  margin-top: 6px;
+  color: var(--color-ink);
+  margin-top: 8px;
   transition: color 0.3s ease;
 }
 
 .timeline-item:hover .timeline-item__title {
-  color: var(--color-accent-1);
+  color: var(--color-accent);
 }
 
 .timeline-item__company {
-  font-size: 0.9rem;
-  color: var(--color-accent-3);
+  font-size: 0.88rem;
+  color: var(--color-accent-ink);
   font-weight: 500;
   margin-top: 2px;
 }
@@ -171,18 +153,18 @@ defineProps<{ item: Experience }>()
 }
 
 .timeline-item__tag {
-  padding: 3px 10px;
-  border-radius: 100px;
-  font-size: 0.72rem;
-  font-weight: 500;
-  background: rgba(124, 58, 237, 0.1);
-  color: var(--color-accent-3);
-  border: 1px solid rgba(124, 58, 237, 0.2);
+  padding: 2px 9px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
   transition: all 0.3s ease;
 }
 
 .timeline-item:hover .timeline-item__tag {
-  background: rgba(124, 58, 237, 0.2);
-  transform: translateY(-2px);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
 }
 </style>

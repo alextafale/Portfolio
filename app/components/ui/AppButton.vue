@@ -40,63 +40,70 @@ withDefaults(
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 13px 28px;
+  padding: 13px 26px;
   border-radius: var(--radius-sm);
   font-family: var(--font-heading);
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 600;
   letter-spacing: 0.01em;
   cursor: pointer;
-  border: none;
+  border: 1.5px solid var(--color-ink);
   transition:
     transform var(--transition-fast),
-    box-shadow var(--transition-normal),
-    background var(--transition-normal);
+    box-shadow var(--transition-fast),
+    background var(--transition-normal),
+    color var(--transition-normal);
   white-space: nowrap;
   text-decoration: none;
 }
 
 .app-btn--sm {
-  padding: 9px 20px;
-  font-size: 0.85rem;
+  padding: 8px 18px;
+  font-size: 0.82rem;
 }
 
-/* Primary */
+/* Primary: solid ink, hard shadow on hover */
 .app-btn--primary {
-  background: var(--gradient-hero);
-  color: #fff;
-  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.35);
+  background: var(--color-ink);
+  color: var(--color-bg);
 }
 .app-btn--primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(124, 58, 237, 0.5);
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 var(--color-ink);
 }
 .app-btn--primary:active {
-  transform: translateY(0);
+  transform: translate(0, 0);
+  box-shadow: none;
 }
 
-/* Secondary */
+/* Secondary: outline */
 .app-btn--secondary {
   background: transparent;
-  color: var(--color-text-primary);
-  border: 1.5px solid var(--color-border);
+  color: var(--color-ink);
 }
 .app-btn--secondary:hover {
-  border-color: var(--color-accent-2);
-  color: var(--color-accent-3);
-  transform: translateY(-2px);
-  background: rgba(124, 58, 237, 0.06);
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+.app-btn--secondary:active {
+  transform: translate(0, 0);
+  box-shadow: none;
 }
 
-/* Ghost */
+/* Ghost: underlined text link */
 .app-btn--ghost {
   background: transparent;
-  color: var(--color-accent-2);
+  border: none;
+  color: var(--color-accent);
   padding: 0;
   text-decoration: underline;
   text-underline-offset: 4px;
 }
 .app-btn--ghost:hover {
-  color: var(--color-accent-3);
+  color: var(--color-accent-ink);
 }
 </style>

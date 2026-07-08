@@ -190,7 +190,7 @@ onMounted(async () => {
 
 <style scoped>
 .contact-page {
-  padding-top: 120px;
+  padding-top: 130px;
 }
 
 .contact__container {
@@ -219,18 +219,20 @@ onMounted(async () => {
 }
 
 .contact__label {
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--color-text-secondary);
 }
 
 .contact__input {
   padding: 12px 16px;
   border-radius: var(--radius-sm);
-  background: var(--color-bg-card);
+  background: var(--color-surface);
   border: 1.5px solid var(--color-border);
-  color: var(--color-text-primary);
+  color: var(--color-ink);
   font-family: var(--font-body);
   font-size: 0.9rem;
   outline: none;
@@ -240,12 +242,12 @@ onMounted(async () => {
 .contact__input::placeholder { color: var(--color-text-muted); }
 
 .contact__input:focus {
-  border-color: var(--color-accent-1);
-  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+  border-color: var(--color-ink);
+  box-shadow: 3px 3px 0 var(--color-accent);
 }
 
 .contact__input--error {
-  border-color: #f87171 !important;
+  border-color: #dc2626 !important;
 }
 
 .contact__textarea {
@@ -255,25 +257,26 @@ onMounted(async () => {
 
 .contact__error {
   font-size: 0.78rem;
-  color: #f87171;
+  color: #dc2626;
 }
 
 .contact__success {
   text-align: center;
   font-size: 0.9rem;
-  color: #34d399;
+  color: #047857;
   padding: 12px;
   border-radius: var(--radius-sm);
-  background: rgba(52, 211, 153, 0.08);
-  border: 1px solid rgba(52, 211, 153, 0.2);
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.25);
 }
 
 /* Info panel */
 .contact__info-card {
   padding: 28px;
   border-radius: var(--radius-md);
-  background: var(--gradient-card);
-  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-ink);
+  box-shadow: var(--shadow-hard-accent);
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -302,17 +305,19 @@ onMounted(async () => {
   justify-content: space-between;
   padding: 10px 14px;
   border-radius: var(--radius-sm);
-  border: 1px solid var(--color-border);
-  font-size: 0.88rem;
-  font-weight: 500;
+  border: 1.5px solid var(--color-border);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
   color: var(--color-text-secondary);
   transition: all var(--transition-fast);
 }
 
 .contact__info-link:hover {
-  color: var(--color-accent-3);
-  border-color: var(--color-border-hover);
-  background: rgba(124, 58, 237, 0.06);
+  color: var(--color-accent);
+  border-color: var(--color-ink);
+  transform: translate(-2px, -2px);
+  box-shadow: 3px 3px 0 var(--color-ink);
 }
 
 .contact__response-time {
@@ -327,7 +332,7 @@ onMounted(async () => {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #34d399;
+  background: #10b981;
   flex-shrink: 0;
   animation: pulse 2s infinite;
 }

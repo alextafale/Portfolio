@@ -12,7 +12,7 @@
 
         <div class="project-header__grid">
           <div class="project-header__content">
-            <h1 class="project-title gradient-text" ref="titleRef">{{ project.title }}</h1>
+            <h1 class="project-title" ref="titleRef">{{ project.title }}</h1>
             <div class="project-tags" ref="tagsRef">
               <span v-for="tag in project.tags" :key="tag" class="project-tag">
                 {{ tag }}
@@ -56,7 +56,7 @@
             <h2 class="section-title-sm">{{ $t('projects.detail.features') }}</h2>
             <ul class="features-list">
               <li v-for="feature in project.features[locale as 'en' | 'es']" :key="feature" class="feature-item">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="3">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="3">
                   <path d="M20 6L9 17L4 12" />
                 </svg>
                 {{ feature }}
@@ -83,7 +83,7 @@
 
           <div class="sidebar-box">
             <h3 class="sidebar-title">{{ $t('projects.detail.year') }}</h3>
-            <p class="sidebar-text">2024</p>
+            <p class="sidebar-text">{{ project.year ?? '2024' }}</p>
           </div>
         </aside>
       </div>
@@ -199,29 +199,35 @@ onMounted(async () => {
 
 .project-header {
   padding: 60px 0;
-  border-bottom: 1px solid var(--color-border);
-  background: radial-gradient(circle at top right, rgba(124, 58, 237, 0.05) 0%, transparent 50%);
+  border-bottom: 1.5px solid var(--color-ink);
+  background: var(--color-surface);
 }
 
 .back-link {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   color: var(--color-text-muted);
-  font-size: 0.9rem;
   margin-bottom: 32px;
   transition: color 0.2s;
 }
 
 .back-link:hover {
-  color: var(--color-accent-3);
+  color: var(--color-accent);
 }
 
 .project-title {
   font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 800;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--color-ink);
   margin-bottom: 20px;
-  line-height: 1.1;
+  line-height: 1.05;
 }
 
 .project-header__grid {
@@ -234,14 +240,17 @@ onMounted(async () => {
 .project-header__illustration {
   width: 180px;
   height: 180px;
-  color: var(--color-accent-3);
-  opacity: 0.8;
+  padding: 24px;
+  color: var(--color-accent);
+  background: var(--color-accent-soft);
+  border: 1.5px solid var(--color-ink);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-hard);
 }
 
 :deep(.project-header__illustration svg) {
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 0 20px rgba(124, 58, 237, 0.3));
 }
 
 @media (max-width: 768px) {
@@ -261,13 +270,14 @@ onMounted(async () => {
 }
 
 .project-tag {
-  padding: 6px 14px;
-  background: rgba(124, 58, 237, 0.1);
-  border: 1px solid rgba(124, 58, 237, 0.2);
-  color: var(--color-accent-3);
-  border-radius: 100px;
-  font-size: 0.85rem;
-  font-weight: 500;
+  padding: 5px 12px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
 }
 
 .project-description {
@@ -334,16 +344,17 @@ onMounted(async () => {
 
 .sidebar-box {
   padding: 24px;
-  background: var(--gradient-card);
-  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
   border-radius: var(--radius-md);
 }
 
 .sidebar-title {
-  font-size: 0.9rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
   color: var(--color-text-muted);
   margin-bottom: 16px;
 }
@@ -360,11 +371,13 @@ onMounted(async () => {
 }
 
 .sidebar-tag {
-  font-size: 0.8rem;
-  color: var(--color-cyan-2);
-  background: rgba(6, 182, 212, 0.1);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--color-accent-ink);
+  background: var(--color-accent-soft);
   padding: 4px 10px;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
 }
 
 .gallery-grid {
@@ -386,7 +399,8 @@ onMounted(async () => {
 .gallery-item img {
   width: 100%;
   border-radius: var(--radius-md);
-  border: 1px solid var(--color-border);
+  border: 1.5px solid var(--color-border);
+  box-shadow: var(--shadow-md);
   transition: transform 0.3s ease;
 }
 

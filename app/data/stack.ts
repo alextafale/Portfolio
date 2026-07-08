@@ -2,24 +2,27 @@ import type { StackItem } from '~/types'
 
 export const stackItems: StackItem[] = [
   // Frontend
-  { name: 'Vue.js', category: 'frontend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vuejs/vuejs-original.svg', level: 'expert', color: '#4FC08D' },
-  { name: 'Nuxt', category: 'frontend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nuxtjs/nuxtjs-original.svg', level: 'advanced', color: '#00DC82' },
+  { name: 'Vue.js', category: 'frontend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vuejs/vuejs-original.svg', level: 'intermediate', color: '#4FC08D' },
+  { name: 'Nuxt', category: 'frontend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nuxtjs/nuxtjs-original.svg', level: 'intermediate', color: '#00DC82' },
   { name: 'TypeScript', category: 'frontend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg', level: 'advanced', color: '#3178C6' },
-  { name: 'JavaScript', category: 'frontend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg', level: 'expert', color: '#F7DF1E' },
-  { name: 'HTML5', category: 'frontend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg', level: 'expert', color: '#E34F26' },
-  { name: 'CSS3', category: 'frontend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg', level: 'expert', color: '#1572B6' },
-  { name: 'Tailwind CSS', category: 'frontend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg', level: 'advanced', color: '#06B6D4' },
+  { name: 'JavaScript', category: 'frontend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg', level: 'intermediate', color: '#F7DF1E' },
+  { name: 'HTML5', category: 'frontend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg', level: 'intermediate', color: '#E34F26' },
+  { name: 'CSS3', category: 'frontend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg', level: 'intermediate', color: '#1572B6' },
+  { name: 'Tailwind CSS', category: 'frontend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg', level: 'intermediate', color: '#06B6D4' },
 
-  // Mobile 
+  { name: 'Next.js', category: 'frontend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg', level: 'intermediate', color: '#000000' },
+
+  // Mobile
+  { name: 'React Native', category: 'mobile', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg', level: 'intermediate', color: '#61DAFB' },
   { name: 'Expo', category: 'mobile', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg', level: 'advanced', color: '#61DAFB' }, // React icon para Expo/React Native
 
   // Backend
-  { name: 'Python', category: 'backend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg', level: 'intermediate', color: '#3776AB' },
-  { name: 'Java', category: 'backend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg', level: 'intermediate', color: '#007396' },
+  { name: 'Python', category: 'backend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg', level: 'advanced', color: '#3776AB' },
+  { name: 'Java', category: 'backend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg', level: 'advanced', color: '#007396' },
   { name: 'Node.js', category: 'backend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg', level: 'intermediate', color: '#339933' },
   { name: 'Express', category: 'backend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg', level: 'intermediate', color: '#339933' },
-  { name: 'FastAPI', category: 'backend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg', level: 'intermediate', color: '#339933' },
-  { name: 'Spring Boot', category: 'backend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original.svg', level: 'intermediate', color: '#339933' },
+  { name: 'FastAPI', category: 'backend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg', level: 'advanced', color: '#339933' },
+  { name: 'Spring Boot', category: 'backend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original.svg', level: 'advanced', color: '#339933' },
   // Database
   { name: 'MySQL', category: 'database', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg', level: 'intermediate', color: '#4479A1' },
   { name: 'PostgreSQL', category: 'database', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg', level: 'intermediate', color: '#336791' },
@@ -33,8 +36,12 @@ export const stackItems: StackItem[] = [
   { name: 'Vercel', category: 'devops', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-original.svg', level: 'advanced', color: '#000000' },
 
   // AI & LLMs
+  { name: 'Claude API', category: 'ai', icon: 'https://api.iconify.design/lucide:sparkles.svg?color=%23D97757', level: 'advanced', color: '#D97757' },
+  { name: 'Claude Code (Agents)', category: 'ai', icon: 'https://api.iconify.design/lucide:square-terminal.svg?color=%23D97757', level: 'advanced', color: '#D97757' },
+  { name: 'MCP Servers', category: 'ai', icon: 'https://api.iconify.design/lucide:network.svg?color=%2306B6D4', level: 'advanced', color: '#06B6D4' },
+  { name: 'Subagents & Orchestration', category: 'ai', icon: 'https://api.iconify.design/lucide:git-fork.svg?color=%237C3AED', level: 'advanced', color: '#7C3AED' },
   { name: 'LLMs (GPT, Claude)', category: 'ai', icon: 'https://api.iconify.design/lucide:brain-circuit.svg?color=%237C3AED', level: 'advanced', color: '#7C3AED' },
-  { name: 'MCP', category: 'ai', icon: 'https://api.iconify.design/lucide:network.svg?color=%2306B6D4', level: 'intermediate', color: '#06B6D4' },
+  { name: 'Prompt & Context Engineering', category: 'ai', icon: 'https://api.iconify.design/lucide:file-text.svg?color=%230891B2', level: 'advanced', color: '#0891B2' },
 ]
 
 export const stackCategories = [

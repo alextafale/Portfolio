@@ -1,26 +1,24 @@
 <template>
-  <div class="hero-page">
-    <!-- Background glow -->
-    <div class="hero-page__glow" aria-hidden="true" />
-
-    <section class="hero section">
+  <div class="home">
+    <!-- ── Hero ── -->
+    <section class="hero">
       <div class="container hero__inner">
         <!-- Left: Text content -->
-        <div class="hero__content" ref="contentRef">
-          <div class="hero__eyebrow">
+        <div class="hero__content">
+          <div class="hero__eyebrow" ref="eyebrowRef">
             <span class="hero__status-dot" />
             <span>{{ $t('home.hero.status') }}</span>
           </div>
 
           <h1 class="hero__heading" ref="headingRef">
-            {{ $t('home.hero.greeting') }}
-            <span class="gradient-text">Alejandro</span>
+            Alejandro<br />Alejandre<span class="hero__dot">.</span>
           </h1>
+
           <div class="hero__role-wrapper">
-             <span class="hero__role" ref="roleRef"></span>
+            <span class="hero__role" ref="roleRef"></span>
           </div>
 
-          <p class="hero__bio" ref="bioRef">{{ profile.shortBio[locale] }}</p>
+          <p class="hero__bio" ref="bioRef">{{ profile.shortBio[locale as 'en' | 'es'] }}</p>
 
           <div class="hero__actions">
             <AppButton variant="primary" :to="localePath('/proyects')">
@@ -33,46 +31,110 @@
               {{ $t('home.hero.cta_contact') }}
             </AppButton>
           </div>
-
-          <!-- Tech badges row -->
-          <div class="hero__badges">
-            <span
-              v-for="tech in heroTechs"
-              :key="tech"
-              class="hero__badge"
-            >
-              {{ tech }}
-            </span>
-          </div>
         </div>
 
-        <!-- Right: Avatar placeholder -->
+        <!-- Right: Photo -->
         <div class="hero__visual" ref="visualRef">
-          <div class="hero__avatar-wrapper">
-            <!-- Replace the div below with <img> once you add your photo to assets/images/profile.jpg -->
-             <img src="~/assets/images/image.png" alt="Alejandro Alejandre Tafolla" class="hero__avatar" /> 
-          
+          <div class="hero__photo-frame">
+            <img src="~/assets/images/image.png" alt="Alejandro Alejandre Tafolla" class="hero__photo" />
+            <span class="hero__photo-caption mono-label">{{ profile.location[locale as 'en' | 'es'] }} — {{ new Date().getFullYear() }}</span>
+          </div>
+        </div>
+      </div>
 
-            <!-- Floating badges around avatar -->
-            <div class="hero__float hero__float--tl">Vue.js</div>
-            <div class="hero__float hero__float--tr">TypeScript</div>
-            <div class="hero__float hero__float--bl">Supabase</div>
-            <div class="hero__float hero__float--br">Expo</div>
+      <!-- Stats band -->
+      <div class="container">
+        <div class="hero__stats" ref="statsRef">
+          <div v-for="(stat, i) in stats" :key="stat.value" class="hero__stat">
+            <span class="hero__stat-num mono-label">0{{ i + 1 }}</span>
+            <span class="hero__stat-value">{{ stat.value }}</span>
+            <span class="hero__stat-label">{{ stat.label[locale as 'en' | 'es'] }}</span>
+          </div>
+          <div class="hero__stat hero__stat--techs">
+            <span class="hero__stat-num mono-label">0{{ stats.length + 1 }}</span>
+            <div class="hero__badges">
+              <span v-for="tech in heroTechs" :key="tech" class="hero__badge">{{ tech }}</span>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Scroll indicator -->
-    <div class="hero__scroll-cue" aria-hidden="true">
-      <div class="hero__scroll-line" />
-    </div>
+    <!-- ── Featured projects ── -->
+    <section class="featured section" data-robot="featured">
+      <div class="container">
+        <div class="featured__head">
+          <SectionTitle :eyebrow="`01 / ${$t('home.featured.eyebrow')}`">
+            {{ $t('home.featured.title') }}
+          </SectionTitle>
+          <NuxtLink :to="localePath('/proyects')" class="featured__all">
+            {{ $t('home.featured.view_all') }}
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M7 17 17 7M8 7h9v9" />
+            </svg>
+          </NuxtLink>
+        </div>
+
+        <div class="featured__list">
+          <NuxtLink
+            v-for="(project, i) in featuredProjects"
+            :key="project.id"
+            :to="localePath(`/proyects/${project.slug}`)"
+            class="featured__row"
+          >
+            <span class="featured__num mono-label">0{{ i + 1 }}</span>
+            <div class="featured__info">
+              <h3 class="featured__title">{{ project.title }}</h3>
+              <p class="featured__desc">{{ project.description[locale as 'en' | 'es'] }}</p>
+            </div>
+            <div class="featured__tags">
+              <span v-for="tag in project.tags.slice(0, 4)" :key="tag" class="featured__tag">{{ tag }}</span>
+            </div>
+            <svg class="featured__arrow" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M7 17 17 7M8 7h9v9" />
+            </svg>
+          </NuxtLink>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── AI workflow ── -->
+    <section class="ai section" data-robot="ai">
+      <div class="container">
+        <SectionTitle
+          :eyebrow="`02 / ${$t('home.ai.eyebrow')}`"
+          :subtitle="$t('home.ai.subtitle')"
+        >
+          {{ $t('home.ai.title') }}
+        </SectionTitle>
+
+        <div class="ai__grid">
+          <article
+            v-for="(item, i) in aiWorkflow"
+            :key="item.id"
+            class="ai__card"
+          >
+            <header class="ai__card-head">
+              <div class="ai__card-icon" aria-hidden="true" v-html="item.icon" />
+              <span class="ai__card-num mono-label">0{{ i + 1 }}</span>
+            </header>
+            <h3 class="ai__card-title">{{ item.title[locale as 'en' | 'es'] }}</h3>
+            <p class="ai__card-desc">{{ item.description[locale as 'en' | 'es'] }}</p>
+            <div class="ai__card-tools">
+              <span v-for="tool in item.tools" :key="tool" class="ai__tool">{{ tool }}</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { profile } from '~/data/profile'
+import { ref, computed, onMounted } from 'vue'
+import { profile, stats } from '~/data/profile'
+import { projects } from '~/data/projects'
+import { aiWorkflow } from '~/data/aiWorkflow'
 import { useAnimations } from '~/composables/useAnimations'
 
 const { locale } = useI18n()
@@ -80,117 +142,87 @@ const localePath = useLocalePath()
 
 definePageMeta({ layout: 'default' })
 
+const eyebrowRef = ref<HTMLElement | null>(null)
 const headingRef = ref<HTMLElement | null>(null)
 const roleRef = ref<HTMLElement | null>(null)
 const bioRef = ref<HTMLElement | null>(null)
 const visualRef = ref<HTMLElement | null>(null)
+const statsRef = ref<HTMLElement | null>(null)
 
-const heroTechs = ['Vue.js', 'Nuxt', 'TypeScript', 'Expo', 'Supabase', 'PostgreSQL', 'Python']
+const heroTechs = ['TypeScript', 'Vue.js', 'Nuxt', 'React Native', 'FastAPI', 'Supabase', 'Claude API', 'MCP']
 
-const { initGsap, magneticEffect, animateTextReveal, typewriterEffect, blurFadeIn } = useAnimations()
+const featuredProjects = computed(() => projects.filter(p => p.featured))
+
+const { initGsap, magneticEffect, animateTextReveal, typewriterEffect, blurFadeIn, scrollStagger } = useAnimations()
 
 onMounted(async () => {
   const { gsap } = await initGsap()
 
   // Hero entrance sequence
   if (headingRef.value) {
-    animateTextReveal(headingRef.value, { delay: 0.2 })
+    animateTextReveal(headingRef.value, { delay: 0.15 })
   }
 
   if (roleRef.value) {
-    typewriterEffect(roleRef.value, profile.title[locale.value as 'en' | 'es'], { delay: 1, speed: 0.07 })
+    typewriterEffect(roleRef.value, profile.title[locale.value as 'en' | 'es'], { delay: 0.9, speed: 0.06 })
   }
 
   if (bioRef.value) {
-    blurFadeIn(bioRef.value, { delay: 1.5 })
+    blurFadeIn(bioRef.value, { delay: 1.2 })
   }
+
+  gsap.fromTo(
+    eyebrowRef.value,
+    { opacity: 0, y: -10 },
+    { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
+  )
+
   gsap.fromTo(
     visualRef.value,
     { opacity: 0, x: 40 },
-    { opacity: 1, x: 0, duration: 0.9, delay: 0.15, ease: 'power3.out' },
+    { opacity: 1, x: 0, duration: 0.9, delay: 0.25, ease: 'power3.out' },
   )
 
-  // Floating badges stagger
-  gsap.fromTo(
-    '.hero__float',
-    { opacity: 0, scale: 0.7 },
-    { opacity: 1, scale: 1, stagger: 0.1, delay: 0.5, duration: 0.5, ease: 'back.out(1.4)' },
-  )
+  // Stats band
+  scrollStagger('.hero__stat', { y: 24, stagger: 0.1 })
 
-  // Badges row
-  gsap.fromTo(
-    '.hero__badge',
-    { opacity: 0, y: 10 },
-    { opacity: 1, y: 0, stagger: 0.07, delay: 0.7, duration: 0.4, ease: 'power2.out' },
-  )
-
-  // Parallax glow effect
-  gsap.to('.hero-page__glow', {
-    y: 150,
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '.hero-page',
-      start: 'top top',
-      end: 'bottom top',
-      scrub: true
-    }
-  })
-
-  // Parallax hero visual
-  if (visualRef.value) {
-    gsap.to(visualRef.value, {
-      y: 60,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '.hero',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: true
-      }
-    })
-  }
+  // Featured rows + AI cards on scroll
+  scrollStagger('.featured__row', { y: 30, stagger: 0.12 })
+  scrollStagger('.ai__card', { y: 30, stagger: 0.1 })
 
   // Magnetic elements
-  const magnets = document.querySelectorAll('.hero__actions .btn, .navbar__link')
+  const magnets = document.querySelectorAll('.hero__actions .app-btn')
   magnets.forEach(el => magneticEffect(el as HTMLElement, 0.35))
+
+  // 3D tilt on hero photo and AI cards
+  const addTilt = (el: HTMLElement, max = 7) => {
+    el.addEventListener('mousemove', (e: MouseEvent) => {
+      const r = el.getBoundingClientRect()
+      const rx = ((e.clientY - r.top) / r.height - 0.5) * -2 * max
+      const ry = ((e.clientX - r.left) / r.width - 0.5) * 2 * max
+      gsap.to(el, { rotateX: rx, rotateY: ry, transformPerspective: 900, duration: 0.4, ease: 'power2.out' })
+    })
+    el.addEventListener('mouseleave', () => {
+      gsap.to(el, { rotateX: 0, rotateY: 0, duration: 0.6, ease: 'power3.out' })
+    })
+  }
+  document.querySelectorAll('.hero__photo-frame, .ai__card').forEach(el => addTilt(el as HTMLElement))
 })
 </script>
 
 <style scoped>
-.hero-page {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Background glow effect */
-.hero-page__glow {
-  position: absolute;
-  top: -200px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 800px;
-  height: 600px;
-  background: radial-gradient(ellipse at center, rgba(124,58,237,0.12) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-}
-
+/* ── Hero ── */
 .hero {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  padding-top: 120px;
-  position: relative;
-  z-index: 1;
+  padding-top: clamp(130px, 16vh, 180px);
+  padding-bottom: clamp(48px, 6vw, 80px);
 }
 
 .hero__inner {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.15fr 0.85fr;
   align-items: center;
   gap: clamp(40px, 6vw, 80px);
+  margin-bottom: clamp(48px, 7vw, 88px);
 }
 
 /* Available status */
@@ -198,52 +230,61 @@ onMounted(async () => {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 14px;
-  border-radius: 100px;
-  background: rgba(52, 211, 153, 0.08);
-  border: 1px solid rgba(52, 211, 153, 0.2);
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: #6ee7b7;
-  margin-bottom: 28px;
-  width: fit-content;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ok);
+  margin-bottom: 24px;
 }
 
 .hero__status-dot {
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: #34d399;
+  background: #10b981;
   animation: pulse 2s infinite;
   flex-shrink: 0;
 }
 
 @keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.5); }
-  50% { box-shadow: 0 0 0 6px rgba(52, 211, 153, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5); }
+  50% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
 }
 
 /* Heading */
 .hero__heading {
-  font-size: clamp(2.8rem, 5.5vw, 4.5rem);
-  font-weight: 800;
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-  margin-bottom: 24px;
+  font-size: clamp(3rem, 7vw, 5.4rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  margin-bottom: 20px;
+  color: var(--color-ink);
+}
+
+.hero__dot {
+  color: var(--color-accent);
+}
+
+.hero__role-wrapper {
+  min-height: 2.4rem;
+  margin-bottom: 20px;
 }
 
 .hero__role {
-  font-size: clamp(1.6rem, 3vw, 2.4rem);
-  font-weight: 600;
-  color: var(--color-text-secondary);
+  font-family: var(--font-mono);
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 700;
+  color: var(--color-accent);
 }
 
 .hero__bio {
-  font-size: 1.05rem;
+  font-size: 1.02rem;
   color: var(--color-text-secondary);
   line-height: 1.7;
   max-width: 480px;
-  margin-bottom: 36px;
+  margin-bottom: 34px;
 }
 
 /* Action buttons */
@@ -252,138 +293,318 @@ onMounted(async () => {
   align-items: center;
   gap: 16px;
   flex-wrap: wrap;
-  margin-bottom: 40px;
 }
 
-/* Tech badges */
-.hero__badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.hero__badge {
-  padding: 5px 12px;
-  border-radius: 100px;
-  font-size: 0.78rem;
-  font-weight: 500;
-  color: var(--color-text-muted);
-  border: 1px solid var(--color-border);
-  transition: color var(--transition-fast), border-color var(--transition-fast);
-}
-
-.hero__badge:hover {
-  color: var(--color-text-secondary);
-  border-color: rgba(124, 58, 237, 0.3);
-}
-
-/* ── Visual / Avatar ── */
+/* ── Photo ── */
 .hero__visual {
   display: flex;
   justify-content: center;
 }
 
-.hero__avatar-wrapper {
+.hero__photo-frame {
   position: relative;
-  width: 340px;
-  height: 340px;
+  width: min(320px, 100%);
+  border: 1.5px solid var(--color-ink);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  padding: 12px;
+  box-shadow: var(--shadow-hard-accent);
 }
 
-.hero__avatar-placeholder {
+.hero__photo {
   width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  border: 2px dashed rgba(124, 58, 237, 0.3);
-  background: rgba(124, 58, 237, 0.04);
+  aspect-ratio: 4 / 4.6;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  filter: saturate(0.92);
+}
+
+.hero__photo-caption {
+  display: block;
+  margin-top: 10px;
+  color: var(--color-text-muted);
+  font-size: 0.65rem;
+}
+
+/* ── Stats band ── */
+.hero__stats {
+  display: grid;
+  grid-template-columns: repeat(3, auto) 1fr;
+  gap: clamp(24px, 4vw, 56px);
+  border-top: 1.5px solid var(--color-ink);
+  padding-top: 28px;
+}
+
+.hero__stat {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  color: var(--color-text-muted);
-  text-align: center;
+  gap: 4px;
 }
 
-.hero__avatar {
+.hero__stat-num {
+  color: var(--color-text-muted);
+  font-size: 0.65rem;
+}
+
+.hero__stat-value {
+  font-family: var(--font-heading);
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--color-ink);
+}
+
+.hero__stat-label {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+.hero__stat--techs {
+  justify-content: flex-start;
+}
+
+.hero__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.hero__badge {
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.hero__badge:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+/* ── Featured ── */
+.featured {
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.featured__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.featured__head :deep(.section-title) {
+  margin-bottom: clamp(28px, 4vw, 44px);
+}
+
+.featured__all {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: clamp(28px, 4vw, 44px);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  transition: color var(--transition-fast);
+}
+
+.featured__all:hover {
+  color: var(--color-accent);
+}
+
+.featured__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.featured__row {
+  display: grid;
+  grid-template-columns: 48px 1.4fr 1fr 32px;
+  align-items: center;
+  gap: 24px;
+  padding: 28px 8px;
+  border-top: 1px solid var(--color-border);
+  transition: background var(--transition-fast), padding var(--transition-fast);
+}
+
+.featured__row:last-child {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.featured__row:hover {
+  background: var(--color-accent-soft);
+  padding-left: 20px;
+}
+
+.featured__num {
+  color: var(--color-text-muted);
+}
+
+.featured__title {
+  font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-bottom: 4px;
+  transition: color var(--transition-fast);
+}
+
+.featured__row:hover .featured__title {
+  color: var(--color-accent);
+}
+
+.featured__desc {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.featured__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.featured__tag {
+  padding: 3px 9px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.featured__arrow {
+  color: var(--color-text-muted);
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.featured__row:hover .featured__arrow {
+  color: var(--color-accent);
+  transform: translate(3px, -3px);
+}
+
+/* ── AI workflow ── */
+.ai__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.ai__card {
+  display: flex;
+  flex-direction: column;
+  padding: 26px;
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition:
+    border-color var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.ai__card:hover {
+  border-color: var(--color-ink);
+  transform: translate(-3px, -3px);
+  box-shadow: var(--shadow-hard);
+}
+
+.ai__card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.ai__card-icon {
+  width: 44px;
+  height: 44px;
+  padding: 9px;
+  border-radius: var(--radius-sm);
+  background: var(--color-accent-soft);
+  border: 1.5px solid var(--color-border);
+  color: var(--color-accent);
+}
+
+.ai__card-icon :deep(svg) {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 3px solid rgba(124, 58, 237, 0.25);
 }
 
-.hero__avatar-hint {
-  font-size: 0.75rem;
-  line-height: 1.5;
+.ai__card-num {
+  color: var(--color-text-muted);
 }
 
-.hero__avatar-hint code {
-  font-size: 0.72rem;
-  color: var(--color-accent-3);
-  background: rgba(124, 58, 237, 0.1);
-  padding: 2px 6px;
-  border-radius: 4px;
+.ai__card-title {
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-bottom: 10px;
 }
 
-/* Floating badges */
-.hero__float {
-  position: absolute;
-  padding: 6px 14px;
-  border-radius: 100px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  font-family: var(--font-heading);
-  background: rgba(9, 9, 15, 0.9);
-  border: 1px solid var(--color-border);
+.ai__card-desc {
+  flex: 1;
+  font-size: 0.88rem;
   color: var(--color-text-secondary);
-  backdrop-filter: blur(12px);
-  white-space: nowrap;
-  animation: float 4s ease-in-out infinite;
+  line-height: 1.65;
+  margin-bottom: 18px;
 }
 
-.hero__float--tl { top: 20px;  left: -10px;  animation-delay: 0s; }
-.hero__float--tr { top: 40px;  right: -10px; animation-delay: 1s; }
-.hero__float--bl { bottom: 50px; left: -20px; animation-delay: 2s; }
-.hero__float--br { bottom: 30px; right: -10px; animation-delay: 0.5s; }
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-8px); }
-}
-
-/* Scroll cue */
-.hero__scroll-cue {
+.ai__card-tools {
   display: flex;
-  justify-content: center;
-  padding-bottom: 32px;
-  position: relative;
-  z-index: 1;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-border);
 }
 
-.hero__scroll-line {
-  width: 1.5px;
-  height: 48px;
-  background: linear-gradient(to bottom, var(--color-accent-1), transparent);
-  animation: scrollLine 2s ease-in-out infinite;
+.ai__tool {
+  padding: 2px 9px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 700;
+  color: var(--color-accent-ink);
+  background: var(--color-accent-soft);
 }
 
-@keyframes scrollLine {
-  0% { opacity: 0; transform: scaleY(0); transform-origin: top; }
-  50% { opacity: 1; transform: scaleY(1); }
-  100% { opacity: 0; transform: scaleY(0); transform-origin: bottom; }
-}
-
-/* Responsive */
-@media (max-width: 768px) {
+/* ── Responsive ── */
+@media (max-width: 900px) {
   .hero__inner {
     grid-template-columns: 1fr;
     text-align: center;
   }
 
-  .hero__eyebrow { margin: 0 auto 28px; }
-  .hero__bio, .hero__actions, .hero__badges { margin-left: auto; margin-right: auto; }
-  .hero__actions, .hero__badges { justify-content: center; }
-
+  .hero__eyebrow { justify-content: center; }
+  .hero__bio { margin-left: auto; margin-right: auto; }
+  .hero__actions { justify-content: center; }
   .hero__visual { display: none; }
+
+  .hero__stats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .hero__stat--techs {
+    grid-column: 1 / -1;
+  }
+
+  .featured__row {
+    grid-template-columns: 32px 1fr 24px;
+  }
+
+  .featured__tags { display: none; }
 }
 </style>

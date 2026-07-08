@@ -81,7 +81,7 @@ onMounted(async () => {
 
 <style scoped>
 .projects-page {
-  padding-top: 120px;
+  padding-top: 130px;
 }
 
 /* Filters */
@@ -93,11 +93,12 @@ onMounted(async () => {
 }
 
 .projects__filter {
-  padding: 7px 16px;
-  border-radius: 100px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  background: transparent;
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  background: var(--color-surface);
   color: var(--color-text-secondary);
   border: 1.5px solid var(--color-border);
   cursor: pointer;
@@ -105,14 +106,14 @@ onMounted(async () => {
 }
 
 .projects__filter:hover {
-  color: var(--color-text-primary);
-  border-color: rgba(124, 58, 237, 0.35);
+  color: var(--color-ink);
+  border-color: var(--color-ink);
 }
 
 .projects__filter--active {
-  background: rgba(124, 58, 237, 0.15);
-  border-color: var(--color-accent-1);
-  color: var(--color-accent-3);
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: var(--color-bg);
 }
 
 /* Grid */

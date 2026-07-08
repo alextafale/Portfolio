@@ -22,24 +22,24 @@ defineProps<{ item: StackItem }>()
   gap: 10px;
   padding: 24px 16px;
   border-radius: var(--radius-md);
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
   cursor: default;
   transition:
-    border-color var(--transition-normal),
-    transform var(--transition-normal),
-    box-shadow var(--transition-normal);
+    border-color var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
 }
 
 .stack-item:hover {
-  border-color: color-mix(in srgb, var(--item-color) 50%, transparent);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25), 0 0 0 1px color-mix(in srgb, var(--item-color) 20%, transparent);
+  border-color: var(--color-ink);
+  transform: translate(-3px, -3px);
+  box-shadow: 4px 4px 0 color-mix(in srgb, var(--item-color) 70%, var(--color-ink));
 }
 
 .stack-item__icon {
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -53,22 +53,23 @@ defineProps<{ item: StackItem }>()
 }
 
 .stack-item:hover .stack-item__icon {
-  transform: scale(1.15);
+  transform: scale(1.12);
 }
 
 .stack-item__name {
   font-family: var(--font-heading);
   font-size: 0.85rem;
   font-weight: 600;
-  color: var(--color-text-primary);
+  color: var(--color-ink);
   text-align: center;
 }
 
 .stack-item__level {
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: capitalize;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--color-text-muted);
 }
 </style>

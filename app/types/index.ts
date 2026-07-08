@@ -16,6 +16,7 @@ export interface Project {
   githubUrl: string
   liveUrl?: string
   featured?: boolean
+  year?: string
 }
 
 export interface StackItem {
@@ -40,4 +41,12 @@ export interface SocialLink {
   name: string
   url: string
   icon: string
+}
+
+export interface AiWorkflowItem {
+  id: number
+  icon: string
+  title: Localized
+  description: Localized
+  tools: string[]
 }

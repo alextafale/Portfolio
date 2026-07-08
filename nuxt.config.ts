@@ -49,7 +49,7 @@ export default defineNuxtConfig({
         {
           name: 'description',
           content:
-            'Full Stack Developer specializing in Vue, Nuxt, TypeScript, Expo and Supabase. Building clean and scalable web & mobile applications.',
+            'Full Stack Developer specializing in TypeScript, Vue, Nuxt and React Native, with an AI-first workflow: coding agents, MCP servers, subagents and LLM-powered products.',
         },
         { name: 'author', content: 'Alejandro Alejandre Tafolla' },
         { property: 'og:type', content: 'website' },
@@ -64,7 +64,7 @@ export default defineNuxtConfig({
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
         {
           rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap',
+          href: 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap',
         },
       ],
     },

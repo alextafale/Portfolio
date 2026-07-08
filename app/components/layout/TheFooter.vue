@@ -1,30 +1,43 @@
 <template>
   <footer class="footer" ref="footerRef">
-    <div class="container footer__inner">
-      <div class="footer__left">
-        <span class="footer__name gradient-text">Alejandro Alejandre Tafolla</span>
-        <div class="footer__status">
-          <p class="footer__copy">&copy; {{ year }} — {{ $t('footer.built_with') }}</p>
-          <Transition name="fade">
-            <p v-if="lastActivity" class="footer__activity">
-              <span class="activity-dot" />
-              {{ lastActivity }}
-            </p>
-          </Transition>
-        </div>
-      </div>
+    <!-- CTA band -->
+    <div class="container footer__cta">
+      <span class="mono-label">{{ $t('footer.cta_eyebrow') }}</span>
+      <a :href="`mailto:${profile.email}`" class="footer__cta-link">
+        {{ profile.email }}
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M7 17 17 7M8 7h9v9" />
+        </svg>
+      </a>
+    </div>
 
-      <div class="footer__social">
-        <a
-          v-for="link in socialLinks"
-          :key="link.name"
-          :href="link.url"
-          :aria-label="link.name"
-          class="footer__social-link"
-          target="_blank"
-          rel="noopener noreferrer"
-          v-html="icons[link.icon]"
-        />
+    <div class="footer__bar">
+      <div class="container footer__inner">
+        <div class="footer__left">
+          <span class="footer__name">{{ profile.name }}</span>
+          <div class="footer__status">
+            <p class="footer__copy">&copy; {{ year }} — {{ $t('footer.built_with') }}</p>
+            <Transition name="fade">
+              <p v-if="lastActivity" class="footer__activity">
+                <span class="activity-dot" />
+                {{ lastActivity }}
+              </p>
+            </Transition>
+          </div>
+        </div>
+
+        <div class="footer__social">
+          <a
+            v-for="link in socialLinks"
+            :key="link.name"
+            :href="link.url"
+            :aria-label="link.name"
+            class="footer__social-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            v-html="icons[link.icon]"
+          />
+        </div>
       </div>
     </div>
   </footer>
@@ -32,7 +45,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { socialLinks } from '~/data/profile'
+import { profile, socialLinks } from '~/data/profile'
 import { useAnimations } from '~/composables/useAnimations'
 
 const year = new Date().getFullYear()
@@ -52,7 +65,7 @@ async function fetchGitHubActivity() {
     const response = await fetch('https://api.github.com/users/alextafale/events/public')
     const events = await response.json()
     const pushEvent = events.find((e: any) => e.type === 'PushEvent')
-    
+
     if (pushEvent) {
       const date = new Date(pushEvent.created_at)
       lastActivity.value = `${t('footer.activity.last_commit')}: ${date.toLocaleDateString()}`
@@ -66,7 +79,7 @@ const { initGsap, scrollFadeIn } = useAnimations()
 
 onMounted(async () => {
   fetchGitHubActivity()
-  
+
   await initGsap()
   if (footerRef.value) {
     scrollFadeIn(footerRef.value, { y: 30, duration: 0.8 })
@@ -76,9 +89,53 @@ onMounted(async () => {
 
 <style scoped>
 .footer {
-  border-top: 1px solid var(--color-border);
-  padding: 32px 0;
   margin-top: auto;
+  border-top: 2px solid var(--color-ink);
+}
+
+/* CTA band */
+.footer__cta {
+  padding: clamp(48px, 7vw, 88px) clamp(16px, 5vw, 48px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer__cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  width: fit-content;
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 4.5vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 8px;
+  text-decoration-color: var(--color-border);
+  transition: color var(--transition-fast), text-decoration-color var(--transition-fast);
+}
+
+.footer__cta-link svg {
+  flex-shrink: 0;
+  transition: transform var(--transition-fast);
+}
+
+.footer__cta-link:hover {
+  color: var(--color-accent);
+  text-decoration-color: var(--color-accent);
+}
+
+.footer__cta-link:hover svg {
+  transform: translate(3px, -3px);
+}
+
+/* Bottom bar */
+.footer__bar {
+  border-top: 1px solid var(--color-border);
+  padding: 28px 0;
 }
 
 .footer__inner {
@@ -93,6 +150,7 @@ onMounted(async () => {
   font-family: var(--font-heading);
   font-size: 0.95rem;
   font-weight: 600;
+  color: var(--color-ink);
 }
 
 .footer__copy {
@@ -111,15 +169,15 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.75rem;
-  color: var(--color-accent-3);
-  font-weight: 500;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--color-accent);
 }
 
 .activity-dot {
   width: 6px;
   height: 6px;
-  background: var(--color-accent-2);
+  background: var(--color-accent);
   border-radius: 50%;
   animation: pulse-small 2s infinite;
 }
@@ -152,13 +210,14 @@ onMounted(async () => {
   height: 40px;
   border-radius: var(--radius-sm);
   color: var(--color-text-secondary);
-  border: 1px solid var(--color-border);
-  transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+  border: 1.5px solid var(--color-border);
+  transition: all var(--transition-fast);
 }
 
 .footer__social-link:hover {
-  color: var(--color-accent-3);
-  border-color: var(--color-border-hover);
-  background: rgba(124, 58, 237, 0.08);
+  color: var(--color-accent);
+  border-color: var(--color-ink);
+  transform: translate(-2px, -2px);
+  box-shadow: 3px 3px 0 var(--color-ink);
 }
 </style>

@@ -8,35 +8,43 @@
       <div class="about__grid">
         <!-- Left: Bio card -->
         <div class="about__bio-wrapper" ref="bioRef">
-          <div class="about__photo-placeholder">
-            <img src="~/assets/images/image.png" alt="Alejandro Alejandre Tafolla" class="hero__avatar" /> 
+          <div class="about__photo-frame">
+            <img src="~/assets/images/image.png" alt="Alejandro Alejandre Tafolla" class="about__photo" />
           </div>
 
           <div class="about__bio-card">
-            <h2 class="about__name gradient-text" ref="nameRef">Alejandro Alejandre Tafolla</h2>
-            <p class="about__role" ref="roleStaticRef">{{ profile.title[locale] }} · {{ profile.location[locale] }}</p>
-            <p class="about__bio" ref="bioTextRef">{{ profile.longBio[locale] }}</p>
+            <h2 class="about__name" ref="nameRef">Alejandro Alejandre Tafolla</h2>
+            <p class="about__role" ref="roleStaticRef">{{ profile.title[locale as 'en' | 'es'] }} · {{ profile.location[locale as 'en' | 'es'] }}</p>
+            <p class="about__bio" ref="bioTextRef">{{ profile.longBio[locale as 'en' | 'es'] }}</p>
 
-            <div class="about__info-grid">
+            <dl class="about__info-grid">
               <div class="about__info-item">
-                <span class="about__info-label">{{ $t('about.info.location') }}</span>
-                <span class="about__info-value">{{ profile.location[locale] }} 🇲🇽</span>
+                <dt class="about__info-label">{{ $t('about.info.location') }}</dt>
+                <dd class="about__info-value">{{ profile.location[locale as 'en' | 'es'] }} 🇲🇽</dd>
               </div>
               <div class="about__info-item">
-                <span class="about__info-label">{{ $t('about.info.status') }}</span>
-                <span class="about__info-value about__info-value--available">
+                <dt class="about__info-label">{{ $t('about.info.status') }}</dt>
+                <dd class="about__info-value about__info-value--available">
                   <span class="dot" />{{ $t('about.info.available') }}
-                </span>
+                </dd>
               </div>
               <div class="about__info-item">
-                <span class="about__info-label">{{ $t('about.info.focus') }}</span>
-                <span class="about__info-value">Web & Mobile</span>
+                <dt class="about__info-label">{{ $t('about.info.experience') }}</dt>
+                <dd class="about__info-value">{{ yearsOfExperience }}+ {{ $t('about.info.years') }}</dd>
               </div>
               <div class="about__info-item">
-                <span class="about__info-label">{{ $t('about.info.languages') }}</span>
-                <span class="about__info-value">Spanish (Native), English (B2)</span>
+                <dt class="about__info-label">{{ $t('about.info.current_role') }}</dt>
+                <dd class="about__info-value">{{ $t('about.info.software_factory') }}</dd>
               </div>
-            </div>
+              <div class="about__info-item">
+                <dt class="about__info-label">{{ $t('about.info.focus') }}</dt>
+                <dd class="about__info-value">Web, Mobile & AI</dd>
+              </div>
+              <div class="about__info-item">
+                <dt class="about__info-label">{{ $t('about.info.languages') }}</dt>
+                <dd class="about__info-value">Español (Nativo), English (B2)</dd>
+              </div>
+            </dl>
 
             <div class="about__social">
               <a
@@ -55,7 +63,9 @@
 
         <!-- Right: Timeline -->
         <div class="about__timeline" ref="timelineRef">
-          <h3 class="about__timeline-title">{{ $t('about.timeline.title') }}</h3>
+          <h3 class="about__timeline-title">
+            <span class="mono-label">{{ $t('about.timeline.title') }}</span>
+          </h3>
           <div class="about__timeline-list">
             <TimelineItem
               v-for="exp in experiences"
@@ -71,7 +81,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { profile, socialLinks, experiences } from '~/data/profile'
+import { profile, socialLinks, experiences, yearsOfExperience } from '~/data/profile'
 import { useAnimations } from '~/composables/useAnimations'
 
 const { locale } = useI18n()
@@ -87,8 +97,8 @@ const bioTextRef = ref<HTMLElement | null>(null)
 const { initGsap, scrollStagger, animateTextReveal, blurFadeIn } = useAnimations()
 
 onMounted(async () => {
-  const { gsap, ScrollTrigger } = await initGsap()
-  
+  const { gsap } = await initGsap()
+
   gsap.fromTo(bioRef.value, { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.8, ease: 'power3.out' })
   gsap.fromTo(timelineRef.value, { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.8, delay: 0.15, ease: 'power3.out' })
 
@@ -102,14 +112,13 @@ onMounted(async () => {
     blurFadeIn(bioTextRef.value, { delay: 0.8, y: 20 })
   }
 
-  // Scroll triggered animations for individual timeline items
   scrollStagger('.about__timeline-list > *', { delay: 0.1, y: 30 })
 })
 </script>
 
 <style scoped>
 .about-page {
-  padding-top: 120px;
+  padding-top: 130px;
 }
 
 .about__grid {
@@ -119,46 +128,37 @@ onMounted(async () => {
   align-items: start;
 }
 
-/* Photo placeholder */
-.about__photo-placeholder {
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  background: rgba(124, 58, 237, 0.06);
-  border: 2px dashed rgba(124, 58, 237, 0.3);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
+/* Photo */
+.about__photo-frame {
+  width: 150px;
+  border: 1.5px solid var(--color-ink);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  padding: 8px;
+  box-shadow: 4px 4px 0 var(--color-accent);
   margin-bottom: 28px;
-  color: var(--color-text-muted);
-  font-size: 0.7rem;
-  text-align: center;
 }
 
-.about__photo-placeholder code {
-  color: var(--color-accent-3);
-  font-size: 0.65rem;
-}
-
-.about__photo-placeholder img {
+.about__photo {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 1;
   object-fit: cover;
-  border-radius: 50%;
+  border-radius: var(--radius-sm);
+  filter: saturate(0.92);
 }
 
 /* Bio card */
 .about__name {
   font-size: 1.6rem;
-  font-weight: 800;
+  font-weight: 700;
+  color: var(--color-ink);
   margin-bottom: 6px;
 }
 
 .about__role {
-  font-size: 0.9rem;
-  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--color-accent);
   margin-bottom: 20px;
 }
 
@@ -169,49 +169,64 @@ onMounted(async () => {
   margin-bottom: 28px;
 }
 
-/* Info grid */
+/* Info grid — bordered table look */
 .about__info-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
   margin-bottom: 28px;
-  padding: 20px;
+  border: 1.5px solid var(--color-border);
   border-radius: var(--radius-md);
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
+  overflow: hidden;
+  background: var(--color-surface);
 }
 
 .about__info-item {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.about__info-item:nth-child(odd) {
+  border-right: 1px solid var(--color-border);
+}
+
+.about__info-item:nth-last-child(-n+2) {
+  border-bottom: none;
 }
 
 .about__info-label {
-  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   color: var(--color-text-muted);
-  font-weight: 600;
 }
 
 .about__info-value {
-  font-size: 0.88rem;
-  color: var(--color-text-primary);
+  font-size: 0.86rem;
+  color: var(--color-ink);
   font-weight: 500;
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
-.about__info-value--available { color: #34d399; }
+.about__info-value--available { color: var(--color-ok); }
 
 .dot {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: #34d399;
-  animation: pulse 2s infinite;
+  background: #10b981;
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
 }
 
 /* Social */
@@ -224,27 +239,26 @@ onMounted(async () => {
 .about__social-link {
   padding: 7px 16px;
   border-radius: var(--radius-sm);
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--color-text-secondary);
-  border: 1px solid var(--color-border);
-  transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  border: 1.5px solid var(--color-border);
+  background: var(--color-surface);
+  transition: all var(--transition-fast);
 }
 
 .about__social-link:hover {
-  color: var(--color-accent-3);
-  border-color: var(--color-border-hover);
-  background: rgba(124, 58, 237, 0.06);
+  border-color: var(--color-ink);
+  transform: translate(-2px, -2px);
+  box-shadow: 3px 3px 0 var(--color-accent);
 }
 
 /* Timeline */
 .about__timeline-title {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--color-text-primary);
   margin-bottom: 32px;
   padding-bottom: 12px;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1.5px solid var(--color-ink);
 }
 
 /* Responsive */

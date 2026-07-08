@@ -185,7 +185,7 @@ const handleMouseLeave = () => {
   box-shadow: 
     inset 0 0 4px rgba(255, 255, 255, 0.4),
     0 0 0 8px #0f0f13,
-    8px 12px 20px rgba(0, 0, 0, 0.6);
+    8px 12px 20px rgba(15, 23, 42, 0.25);
   z-index: 2;
   overflow: hidden;
   transform: translateZ(20px);
@@ -278,7 +278,7 @@ const handleMouseLeave = () => {
   left: 50%;
   width: 220px;
   height: 20px;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(15, 23, 42, 0.35);
   border-radius: 50%;
   filter: blur(20px);
   transform: translateX(-50%) translateZ(-40px);

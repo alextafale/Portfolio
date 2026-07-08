@@ -1,6 +1,8 @@
 <template>
   <div class="section-title" :class="{ 'section-title--center': centered }">
-    <span v-if="eyebrow" class="section-title__eyebrow" ref="eyebrowRef">{{ eyebrow }}</span>
+    <span v-if="eyebrow" class="section-title__eyebrow mono-label" ref="eyebrowRef">
+      <span class="section-title__rule" aria-hidden="true" />{{ eyebrow }}
+    </span>
     <h2 class="section-title__heading" ref="headingRef"><slot /></h2>
     <p v-if="subtitle" class="section-title__subtitle" ref="subtitleRef">{{ subtitle }}</p>
   </div>
@@ -24,15 +26,15 @@ const { initGsap, animateTextReveal, blurFadeIn } = useAnimations()
 
 onMounted(async () => {
   await initGsap()
-  
+
   if (eyebrowRef.value) {
     blurFadeIn(eyebrowRef.value, { delay: 0.1, duration: 1 })
   }
-  
+
   if (headingRef.value) {
     animateTextReveal(headingRef.value, { delay: 0.2 })
   }
-  
+
   if (subtitleRef.value) {
     blurFadeIn(subtitleRef.value, { delay: 0.4 })
   }
@@ -49,28 +51,35 @@ onMounted(async () => {
 }
 
 .section-title__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.section-title__rule {
   display: inline-block;
-  font-family: var(--font-heading);
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--color-accent-2);
-  margin-bottom: 12px;
+  width: 32px;
+  height: 2px;
+  background: var(--color-accent);
+}
+
+.section-title--center .section-title__eyebrow {
+  justify-content: center;
 }
 
 .section-title__heading {
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 800;
-  color: var(--color-text-primary);
-  line-height: 1.1;
+  font-size: clamp(2.1rem, 4.5vw, 3.2rem);
+  font-weight: 700;
+  color: var(--color-ink);
+  line-height: 1.08;
 }
 
 .section-title__subtitle {
   margin-top: 16px;
   font-size: 1.05rem;
   color: var(--color-text-secondary);
-  max-width: 540px;
+  max-width: 560px;
   line-height: 1.7;
 }
 

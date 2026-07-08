@@ -1,50 +1,63 @@
 /* =====================================================
    PORTFOLIO — Global Styles & Design System
+   "Ink on paper": editorial, light, single accent.
    ===================================================== */
 
 /* Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap');
 
 /* ── CSS Custom Properties ── */
 :root {
-  /* Colors */
-  --color-bg:          #09090f;
-  --color-bg-elevated: #12121c;
-  --color-bg-card:     #15151f;
-  --color-border:      rgba(255, 255, 255, 0.06);
-  --color-border-hover: rgba(124, 58, 237, 0.4);
+  /* Core palette */
+  --color-bg:       #faf9f6;
+  --color-surface:  #ffffff;
+  --color-ink:      #1a1815;
+  --color-border:   #e6e3da;
+  --color-border-strong: #1a1815;
 
-  /* Accent: Purple */
-  --color-accent-1: #7c3aed;
-  --color-accent-2: #a855f7;
-  --color-accent-3: #c084fc;
-
-  /* Accent: Cyan */
-  --color-cyan-1: #06b6d4;
-  --color-cyan-2: #22d3ee;
+  --color-accent:      #4f46e5;
+  --color-accent-ink:  #3730a3;
+  --color-accent-soft: #eef2ff;
+  --color-ok:          #047857;
 
   /* Text */
-  --color-text-primary:   #f1f1f1;
-  --color-text-secondary: #a1a1b0;
-  --color-text-muted:     #5c5c78;
+  --color-text-primary:   var(--color-ink);
+  --color-text-secondary: #57534a;
+  --color-text-muted:     #9c988c;
 
-  /* Gradients */
-  --gradient-hero:    linear-gradient(135deg, var(--color-accent-1) 0%, var(--color-cyan-1) 100%);
-  --gradient-card:    linear-gradient(145deg, rgba(124,58,237,0.06) 0%, rgba(6,182,212,0.03) 100%);
-  --gradient-glow:    radial-gradient(ellipse at center, rgba(124,58,237,0.15) 0%, transparent 70%);
+  /* Legacy aliases (kept so shared vars resolve everywhere) */
+  --color-bg-elevated:  var(--color-surface);
+  --color-bg-card:      var(--color-surface);
+  --color-border-hover: var(--color-border-strong);
+  --color-accent-1: var(--color-accent);
+  --color-accent-2: var(--color-accent);
+  --color-accent-3: var(--color-accent-ink);
+  --color-cyan-1:   var(--color-accent);
+  --color-cyan-2:   var(--color-accent-ink);
+  --gradient-hero: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-ink) 100%);
+  --gradient-card: var(--color-surface);
+  --gradient-glow: radial-gradient(ellipse at center, rgba(79,70,229,0.06) 0%, transparent 70%);
+
+  /* Shadows */
+  --shadow-sm:   0 1px 2px rgba(26, 24, 21, 0.05);
+  --shadow-md:   0 8px 24px rgba(26, 24, 21, 0.08);
+  --shadow-lg:   0 20px 40px rgba(26, 24, 21, 0.1);
+  --shadow-hard: 5px 5px 0 var(--color-ink);
+  --shadow-hard-accent: 5px 5px 0 var(--color-accent);
 
   /* Typography */
-  --font-heading: 'Outfit', sans-serif;
+  --font-heading: 'Space Grotesk', sans-serif;
   --font-body:    'Inter', sans-serif;
+  --font-mono:    'Space Mono', monospace;
 
   /* Spacing */
-  --section-padding: clamp(80px, 10vw, 140px);
-  --container-max:   1200px;
+  --section-padding: clamp(72px, 9vw, 128px);
+  --container-max:   1160px;
 
-  /* Radius */
-  --radius-sm: 8px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
+  /* Radius — sharp, editorial */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
 
   /* Transitions */
   --transition-fast:   150ms ease;
@@ -62,7 +75,7 @@
 html {
   scroll-behavior: smooth;
   scrollbar-width: thin;
-  scrollbar-color: var(--color-accent-1) transparent;
+  scrollbar-color: var(--color-ink) transparent;
 }
 
 body {
@@ -99,16 +112,26 @@ img {
 /* ── Typography ── */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
-  line-height: 1.2;
+  line-height: 1.15;
   font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
-/* ── Gradient Text ── */
+/* Mono label: "01 — Proyectos" style markers */
+.mono-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+/* Accent text (replaces old gradient treatment, class kept for markup compat) */
 .gradient-text {
-  background: var(--gradient-hero);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  color: var(--color-accent);
 }
 
 /* ── Page Transition ── */
@@ -128,10 +151,10 @@ h1, h2, h3, h4, h5, h6 {
 /* ── Scrollbar ── */
 ::-webkit-scrollbar         { width: 6px; }
 ::-webkit-scrollbar-track   { background: transparent; }
-::-webkit-scrollbar-thumb   { background: var(--color-accent-1); border-radius: 3px; }
+::-webkit-scrollbar-thumb   { background: var(--color-ink); border-radius: 3px; }
 
 /* ── Selection ── */
 ::selection {
-  background: rgba(124, 58, 237, 0.35);
-  color: #fff;
+  background: var(--color-accent);
+  color: #ffffff;
 }

@@ -61,7 +61,7 @@ onMounted(async () => {
 
 <style scoped>
 .stack-page {
-  padding-top: 120px;
+  padding-top: 130px;
 }
 
 .stack__category {
@@ -69,14 +69,15 @@ onMounted(async () => {
 }
 
 .stack__category-title {
-  font-size: 0.78rem;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
   font-weight: 700;
   letter-spacing: 0.13em;
   text-transform: uppercase;
-  color: var(--color-text-muted);
+  color: var(--color-accent);
   margin-bottom: 20px;
   padding-bottom: 10px;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1.5px solid var(--color-ink);
 }
 
 .stack__grid {

@@ -5,5 +5,8 @@
       <slot />
     </main>
     <TheFooter />
+    <ClientOnly>
+      <RobotCompanion />
+    </ClientOnly>
   </div>
 </template>

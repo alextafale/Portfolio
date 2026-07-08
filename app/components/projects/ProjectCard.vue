@@ -1,20 +1,16 @@
 <template>
-  <NuxtLink 
-    :to="localePath(`/proyects/${project.slug}`)" 
-    class="project-card" 
-    :class="{ 'project-card--featured': project.featured }"
+  <NuxtLink
+    :to="localePath(`/proyects/${project.slug}`)"
+    class="project-card"
     @mouseenter="onHover(true)"
     @mouseleave="onHover(false)"
     ref="cardRef"
   >
-    <!-- Featured badge -->
-    <span v-if="project.featured" class="project-card__badge">Featured</span>
-
-    <div class="project-card__body">
+    <header class="project-card__top">
       <!-- Icon / Vector Graphics -->
-      <div 
-        class="project-card__icon" 
-        aria-hidden="true" 
+      <div
+        class="project-card__icon"
+        aria-hidden="true"
         v-if="project.svgVector"
         v-html="project.svgVector"
       ></div>
@@ -25,7 +21,19 @@
         </svg>
       </div>
 
-      <h3 class="project-card__title">{{ project.title }}</h3>
+      <div class="project-card__meta">
+        <span v-if="project.year" class="project-card__year">{{ project.year }}</span>
+        <span v-if="project.featured" class="project-card__badge">★ Featured</span>
+      </div>
+    </header>
+
+    <div class="project-card__body">
+      <h3 class="project-card__title">
+        {{ project.title }}
+        <svg class="project-card__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M7 17 17 7M8 7h9v9" />
+        </svg>
+      </h3>
       <p class="project-card__description">{{ project.description[locale as 'en' | 'es'] }}</p>
 
       <!-- Tags -->
@@ -49,7 +57,7 @@
         class="project-card__link"
         aria-label="View on GitHub"
       >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
         </svg>
         GitHub
@@ -62,7 +70,7 @@
         rel="noopener noreferrer"
         class="project-card__link project-card__link--live"
       >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
           <polyline points="15 3 21 3 21 9" />
           <line x1="10" y1="14" x2="21" y2="3" />
@@ -98,52 +106,72 @@ const onHover = (isHovering: boolean) => {
   position: relative;
   display: flex;
   flex-direction: column;
-  background: var(--gradient-card);
-  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
   border-radius: var(--radius-md);
-  padding: 28px;
-  transition: border-color var(--transition-normal), transform var(--transition-normal), box-shadow var(--transition-normal);
-  overflow: hidden;
-}
-
-.project-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--gradient-glow);
-  opacity: 0;
-  transition: opacity var(--transition-normal);
-  pointer-events: none;
+  padding: 26px;
+  transition:
+    border-color var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
 }
 
 .project-card:hover {
-  border-color: var(--color-border-hover);
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  border-color: var(--color-ink);
+  transform: translate(-3px, -3px);
+  box-shadow: var(--shadow-hard);
 }
 
-.project-card:hover::before {
-  opacity: 1;
+/* Top row */
+.project-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
-.project-card--featured {
-  border-color: rgba(124, 58, 237, 0.25);
+.project-card__icon {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-sm);
+  background: var(--color-accent-soft);
+  border: 1.5px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent);
+  overflow: hidden;
 }
 
-/* Badge */
-.project-card__badge {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  padding: 4px 10px;
-  border-radius: 100px;
+:deep(.project-card__icon svg) {
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+}
+
+.project-card__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.project-card__year {
+  font-family: var(--font-mono);
   font-size: 0.7rem;
-  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.project-card__badge {
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  background: rgba(124, 58, 237, 0.2);
-  color: var(--color-accent-3);
-  border: 1px solid rgba(124, 58, 237, 0.3);
+  background: var(--color-accent);
+  color: #ffffff;
 }
 
 /* Body */
@@ -151,31 +179,25 @@ const onHover = (isHovering: boolean) => {
   flex: 1;
 }
 
-.project-card__icon {
-  width: 64px;
-  height: 64px;
-  border-radius: var(--radius-sm);
-  background: rgba(124, 58, 237, 0.08); /* Made it slightly bigger and very transparent */
-  border: 1px solid rgba(124, 58, 237, 0.2);
+.project-card__title {
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: var(--color-accent-2);
-  margin-bottom: 24px;
-  overflow: hidden;
-}
-
-:deep(.project-card__icon svg) {
-  width: 100%;
-  height: 100%;
-  padding: 8px; /* Breathing room for vectors */
-}
-
-.project-card__title {
-  font-size: 1.15rem;
+  gap: 8px;
+  font-size: 1.2rem;
   font-weight: 700;
   margin-bottom: 10px;
-  color: var(--color-text-primary);
+  color: var(--color-ink);
+}
+
+.project-card__arrow {
+  opacity: 0;
+  color: var(--color-accent);
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+.project-card:hover .project-card__arrow {
+  opacity: 1;
+  transform: translate(2px, -2px);
 }
 
 .project-card__description {
@@ -190,24 +212,24 @@ const onHover = (isHovering: boolean) => {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-bottom: 24px;
+  margin-bottom: 22px;
 }
 
 .project-card__tag {
-  padding: 4px 10px;
-  border-radius: 100px;
-  font-size: 0.75rem;
-  font-weight: 500;
-  background: rgba(6, 182, 212, 0.1);
-  color: var(--color-cyan-2);
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  padding: 3px 9px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
 }
 
 /* Footer */
 .project-card__footer {
   display: flex;
-  gap: 16px;
-  padding-top: 20px;
+  gap: 18px;
+  padding-top: 18px;
   border-top: 1px solid var(--color-border);
 }
 
@@ -215,21 +237,22 @@ const onHover = (isHovering: boolean) => {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.85rem;
-  font-weight: 500;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
   color: var(--color-text-secondary);
   transition: color var(--transition-fast);
 }
 
 .project-card__link:hover {
-  color: var(--color-accent-3);
+  color: var(--color-accent);
 }
 
 .project-card__link--live {
-  color: var(--color-cyan-1);
+  color: var(--color-accent);
 }
 
 .project-card__link--live:hover {
-  color: var(--color-cyan-2);
+  color: var(--color-accent-ink);
 }
 </style>

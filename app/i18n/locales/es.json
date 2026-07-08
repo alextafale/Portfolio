@@ -12,6 +12,16 @@
       "status": "Disponible para trabajar",
       "cta_projects": "Ver Proyectos",
       "cta_contact": "Contactar"
+    },
+    "featured": {
+      "eyebrow": "Trabajo seleccionado",
+      "title": "Proyectos destacados",
+      "view_all": "Ver todos"
+    },
+    "ai": {
+      "eyebrow": "Flujo de trabajo",
+      "title": "Cómo integro la IA en mi flujo de trabajo",
+      "subtitle": "La IA no es un accesorio en mi proceso: es la base de cómo desarrollo software. Agentes de código, servidores MCP, subagentes y LLMs en producto — así se ve en la práctica."
     }
   },
   "about": {
@@ -23,7 +33,11 @@
       "status": "Estado",
       "focus": "Enfoque",
       "languages": "Idiomas",
-      "available": "Disponible"
+      "available": "Disponible",
+      "experience": "Experiencia",
+      "years": "años",
+      "current_role": "Rol actual",
+      "software_factory": "Fábrica de Software · ITLP"
     },
     "timeline": {
       "title": "Experiencia, Educación y Certificaciones"
@@ -50,10 +64,27 @@
     }
   },
   "footer": {
+    "cta_eyebrow": "¿Tienes un proyecto en mente?",
     "built_with": "Construido con Nuxt & Vue",
     "activity": {
       "last_commit": "Último commit"
     }
+  },
+  "robot": {
+    "hint": "Haz click en mí 🤖",
+    "dismiss": "Ocultar robot",
+    "greeting": "¡Hola! Soy el copiloto IA de Alex. Te acompaño mientras exploras su portafolio 🤖",
+    "home": "Esta es la base. Baja para ver cómo Alex trabaja con IA todos los días.",
+    "featured": "Kivo y MiCompli: MVPs reales que Alex llevó de la idea a producción.",
+    "ai": "Mi parte favorita: Alex orquesta agentes como yo — Claude Code, servidores MCP y subagentes — en cada proyecto.",
+    "about": "Fábrica de software del ITLP + MVPs para startups. Aquí está su historia completa.",
+    "projects": "Puedes filtrar por tecnología. Cada proyecto tiene su página de detalle.",
+    "project_detail": "Buen ojo. Aquí está el detalle técnico de este proyecto.",
+    "stack": "Estas son sus herramientas. La categoría de IA es donde brillo yo ✨",
+    "contact": "¿Tienes un MVP en mente? Alex suele responder en menos de 24 horas.",
+    "click_0": "Beep boop. Código revisado y verificado ✅",
+    "click_1": "Yo hago el trabajo pesado; Alex pone el criterio y la arquitectura.",
+    "click_2": "¿Sabías? El chatbot de Kivo funciona con la API de Claude + FastAPI."
   },
   "error": {
     "title": "¿Te has perdido en el ciberespacio?",
