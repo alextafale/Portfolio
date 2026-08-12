@@ -1,13 +1,14 @@
 <template>
-  <div class="projects-page section">
-    <div class="container">
-      <SectionTitle
-        :eyebrow="$t('projects.headline')"
-        :subtitle="$t('projects.subtitle')"
-      >
-        {{ $t('projects.title') }}
-      </SectionTitle>
+  <div class="projects-page">
+    <PageHeader
+      :eyebrow="$t('projects.headline')"
+      :subtitle="$t('projects.subtitle')"
+      ghost="WORK"
+    >
+      {{ $t('projects.title') }}
+    </PageHeader>
 
+    <div class="container projects__body">
       <!-- Filter bar -->
       <div class="projects__filters" ref="filtersRef">
         <button
@@ -80,8 +81,8 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.projects-page {
-  padding-top: 130px;
+.projects__body {
+  padding-bottom: var(--section-padding);
 }
 
 /* Filters */
@@ -89,44 +90,67 @@ onMounted(async () => {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 40px;
+  margin-bottom: 44px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .projects__filter {
-  padding: 6px 14px;
-  border-radius: var(--radius-sm);
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
   font-family: var(--font-mono);
-  font-size: 0.74rem;
-  font-weight: 700;
-  background: var(--color-surface);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: transparent;
   color: var(--color-text-secondary);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    background var(--transition-fast),
+    box-shadow var(--transition-fast);
 }
 
 .projects__filter:hover {
-  color: var(--color-ink);
-  border-color: var(--color-ink);
+  color: var(--color-accent);
+  border-color: var(--color-accent);
 }
 
 .projects__filter--active {
-  background: var(--color-ink);
-  border-color: var(--color-ink);
-  color: var(--color-bg);
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #0a0a0a;
+  box-shadow: var(--glow-accent-soft);
+}
+
+.projects__filter:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
 }
 
 /* Grid */
 .projects__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
   gap: 24px;
 }
 
 /* Empty */
 .projects__empty {
   text-align: center;
-  padding: 60px 0;
+  padding: 80px 0;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--color-text-muted);
+}
+
+@media (max-width: 520px) {
+  .projects__grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

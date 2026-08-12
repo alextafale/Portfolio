@@ -76,6 +76,7 @@ const typeLabels: Record<Experience['type'], string> = {
 
 .timeline-item--work .timeline-item__marker {
   background: var(--color-accent);
+  box-shadow: var(--glow-accent-soft);
 }
 
 .timeline-item--education .timeline-item__marker {
@@ -84,7 +85,7 @@ const typeLabels: Record<Experience['type'], string> = {
 
 .timeline-item--certification .timeline-item__marker {
   background: transparent;
-  border: 2px solid var(--color-accent);
+  border: 1.5px solid var(--color-accent);
 }
 
 /* Content */
@@ -122,6 +123,7 @@ const typeLabels: Record<Experience['type'], string> = {
 .timeline-item__title {
   font-size: 1.05rem;
   font-weight: 700;
+  letter-spacing: -0.02em;
   color: var(--color-ink);
   margin-top: 8px;
   transition: color 0.3s ease;
@@ -133,7 +135,7 @@ const typeLabels: Record<Experience['type'], string> = {
 
 .timeline-item__company {
   font-size: 0.88rem;
-  color: var(--color-accent-ink);
+  color: var(--color-accent);
   font-weight: 500;
   margin-top: 2px;
 }
@@ -153,10 +155,11 @@ const typeLabels: Record<Experience['type'], string> = {
 }
 
 .timeline-item__tag {
-  padding: 2px 9px;
-  border-radius: var(--radius-sm);
+  padding: 3px 11px;
+  border-radius: var(--radius-pill);
   font-family: var(--font-mono);
-  font-size: 0.66rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.05em;
   color: var(--color-text-secondary);
   border: 1px solid var(--color-border);
   background: var(--color-surface);

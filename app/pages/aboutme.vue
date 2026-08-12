@@ -1,10 +1,14 @@
 <template>
-  <div class="about-page section">
-    <div class="container">
-      <SectionTitle :eyebrow="$t('about.headline')" :subtitle="$t('about.subtitle')">
-        {{ $t('about.title') }}
-      </SectionTitle>
+  <div class="about-page">
+    <PageHeader
+      :eyebrow="$t('about.headline')"
+      :subtitle="$t('about.subtitle')"
+      ghost="ABOUT"
+    >
+      {{ $t('about.title') }}
+    </PageHeader>
 
+    <div class="container about__body">
       <div class="about__grid">
         <!-- Left: Bio card -->
         <div class="about__bio-wrapper" ref="bioRef">
@@ -30,7 +34,7 @@
               </div>
               <div class="about__info-item">
                 <dt class="about__info-label">{{ $t('about.info.experience') }}</dt>
-                <dd class="about__info-value">{{ yearsOfExperience }}+ {{ $t('about.info.years') }}</dd>
+                <dd class="about__info-value">{{ yearsOfExperience }}+ {{ yearsOfExperience === 1 ? $t('about.info.year') : $t('about.info.years') }}</dd>
               </div>
               <div class="about__info-item">
                 <dt class="about__info-label">{{ $t('about.info.current_role') }}</dt>
@@ -117,8 +121,8 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.about-page {
-  padding-top: 130px;
+.about__body {
+  padding-bottom: var(--section-padding);
 }
 
 .about__grid {
@@ -128,15 +132,28 @@ onMounted(async () => {
   align-items: start;
 }
 
+/* The timeline is far taller than the bio, so the bio rides along with it
+   instead of leaving a column of dead space. */
+.about__bio-wrapper {
+  position: sticky;
+  top: 104px;
+}
+
 /* Photo */
 .about__photo-frame {
+  position: relative;
   width: 150px;
-  border: 1.5px solid var(--color-ink);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background: var(--color-surface);
   padding: 8px;
-  box-shadow: 4px 4px 0 var(--color-accent);
   margin-bottom: 28px;
+  transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.about__photo-frame:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--glow-accent-soft);
 }
 
 .about__photo {
@@ -144,22 +161,26 @@ onMounted(async () => {
   aspect-ratio: 1;
   object-fit: cover;
   border-radius: var(--radius-sm);
-  filter: saturate(0.92);
+  filter: saturate(0.9) contrast(1.05);
 }
 
 /* Bio card */
 .about__name {
-  font-size: 1.6rem;
-  font-weight: 700;
+  font-size: 1.7rem;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
   color: var(--color-ink);
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .about__role {
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--color-accent);
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
 
 .about__bio {
@@ -174,7 +195,7 @@ onMounted(async () => {
   display: grid;
   grid-template-columns: 1fr 1fr;
   margin-bottom: 28px;
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   overflow: hidden;
   background: var(--color-surface);
@@ -214,13 +235,14 @@ onMounted(async () => {
   gap: 6px;
 }
 
-.about__info-value--available { color: var(--color-ok); }
+.about__info-value--available { color: var(--color-accent); }
 
 .dot {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #10b981;
+  background: var(--color-accent);
+  box-shadow: 0 0 10px var(--color-accent);
   animation: pulse-dot 2s infinite;
 }
 
@@ -237,32 +259,39 @@ onMounted(async () => {
 }
 
 .about__social-link {
-  padding: 7px 16px;
-  border-radius: var(--radius-sm);
+  padding: 9px 20px;
+  border-radius: var(--radius-pill);
   font-family: var(--font-mono);
-  font-size: 0.76rem;
-  font-weight: 700;
-  color: var(--color-ink);
-  border: 1.5px solid var(--color-border);
-  background: var(--color-surface);
-  transition: all var(--transition-fast);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-strong);
+  background: transparent;
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-normal);
 }
 
 .about__social-link:hover {
-  border-color: var(--color-ink);
-  transform: translate(-2px, -2px);
-  box-shadow: 3px 3px 0 var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  box-shadow: var(--glow-accent-soft);
 }
 
 /* Timeline */
 .about__timeline-title {
   margin-bottom: 32px;
-  padding-bottom: 12px;
-  border-bottom: 1.5px solid var(--color-ink);
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--color-border);
 }
 
 /* Responsive */
 @media (max-width: 900px) {
   .about__grid { grid-template-columns: 1fr; }
+
+  /* Stacked, a sticky bio would pin over the timeline. */
+  .about__bio-wrapper { position: static; }
 }
 </style>

@@ -16,25 +16,50 @@ defineProps<{ item: StackItem }>()
 
 <style scoped>
 .stack-item {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  padding: 24px 16px;
+  padding: 26px 16px;
   border-radius: var(--radius-md);
   background: var(--color-surface);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   cursor: default;
+  overflow: hidden;
   transition:
-    border-color var(--transition-fast),
-    transform var(--transition-fast),
-    box-shadow var(--transition-fast);
+    border-color var(--transition-normal),
+    transform var(--transition-normal),
+    box-shadow var(--transition-normal);
+}
+
+/* Wash tinted with each technology's own brand colour, revealed on hover. */
+.stack-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 80% 70% at 50% 0%,
+    color-mix(in srgb, var(--item-color) 22%, transparent),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.stack-item:hover::before {
+  opacity: 1;
 }
 
 .stack-item:hover {
-  border-color: var(--color-ink);
-  transform: translate(-3px, -3px);
-  box-shadow: 4px 4px 0 color-mix(in srgb, var(--item-color) 70%, var(--color-ink));
+  border-color: color-mix(in srgb, var(--item-color) 60%, var(--color-border-strong));
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.stack-item > * {
+  position: relative;
+  z-index: 1;
 }
 
 .stack-item__icon {
@@ -59,17 +84,23 @@ defineProps<{ item: StackItem }>()
 .stack-item__name {
   font-family: var(--font-heading);
   font-size: 0.85rem;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   color: var(--color-ink);
   text-align: center;
 }
 
 .stack-item__level {
   font-family: var(--font-mono);
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-text-muted);
+  transition: color var(--transition-fast);
+}
+
+.stack-item:hover .stack-item__level {
+  color: var(--color-accent);
 }
 </style>

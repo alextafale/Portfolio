@@ -11,7 +11,8 @@
       "greeting": "Hola, soy",
       "status": "Disponible para trabajar",
       "cta_projects": "Ver Proyectos",
-      "cta_contact": "Contactar"
+      "cta_contact": "Contactar",
+      "scroll": "Desliza"
     },
     "featured": {
       "eyebrow": "Trabajo seleccionado",
@@ -36,6 +37,7 @@
       "available": "Disponible",
       "experience": "Experiencia",
       "years": "años",
+      "year": "año",
       "current_role": "Rol actual",
       "software_factory": "Fábrica de Software · ITLP"
     },
@@ -61,6 +63,43 @@
       "year": "Año",
       "repo": "Repositorio",
       "live": "Demo en vivo"
+    }
+  },
+  "stack": {
+    "headline": "Herramientas",
+    "title": "Mi Stack",
+    "subtitle": "Tecnologías y herramientas con las que construyo experiencias full-stack web y móviles.",
+    "daily": "Lo que más uso"
+  },
+  "contact": {
+    "headline": "Hablemos",
+    "title": "Contacto",
+    "subtitle": "¿Tienes un proyecto en mente o solo quieres saludar? Me encantaría saber de ti.",
+    "form": {
+      "name": "Nombre",
+      "name_placeholder": "Tu nombre",
+      "email": "Email",
+      "email_placeholder": "tu{'@'}email.com",
+      "subject": "Asunto",
+      "subject_placeholder": "¿De qué se trata?",
+      "message": "Mensaje",
+      "message_placeholder": "Cuéntame sobre tu proyecto o idea...",
+      "send": "Enviar mensaje",
+      "sending": "Enviando…",
+      "sent": "¡Mensaje enviado! ✓"
+    },
+    "errors": {
+      "name": "El nombre es obligatorio.",
+      "email": "Se requiere un email válido.",
+      "message": "El mensaje debe tener al menos 10 caracteres.",
+      "send_failed": "Hubo un error al enviar tu mensaje. Por favor intenta más tarde.",
+      "network": "Fallo de red al intentar enviar. Revisa tu conexión."
+    },
+    "success": "¡Gracias por escribir! Te responderé pronto. 🚀",
+    "info": {
+      "title": "Construyamos algo grande",
+      "text": "Actualmente estoy abierto a proyectos freelance, colaboraciones y oportunidades de tiempo completo. No dudes en escribirme.",
+      "response_time": "Suelo responder en menos de 24 horas"
     }
   },
   "footer": {

@@ -194,13 +194,29 @@ onMounted(async () => {
 
 <style scoped>
 .project-detail {
-  padding-top: 100px;
+  padding-top: 96px;
 }
 
 .project-header {
-  padding: 60px 0;
-  border-bottom: 1.5px solid var(--color-ink);
+  position: relative;
+  padding: clamp(48px, 7vw, 84px) 0;
+  border-bottom: 1px solid var(--color-border);
   background: var(--color-surface);
+  overflow: hidden;
+}
+
+/* Accent wash bleeding in from the illustration side. */
+.project-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 45% 70% at 88% 50%, rgba(212, 255, 63, 0.09), transparent 70%);
+  pointer-events: none;
+}
+
+.project-header__inner {
+  position: relative;
+  z-index: 1;
 }
 
 .back-link {
@@ -222,12 +238,14 @@ onMounted(async () => {
 }
 
 .project-title {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 700;
-  letter-spacing: -0.03em;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4.4rem);
+  font-weight: 900;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
   color: var(--color-ink);
   margin-bottom: 20px;
-  line-height: 1.05;
+  line-height: 0.95;
 }
 
 .project-header__grid {
@@ -243,9 +261,9 @@ onMounted(async () => {
   padding: 24px;
   color: var(--color-accent);
   background: var(--color-accent-soft);
-  border: 1.5px solid var(--color-ink);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-hard);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--glow-accent-soft);
 }
 
 :deep(.project-header__illustration svg) {
@@ -270,14 +288,14 @@ onMounted(async () => {
 }
 
 .project-tag {
-  padding: 5px 12px;
+  padding: 6px 14px;
   background: var(--color-bg);
   border: 1px solid var(--color-border);
   color: var(--color-text-secondary);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-pill);
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
 }
 
 .project-description {

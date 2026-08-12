@@ -1,64 +1,64 @@
 <template>
-  <div class="contact-page section">
-    <div class="container contact__container">
-      <SectionTitle
-        eyebrow="Get in touch"
-        centered
-        subtitle="Have a project in mind or just want to say hi? I'd love to hear from you."
-      >
-        Contact Me
-      </SectionTitle>
+  <div class="contact-page">
+    <PageHeader
+      :eyebrow="$t('contact.headline')"
+      :subtitle="$t('contact.subtitle')"
+      ghost="SAY HI"
+    >
+      {{ $t('contact.title') }}
+    </PageHeader>
 
+    <div class="container contact__container">
       <div class="contact__grid">
         <!-- Form -->
         <form class="contact__form" ref="formRef" @submit.prevent="handleSubmit" novalidate>
           <div class="contact__form-group">
-            <label for="contact-name" class="contact__label">Name</label>
+            <label for="contact-name" class="contact__label">{{ $t('contact.form.name') }}</label>
             <input
               id="contact-name"
               v-model="form.name"
               type="text"
               class="contact__input"
               :class="{ 'contact__input--error': errors.name }"
-              placeholder="Your name"
+              :placeholder="$t('contact.form.name_placeholder')"
               autocomplete="name"
             />
             <span v-if="errors.name" class="contact__error">{{ errors.name }}</span>
           </div>
 
           <div class="contact__form-group">
-            <label for="contact-email" class="contact__label">Email</label>
+            <label for="contact-email" class="contact__label">{{ $t('contact.form.email') }}</label>
             <input
               id="contact-email"
               v-model="form.email"
               type="email"
               class="contact__input"
               :class="{ 'contact__input--error': errors.email }"
-              placeholder="your@email.com"
+              :placeholder="$t('contact.form.email_placeholder')"
               autocomplete="email"
             />
             <span v-if="errors.email" class="contact__error">{{ errors.email }}</span>
           </div>
 
           <div class="contact__form-group">
-            <label for="contact-subject" class="contact__label">Subject</label>
+            <label for="contact-subject" class="contact__label">{{ $t('contact.form.subject') }}</label>
             <input
               id="contact-subject"
               v-model="form.subject"
               type="text"
               class="contact__input"
-              placeholder="What's it about?"
+              :placeholder="$t('contact.form.subject_placeholder')"
             />
           </div>
 
           <div class="contact__form-group">
-            <label for="contact-message" class="contact__label">Message</label>
+            <label for="contact-message" class="contact__label">{{ $t('contact.form.message') }}</label>
             <textarea
               id="contact-message"
               v-model="form.message"
               class="contact__input contact__textarea"
               :class="{ 'contact__input--error': errors.message }"
-              placeholder="Tell me about your project or idea..."
+              :placeholder="$t('contact.form.message_placeholder')"
               rows="5"
             />
             <span v-if="errors.message" class="contact__error">{{ errors.message }}</span>
@@ -68,28 +68,28 @@
           <AppButton
             type="submit"
             variant="primary"
-            :class="{ 'loading': isSubmitting }"
+            :disabled="isSubmitting"
             style="width: 100%; justify-content: center;"
           >
-            <svg v-if="!isSubmitting" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <svg v-if="!isSubmitting" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <path d="m22 2-7 20-4-9-9-4Z" /><path d="M22 2 11 13" />
             </svg>
-            {{ isSubmitting ? 'Sending…' : submitted ? 'Message Sent! ✓' : 'Send Message' }}
+            {{ isSubmitting ? $t('contact.form.sending') : submitted ? $t('contact.form.sent') : $t('contact.form.send') }}
           </AppButton>
 
           <p v-if="submitted" class="contact__success">
-            Thanks for reaching out! I'll get back to you soon. 🚀
+            {{ $t('contact.success') }}
+          </p>
+          <p v-if="sendError" class="contact__error contact__error--banner">
+            {{ sendError }}
           </p>
         </form>
 
         <!-- Right: Info panel -->
         <aside class="contact__info" ref="infoRef">
           <div class="contact__info-card">
-            <h3 class="contact__info-title">Let's build something great</h3>
-            <p class="contact__info-text">
-              I'm currently open to freelance projects, collaborations and full-time opportunities.
-              Don't hesitate to reach out!
-            </p>
+            <h3 class="contact__info-title">{{ $t('contact.info.title') }}</h3>
+            <p class="contact__info-text">{{ $t('contact.info.text') }}</p>
 
             <div class="contact__info-links">
               <a
@@ -111,7 +111,7 @@
 
             <div class="contact__response-time">
               <span class="contact__status-dot" />
-              Usually responds within 24 hours
+              {{ $t('contact.info.response_time') }}
             </div>
           </div>
         </aside>
@@ -130,22 +130,26 @@ definePageMeta({ layout: 'default' })
 const formRef = ref<HTMLElement | null>(null)
 const infoRef = ref<HTMLElement | null>(null)
 
+const { t } = useI18n()
+
 const form = reactive({ name: '', email: '', subject: '', message: '' })
 const errors = reactive({ name: '', email: '', message: '' })
 const isSubmitting = ref(false)
 const submitted = ref(false)
+const sendError = ref('')
 
 function validate(): boolean {
-  errors.name = form.name.trim() ? '' : 'Name is required.'
-  errors.email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email) ? '' : 'A valid email is required.'
-  errors.message = form.message.trim().length >= 10 ? '' : 'Message must be at least 10 characters.'
+  errors.name = form.name.trim() ? '' : t('contact.errors.name')
+  errors.email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email) ? '' : t('contact.errors.email')
+  errors.message = form.message.trim().length >= 10 ? '' : t('contact.errors.message')
   return !errors.name && !errors.email && !errors.message
 }
 
 async function handleSubmit() {
+  sendError.value = ''
   if (!validate()) return
   isSubmitting.value = true
-  
+
   try {
     const response = await fetch('https://formsubmit.co/ajax/tafoyaalex32@gmail.com', {
       method: 'POST',
@@ -160,16 +164,18 @@ async function handleSubmit() {
         message: form.message,
         _subject: `Portafolio Contacto: ${form.subject || 'Nuevo Mensaje'}`
       })
-    });
+    })
 
     if (response.ok) {
       submitted.value = true
       Object.assign(form, { name: '', email: '', subject: '', message: '' })
     } else {
-      alert('Hubo un error al enviar tu mensaje. Por favor intenta más tarde.')
+      // Surfaced in the form instead of an alert(), which a native dialog
+      // interrupts the page for and which cannot be styled or translated.
+      sendError.value = t('contact.errors.send_failed')
     }
-  } catch (error) {
-    alert('Fallo de red al intentar enviar. Revisa tu conexión.')
+  } catch {
+    sendError.value = t('contact.errors.network')
   } finally {
     isSubmitting.value = false
   }
@@ -189,13 +195,10 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.contact-page {
-  padding-top: 130px;
-}
-
 .contact__container {
-  max-width: 960px;
+  max-width: 1000px;
   margin: 0 auto;
+  padding-bottom: var(--section-padding);
 }
 
 .contact__grid {
@@ -228,10 +231,10 @@ onMounted(async () => {
 }
 
 .contact__input {
-  padding: 12px 16px;
-  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
   background: var(--color-surface);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   color: var(--color-ink);
   font-family: var(--font-body);
   font-size: 0.9rem;
@@ -242,49 +245,59 @@ onMounted(async () => {
 .contact__input::placeholder { color: var(--color-text-muted); }
 
 .contact__input:focus {
-  border-color: var(--color-ink);
-  box-shadow: 3px 3px 0 var(--color-accent);
+  border-color: var(--color-accent);
+  box-shadow: var(--glow-accent-soft);
 }
 
 .contact__input--error {
-  border-color: #dc2626 !important;
+  border-color: #f87171 !important;
 }
 
 .contact__textarea {
   resize: vertical;
-  min-height: 130px;
+  min-height: 140px;
 }
 
 .contact__error {
   font-size: 0.78rem;
-  color: #dc2626;
+  color: #f87171;
+}
+
+.contact__error--banner {
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  background: rgba(248, 113, 113, 0.08);
+  border: 1px solid rgba(248, 113, 113, 0.28);
+  text-align: center;
 }
 
 .contact__success {
   text-align: center;
   font-size: 0.9rem;
-  color: #047857;
-  padding: 12px;
-  border-radius: var(--radius-sm);
-  background: rgba(16, 185, 129, 0.08);
-  border: 1px solid rgba(16, 185, 129, 0.25);
+  color: var(--color-accent);
+  padding: 14px;
+  border-radius: var(--radius-md);
+  background: var(--color-accent-soft);
+  border: 1px solid rgba(212, 255, 63, 0.28);
 }
 
 /* Info panel */
 .contact__info-card {
-  padding: 28px;
-  border-radius: var(--radius-md);
+  padding: 30px;
+  border-radius: var(--radius-lg);
   background: var(--color-surface);
-  border: 1.5px solid var(--color-ink);
-  box-shadow: var(--shadow-hard-accent);
+  border: 1px solid var(--color-border);
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
 .contact__info-title {
-  font-size: 1.2rem;
-  font-weight: 700;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  color: var(--color-ink);
 }
 
 .contact__info-text {
@@ -303,28 +316,33 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 14px;
-  border-radius: var(--radius-sm);
-  border: 1.5px solid var(--color-border);
+  padding: 12px 18px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
   font-family: var(--font-mono);
-  font-size: 0.78rem;
-  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--color-text-secondary);
-  transition: all var(--transition-fast);
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-normal);
 }
 
 .contact__info-link:hover {
   color: var(--color-accent);
-  border-color: var(--color-ink);
-  transform: translate(-2px, -2px);
-  box-shadow: 3px 3px 0 var(--color-ink);
+  border-color: var(--color-accent);
+  box-shadow: var(--glow-accent-soft);
 }
 
 .contact__response-time {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.8rem;
+  gap: 9px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
   color: var(--color-text-muted);
 }
 
@@ -332,9 +350,15 @@ onMounted(async () => {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #10b981;
+  background: var(--color-accent);
+  box-shadow: 0 0 10px var(--color-accent);
   flex-shrink: 0;
-  animation: pulse 2s infinite;
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.35; }
 }
 
 /* Responsive */

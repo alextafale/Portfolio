@@ -11,7 +11,8 @@
       "greeting": "Hi, I'm",
       "status": "Available for work",
       "cta_projects": "View Projects",
-      "cta_contact": "Contact Me"
+      "cta_contact": "Contact Me",
+      "scroll": "Scroll"
     },
     "featured": {
       "eyebrow": "Selected work",
@@ -36,6 +37,7 @@
       "available": "Available",
       "experience": "Experience",
       "years": "years",
+      "year": "year",
       "current_role": "Current role",
       "software_factory": "Software Factory · ITLP"
     },
@@ -61,6 +63,43 @@
       "year": "Year",
       "repo": "Repository",
       "live": "Live Demo"
+    }
+  },
+  "stack": {
+    "headline": "Tech Stack",
+    "title": "My Stack",
+    "subtitle": "Technologies and tools I use to build full-stack web and mobile experiences.",
+    "daily": "What I reach for daily"
+  },
+  "contact": {
+    "headline": "Get in touch",
+    "title": "Contact",
+    "subtitle": "Have a project in mind or just want to say hi? I'd love to hear from you.",
+    "form": {
+      "name": "Name",
+      "name_placeholder": "Your name",
+      "email": "Email",
+      "email_placeholder": "your{'@'}email.com",
+      "subject": "Subject",
+      "subject_placeholder": "What's it about?",
+      "message": "Message",
+      "message_placeholder": "Tell me about your project or idea...",
+      "send": "Send message",
+      "sending": "Sending…",
+      "sent": "Message sent! ✓"
+    },
+    "errors": {
+      "name": "Name is required.",
+      "email": "A valid email is required.",
+      "message": "Message must be at least 10 characters.",
+      "send_failed": "Something went wrong sending your message. Please try again later.",
+      "network": "Network error while sending. Check your connection."
+    },
+    "success": "Thanks for reaching out! I'll get back to you soon. 🚀",
+    "info": {
+      "title": "Let's build something great",
+      "text": "I'm currently open to freelance projects, collaborations and full-time opportunities. Don't hesitate to reach out.",
+      "response_time": "Usually responds within 24 hours"
     }
   },
   "footer": {
