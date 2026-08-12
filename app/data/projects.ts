@@ -28,11 +28,15 @@ export const projects: Project[] = [
       <polygon points="40,50 50,45 60,50 60,60 50,65 40,60" class="anim-shape-3" stroke="currentColor" stroke-linejoin="round" />
       <path d="M40 50 L 50 55 L 60 50 M 50 55 L 50 65" class="anim-shape-4" />
     </svg>`,
+    cover: '/images/mockups/kivo-hero.png',
     images: [
-      '/images/mockups/kivo.png'
+      '/images/kivo/cliente-inicio.jpeg',
+      '/images/kivo/cliente-pedidos.jpeg',
+      '/images/kivo/kivobot.jpeg',
+      '/images/kivo/negocio-perfil.jpeg',
+      '/images/kivo/kivosos.jpeg',
     ],
     githubUrl: 'https://github.com/alextafale/Kivo',
-    liveUrl: 'https://kivo-steel.vercel.app',
     featured: true,
     year: '2025 — 2026',
   },
@@ -64,7 +68,12 @@ export const projects: Project[] = [
       <!-- Heart accent -->
       <path d="M50 66 l-4 -4 a3 3 0 1 1 4 -4 a3 3 0 1 1 4 4 z" class="anim-shape-4" fill="var(--color-accent-3)" stroke="none" />
     </svg>`,
+    cover: '/images/mockups/micompli-hero.png',
+    images: [
+      '/images/mockups/micompli-hero.png',
+    ],
     githubUrl: 'https://github.com/alextafale/MiCompli',
+    liveUrl: 'https://mi-compli-pi7g.vercel.app/',
     featured: true,
     year: '2026',
   },
