@@ -5,8 +5,11 @@
       <slot />
     </main>
     <TheFooter />
-    <ClientOnly>
-      <RobotCompanion />
-    </ClientOnly>
   </div>
 </template>
+
+<script setup lang="ts">
+import { useSmoothScroll } from '~/composables/useSmoothScroll'
+
+useSmoothScroll()
+</script>

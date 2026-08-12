@@ -300,5 +300,68 @@ export function useAnimations() {
     )
   }
 
-  return { initGsap, fadeInUp, staggerIn, scrollFadeIn, scrollStagger, animateSvgHover, magneticEffect, animateTextReveal, typewriterEffect, blurFadeIn, pageTransition }
+  /**
+   * Character-level reveal driven by SplitType.
+   *
+   * The hand-rolled splitWords() above breaks on any markup inside the target
+   * (it reads innerText and rebuilds innerHTML). SplitType walks text nodes
+   * instead, so nested spans survive — which the hero heading needs.
+   */
+  const charReveal = async (
+    target: string | HTMLElement,
+    options: FadeInOptions = {},
+  ) => {
+    const { delay = 0, duration = 1.1, stagger = 0.022 } = options
+    if (!gsap) return
+
+    const el = typeof target === 'string'
+      ? document.querySelector<HTMLElement>(target)
+      : target
+    if (!el) return
+
+    const { default: SplitType } = await import('split-type')
+    const split = new SplitType(el, { types: 'chars', tagName: 'span' })
+    if (!split.chars?.length) return
+
+    gsap.set(split.chars, { display: 'inline-block' })
+    gsap.fromTo(
+      split.chars,
+      { yPercent: 115, opacity: 0 },
+      {
+        yPercent: 0,
+        opacity: 1,
+        duration,
+        delay,
+        stagger,
+        ease: 'expo.out',
+      },
+    )
+
+    return split
+  }
+
+  /**
+   * Scroll-linked parallax. Used for the oversized ghost type behind the hero,
+   * which drifts slower than the content in front of it.
+   */
+  const parallax = (
+    target: string | HTMLElement,
+    options: { distance?: number; trigger?: string | HTMLElement } = {},
+  ) => {
+    const { distance = 120, trigger } = options
+    if (!gsap || !ScrollTrigger) return
+
+    gsap.to(target, {
+      y: distance,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: (trigger ?? target) as never,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true,
+      },
+    })
+  }
+
+  return { initGsap, fadeInUp, staggerIn, scrollFadeIn, scrollStagger, animateSvgHover, magneticEffect, animateTextReveal, typewriterEffect, blurFadeIn, charReveal, parallax, pageTransition }
 }
