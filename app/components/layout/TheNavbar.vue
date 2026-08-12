@@ -111,14 +111,23 @@ onUnmounted(() => {
   right: 0;
   z-index: 100;
   padding: 18px 0;
-  background: var(--color-bg);
-  border-bottom: 1px solid var(--color-border);
-  transition: padding var(--transition-normal), box-shadow var(--transition-normal);
+  /* Transparent at rest so the hero scene shows through; the frosted panel
+     only appears once content starts passing underneath. */
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition:
+    padding var(--transition-normal),
+    background var(--transition-normal),
+    border-color var(--transition-normal),
+    backdrop-filter var(--transition-normal);
 }
 
 .navbar--scrolled {
   padding: 12px 0;
-  box-shadow: var(--shadow-sm);
+  background: rgba(10, 10, 10, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom-color: var(--color-border);
 }
 
 .navbar__inner {

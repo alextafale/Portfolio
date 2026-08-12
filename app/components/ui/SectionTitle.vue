@@ -59,9 +59,10 @@ onMounted(async () => {
 
 .section-title__rule {
   display: inline-block;
-  width: 32px;
-  height: 2px;
+  width: 40px;
+  height: 1px;
   background: var(--color-accent);
+  box-shadow: var(--glow-accent-soft);
 }
 
 .section-title--center .section-title__eyebrow {
@@ -69,15 +70,17 @@ onMounted(async () => {
 }
 
 .section-title__heading {
-  font-size: clamp(2.1rem, 4.5vw, 3.2rem);
-  font-weight: 700;
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  font-weight: 800;
   color: var(--color-ink);
-  line-height: 1.08;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
 }
 
 .section-title__subtitle {
-  margin-top: 16px;
-  font-size: 1.05rem;
+  margin-top: 20px;
+  font-size: 1.02rem;
   color: var(--color-text-secondary);
   max-width: 560px;
   line-height: 1.7;

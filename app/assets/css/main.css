@@ -1,68 +1,76 @@
 /* =====================================================
    PORTFOLIO — Global Styles & Design System
-   "Ink on paper": editorial, light, single accent.
+   "Neon on black": dark, product-led, single neon accent.
    ===================================================== */
 
-/* Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap');
+/* Google Fonts — Archivo (display, variable width), Inter (body), JetBrains Mono (labels) */
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=Inter:wght@400..700&family=JetBrains+Mono:wght@400..700&display=swap');
 
 /* ── CSS Custom Properties ── */
 :root {
-  /* Core palette */
-  --color-bg:       #faf9f6;
-  --color-surface:  #ffffff;
-  --color-ink:      #1a1815;
-  --color-border:   #e6e3da;
-  --color-border-strong: #1a1815;
+  /* Core palette — near-black canvas, layered surfaces */
+  --color-bg:       #0a0a0a;
+  --color-surface:  #121212;
+  --color-raised:   #1a1a1a;
 
-  --color-accent:      #4f46e5;
-  --color-accent-ink:  #3730a3;
-  --color-accent-soft: #eef2ff;
-  --color-ok:          #047857;
+  /* "ink" = foreground. Flipped to light so shared components stay readable. */
+  --color-ink:      #f5f5f5;
+  --color-border:   #262626;
+  --color-border-strong: #3d3d3d;
+
+  /* Neon accent */
+  --color-accent:      #d4ff3f;
+  --color-accent-ink:  #b3e01f;
+  --color-accent-soft: rgba(212, 255, 63, 0.1);
+  --color-ok:          #d4ff3f;
 
   /* Text */
-  --color-text-primary:   var(--color-ink);
-  --color-text-secondary: #57534a;
-  --color-text-muted:     #9c988c;
+  --color-text-primary:   #f5f5f5;
+  --color-text-secondary: #a1a1a1;
+  --color-text-muted:     #6b6b6b;
 
   /* Legacy aliases (kept so shared vars resolve everywhere) */
-  --color-bg-elevated:  var(--color-surface);
+  --color-bg-elevated:  var(--color-raised);
   --color-bg-card:      var(--color-surface);
-  --color-border-hover: var(--color-border-strong);
+  --color-border-hover: var(--color-accent);
   --color-accent-1: var(--color-accent);
   --color-accent-2: var(--color-accent);
   --color-accent-3: var(--color-accent-ink);
   --color-cyan-1:   var(--color-accent);
   --color-cyan-2:   var(--color-accent-ink);
   --gradient-hero: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-ink) 100%);
-  --gradient-card: var(--color-surface);
-  --gradient-glow: radial-gradient(ellipse at center, rgba(79,70,229,0.06) 0%, transparent 70%);
+  --gradient-card: linear-gradient(180deg, var(--color-surface) 0%, var(--color-bg) 100%);
+  --gradient-glow: radial-gradient(ellipse at center, rgba(212, 255, 63, 0.14) 0%, transparent 70%);
 
-  /* Shadows */
-  --shadow-sm:   0 1px 2px rgba(26, 24, 21, 0.05);
-  --shadow-md:   0 8px 24px rgba(26, 24, 21, 0.08);
-  --shadow-lg:   0 20px 40px rgba(26, 24, 21, 0.1);
-  --shadow-hard: 5px 5px 0 var(--color-ink);
-  --shadow-hard-accent: 5px 5px 0 var(--color-accent);
+  /* Shadows & glow */
+  --shadow-sm:   0 1px 2px rgba(0, 0, 0, 0.6);
+  --shadow-md:   0 8px 30px rgba(0, 0, 0, 0.5);
+  --shadow-lg:   0 24px 60px rgba(0, 0, 0, 0.65);
+  --shadow-hard: 0 0 0 1px var(--color-border-strong);
+  --shadow-hard-accent: 0 0 0 1px var(--color-accent);
+  --glow-accent:      0 0 40px rgba(212, 255, 63, 0.28);
+  --glow-accent-soft: 0 0 24px rgba(212, 255, 63, 0.16);
 
   /* Typography */
-  --font-heading: 'Space Grotesk', sans-serif;
+  --font-heading: 'Archivo', sans-serif;
+  --font-display: 'Archivo', sans-serif;
   --font-body:    'Inter', sans-serif;
-  --font-mono:    'Space Mono', monospace;
+  --font-mono:    'JetBrains Mono', monospace;
 
   /* Spacing */
-  --section-padding: clamp(72px, 9vw, 128px);
-  --container-max:   1160px;
+  --section-padding: clamp(88px, 11vw, 168px);
+  --container-max:   1280px;
 
-  /* Radius — sharp, editorial */
-  --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 10px;
+  /* Radius — soft, product-like */
+  --radius-sm:   8px;
+  --radius-md:   16px;
+  --radius-lg:   28px;
+  --radius-pill: 999px;
 
   /* Transitions */
-  --transition-fast:   150ms ease;
-  --transition-normal: 300ms ease;
-  --transition-slow:   500ms ease;
+  --transition-fast:   180ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 340ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow:   620ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ── Reset ── */
@@ -73,10 +81,14 @@
 }
 
 html {
-  scroll-behavior: smooth;
   scrollbar-width: thin;
-  scrollbar-color: var(--color-ink) transparent;
+  scrollbar-color: var(--color-border-strong) transparent;
 }
+
+/* Lenis drives scrolling; native smooth-scroll would fight it. */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
 
 body {
   background-color: var(--color-bg);
@@ -85,6 +97,7 @@ body {
   font-size: 16px;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 a {
@@ -97,12 +110,23 @@ img {
   display: block;
 }
 
+/* Film grain — keeps large flat dark areas from banding. */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
 /* ── Layout Utilities ── */
 .container {
   width: 100%;
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: 0 clamp(16px, 5vw, 48px);
+  padding: 0 clamp(20px, 5vw, 56px);
 }
 
 .section {
@@ -112,32 +136,65 @@ img {
 /* ── Typography ── */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
-  line-height: 1.15;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -0.035em;
 }
 
-/* Mono label: "01 — Proyectos" style markers */
+/* Mono label: "01 / PROYECTOS" style markers */
 .mono-label {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-accent);
 }
 
-/* Accent text (replaces old gradient treatment, class kept for markup compat) */
+/* Accent text (class kept for markup compat) */
 .gradient-text {
   background: none;
   -webkit-text-fill-color: currentColor;
   color: var(--color-accent);
 }
 
+/* Ghost display type — the oversized translucent layer behind hero content */
+.ghost-type {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: -0.06em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(245, 245, 245, 0.07);
+  -webkit-user-select: none;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Pill chip used for tags/badges across the site */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  color: var(--color-text-secondary);
+  transition: border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.chip:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
 /* ── Page Transition ── */
 .page-enter-active,
 .page-leave-active {
-  transition: opacity 0.35s ease, transform 0.35s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 .page-enter-from {
   opacity: 0;
@@ -149,12 +206,22 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ── Scrollbar ── */
-::-webkit-scrollbar         { width: 6px; }
-::-webkit-scrollbar-track   { background: transparent; }
-::-webkit-scrollbar-thumb   { background: var(--color-ink); border-radius: 3px; }
+::-webkit-scrollbar         { width: 8px; }
+::-webkit-scrollbar-track   { background: var(--color-bg); }
+::-webkit-scrollbar-thumb   { background: var(--color-border-strong); border-radius: var(--radius-pill); }
+::-webkit-scrollbar-thumb:hover { background: var(--color-accent); }
 
 /* ── Selection ── */
 ::selection {
   background: var(--color-accent);
-  color: #ffffff;
+  color: #0a0a0a;
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

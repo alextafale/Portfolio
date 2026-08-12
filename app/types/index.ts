@@ -11,6 +11,12 @@ export interface Project {
   longDescription?: Localized
   tags: string[]
   features?: Localized<string[]>
+  /**
+   * Landscape (16:10) card image. Mobile projects render `images` inside phone
+   * frames on the detail page, so those must stay raw portrait screenshots —
+   * `cover` is what the listing cards show instead.
+   */
+  cover?: string
   images?: string[]
   svgVector?: string
   githubUrl: string
@@ -25,6 +31,8 @@ export interface StackItem {
   icon: string
   level: 'beginner' | 'intermediate' | 'advanced' | 'expert'
   color: string
+  /** Surfaced in the "what I reach for daily" band at the top of the stack page. */
+  daily?: boolean
 }
 
 export interface Experience {
