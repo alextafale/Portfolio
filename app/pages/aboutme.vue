@@ -82,6 +82,17 @@
           </div>
         </div>
       </div>
+
+      <!-- Closing band: the products behind the timeline above. -->
+      <section class="about__built">
+        <SectionTitle :eyebrow="$t('about.built.eyebrow')" centered>
+          {{ $t('about.built.title') }}
+        </SectionTitle>
+
+        <ClientOnly>
+          <PhoneCarousel :shots="builtShots" />
+        </ClientOnly>
+      </section>
     </div>
   </div>
 </template>
@@ -100,6 +111,16 @@ const timelineRef = ref<HTMLElement | null>(null)
 const nameRef = ref<HTMLElement | null>(null)
 const roleStaticRef = ref<HTMLElement | null>(null)
 const bioTextRef = ref<HTMLElement | null>(null)
+
+// Kivo is the only project with real portrait phone captures; the wider
+// mockups would be cropped to nothing inside a device frame.
+const builtShots = [
+  { src: '/images/kivo/cliente-inicio.jpeg', alt: 'Kivo — inicio de cliente' },
+  { src: '/images/kivo/kivobot.jpeg', alt: 'Kivo — KivoBot' },
+  { src: '/images/kivo/cliente-pedidos.jpeg', alt: 'Kivo — pedidos' },
+  { src: '/images/kivo/negocio-perfil.jpeg', alt: 'Kivo — panel de negocio' },
+  { src: '/images/kivo/kivosos.jpeg', alt: 'Kivo — KivoSOS' },
+]
 
 const { initGsap, scrollStagger, animateTextReveal, blurFadeIn } = useAnimations()
 
@@ -288,6 +309,13 @@ onMounted(async () => {
   margin-bottom: 32px;
   padding-bottom: 14px;
   border-bottom: 1px solid var(--color-border);
+}
+
+/* Closing product band */
+.about__built {
+  margin-top: clamp(64px, 9vw, 120px);
+  padding-top: clamp(48px, 6vw, 80px);
+  border-top: 1px solid var(--color-border);
 }
 
 /* Responsive */

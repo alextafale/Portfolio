@@ -43,6 +43,10 @@
     },
     "timeline": {
       "title": "Experience, Education & Certifications"
+    },
+    "built": {
+      "eyebrow": "Product",
+      "title": "What I've built"
     }
   },
   "projects": {
