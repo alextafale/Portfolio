@@ -1,5 +1,11 @@
 <template>
   <header class="page-header">
+    <!-- WebGL backdrop, supplied per page. Client-only: these scenes need a
+         real canvas and would fail during SSR. -->
+    <ClientOnly>
+      <slot name="backdrop" />
+    </ClientOnly>
+
     <span v-if="ghost" class="page-header__ghost ghost-type" aria-hidden="true">{{ ghost }}</span>
 
     <div class="container page-header__inner">
@@ -50,6 +56,8 @@ onMounted(async () => {
   padding-top: clamp(128px, 17vh, 192px);
   padding-bottom: clamp(40px, 6vw, 72px);
   overflow: hidden;
+  /* Gives the backdrop scenes room to read on pages with short headers. */
+  min-height: clamp(340px, 46vh, 520px);
 }
 
 .page-header__ghost {
