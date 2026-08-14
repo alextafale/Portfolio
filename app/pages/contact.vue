@@ -5,6 +5,9 @@
       :subtitle="$t('contact.subtitle')"
       ghost="SAY HI"
     >
+      <template #backdrop>
+        <WireTerrain />
+      </template>
       {{ $t('contact.title') }}
     </PageHeader>
 

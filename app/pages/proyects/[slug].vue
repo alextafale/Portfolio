@@ -2,6 +2,10 @@
   <div v-if="project" class="project-detail">
     <!-- Header/Hero section for the project -->
     <header class="project-header" ref="headerRef" @mouseenter="onHover(true)" @mouseleave="onHover(false)">
+      <ClientOnly>
+        <ParticleField :count="220" />
+      </ClientOnly>
+
       <div class="container project-header__inner">
         <NuxtLink :to="localePath('/proyects')" class="back-link">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">

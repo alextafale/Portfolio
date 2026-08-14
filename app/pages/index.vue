@@ -87,6 +87,7 @@
           </NuxtLink>
         </div>
 
+        <ScrollTilt>
         <div class="featured__grid">
           <NuxtLink
             v-for="(project, i) in featuredProjects"
@@ -131,6 +132,7 @@
             </svg>
           </NuxtLink>
         </div>
+        </ScrollTilt>
       </div>
     </section>
 
@@ -145,17 +147,19 @@
         </SectionTitle>
 
         <div class="ai__grid">
-          <article v-for="(item, i) in aiWorkflow" :key="item.id" class="ai__card">
-            <header class="ai__card-head">
-              <div class="ai__card-icon" aria-hidden="true" v-html="item.icon" />
-              <span class="ai__card-num mono-label">0{{ i + 1 }}</span>
-            </header>
-            <h3 class="ai__card-title">{{ item.title[locale as 'en' | 'es'] }}</h3>
-            <p class="ai__card-desc">{{ item.description[locale as 'en' | 'es'] }}</p>
-            <div class="ai__card-tools">
-              <span v-for="tool in item.tools" :key="tool" class="ai__tool">{{ tool }}</span>
-            </div>
-          </article>
+          <SpotlightCard v-for="(item, i) in aiWorkflow" :key="item.id" class="ai__card">
+            <article class="ai__card-body">
+              <header class="ai__card-head">
+                <div class="ai__card-icon" aria-hidden="true" v-html="item.icon" />
+                <span class="ai__card-num mono-label">0{{ i + 1 }}</span>
+              </header>
+              <h3 class="ai__card-title">{{ item.title[locale as 'en' | 'es'] }}</h3>
+              <p class="ai__card-desc">{{ item.description[locale as 'en' | 'es'] }}</p>
+              <div class="ai__card-tools">
+                <span v-for="tool in item.tools" :key="tool" class="ai__tool">{{ tool }}</span>
+              </div>
+            </article>
+          </SpotlightCard>
         </div>
       </div>
     </section>
@@ -656,19 +660,17 @@ onMounted(async () => {
   gap: 20px;
 }
 
+/* SpotlightCard supplies the surface, border and radius; this only sets the
+   card's box model within the grid. */
 .ai__card {
-  display: flex;
-  flex-direction: column;
-  padding: 30px;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  transition: border-color var(--transition-fast), background var(--transition-fast);
 }
 
-.ai__card:hover {
-  border-color: var(--color-border-strong);
-  background: var(--color-raised);
+.ai__card-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 30px;
 }
 
 .ai__card-head {

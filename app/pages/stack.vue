@@ -5,6 +5,11 @@
       :subtitle="$t('stack.subtitle')"
       ghost="TOOLS"
     >
+      <template #backdrop>
+        <div class="stack__orb-holder">
+          <TechOrb />
+        </div>
+      </template>
       {{ $t('stack.title') }}
     </PageHeader>
 
@@ -77,6 +82,23 @@ onMounted(async () => {
 <style scoped>
 .stack__body {
   padding-bottom: var(--section-padding);
+}
+
+/* The orb sits to the right of the heading rather than under it. */
+.stack__orb-holder {
+  position: absolute;
+  top: 0;
+  right: -4%;
+  width: 52%;
+  height: 100%;
+}
+
+@media (max-width: 900px) {
+  .stack__orb-holder {
+    right: 0;
+    width: 100%;
+    opacity: 0.4;
+  }
 }
 
 .stack__category {

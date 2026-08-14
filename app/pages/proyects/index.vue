@@ -5,6 +5,9 @@
       :subtitle="$t('projects.subtitle')"
       ghost="WORK"
     >
+      <template #backdrop>
+        <ParticleField :count="320" />
+      </template>
       {{ $t('projects.title') }}
     </PageHeader>
 
