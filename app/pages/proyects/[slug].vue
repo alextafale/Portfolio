@@ -103,11 +103,14 @@
           :shots="project.images.map((src, idx) => ({ src, alt: `${project.title} screenshot ${idx + 1}` }))"
         />
 
-        <div v-else class="gallery-grid">
-          <div v-for="(img, idx) in project.images" :key="'img-' + idx" class="gallery-item">
-            <img :src="img" :alt="`${project.title} screenshot ${idx + 1}`" />
-          </div>
-        </div>
+        <LaptopCarousel
+          v-else
+          :shots="project.images.map((src, idx) => ({
+            src,
+            alt: `${project.title} screenshot ${idx + 1}`,
+            url: liveHost,
+          }))"
+        />
       </section>
     </main>
   </div>
@@ -128,6 +131,16 @@ const { locale } = useI18n()
 const localePath = useLocalePath()
 
 const project = computed(() => projects.find(p => p.slug === route.params.slug))
+
+// Shown in the laptop chrome's address field, when the project is deployed.
+const liveHost = computed(() => {
+  if (!project.value?.liveUrl) return ''
+  try {
+    return new URL(project.value.liveUrl).host
+  } catch {
+    return ''
+  }
+})
 
 const isMobileProject = computed(() => {
   if (!project.value) return false

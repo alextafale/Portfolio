@@ -32,7 +32,11 @@ export const projects: Project[] = [
     </svg>`,
     cover: '/images/mockups/tendero-hero.png',
     images: [
-      '/images/mockups/tendero-hero.png',
+      '/images/tendero/inicio.jpg',
+      '/images/tendero/pos.jpg',
+      '/images/tendero/funciones.jpg',
+      '/images/tendero/panel.jpg',
+      '/images/tendero/onboarding.jpg',
     ],
     liveUrl: 'https://tendero.shop',
     featured: true,
