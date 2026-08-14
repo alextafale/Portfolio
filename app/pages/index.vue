@@ -2,13 +2,9 @@
   <div class="home">
     <!-- ── Hero ── -->
     <section class="hero">
-      <div class="hero__scene-holder">
-        <ClientOnly>
-          <HeroScene />
-        </ClientOnly>
-      </div>
-
-      <span class="hero__ghost ghost-type" ref="ghostRef" aria-hidden="true">DEV</span>
+      <ClientOnly>
+        <HeroVideo />
+      </ClientOnly>
 
       <div class="container hero__inner">
         <div class="hero__content">
@@ -138,7 +134,14 @@
 
     <!-- ── AI workflow ── -->
     <section class="ai section">
-      <div class="container">
+      <!-- The hero's 3D scene lives here now that video carries the hero. -->
+      <ClientOnly>
+        <div class="ai__scene-holder">
+          <HeroScene />
+        </div>
+      </ClientOnly>
+
+      <div class="container ai__inner">
         <SectionTitle
           :eyebrow="`02 / ${$t('home.ai.eyebrow')}`"
           :subtitle="$t('home.ai.subtitle')"
@@ -178,7 +181,6 @@ const localePath = useLocalePath()
 
 definePageMeta({ layout: 'default' })
 
-const ghostRef = ref<HTMLElement | null>(null)
 const statusRef = ref<HTMLElement | null>(null)
 const headingRef = ref<HTMLElement | null>(null)
 const roleRef = ref<HTMLElement | null>(null)
@@ -188,7 +190,7 @@ const heroTechs = ['TypeScript', 'Vue.js', 'Nuxt', 'React Native', 'FastAPI', 'S
 
 const featuredProjects = computed(() => projects.filter(p => p.featured))
 
-const { initGsap, magneticEffect, charReveal, typewriterEffect, blurFadeIn, scrollStagger, parallax } = useAnimations()
+const { initGsap, magneticEffect, charReveal, typewriterEffect, blurFadeIn, scrollStagger } = useAnimations()
 
 onMounted(async () => {
   const { gsap } = await initGsap()
@@ -209,8 +211,6 @@ onMounted(async () => {
 
   if (bioRef.value) blurFadeIn(bioRef.value, { delay: 1.25 })
 
-  if (ghostRef.value) parallax(ghostRef.value, { distance: 160, trigger: '.hero' })
-
   scrollStagger('.stats__item', { y: 28, stagger: 0.1 })
   scrollStagger('.featured__card', { y: 40, stagger: 0.14 })
   scrollStagger('.ai__card', { y: 30, stagger: 0.1 })
@@ -230,29 +230,6 @@ onMounted(async () => {
   align-items: center;
   overflow: hidden;
   padding-top: 96px;
-}
-
-/* The 3D object owns the right side so it never sits under the headline. */
-.hero__scene-holder {
-  position: absolute;
-  top: 0;
-  right: -6%;
-  width: 60%;
-  height: 100%;
-  z-index: 1;
-}
-
-/* Oversized outline word sitting behind the headline, drifting on scroll. */
-.hero__ghost {
-  position: absolute;
-  /* Sits behind the headline rather than the body copy — the outline strokes
-     cut through paragraph text and hurt readability. */
-  top: 40%;
-  left: 0;
-  transform: translate(-4%, -50%);
-  font-size: clamp(9rem, 23vw, 23rem);
-  line-height: 1;
-  z-index: 0;
 }
 
 .hero__inner {
@@ -651,7 +628,29 @@ onMounted(async () => {
 
 /* ── AI workflow ── */
 .ai {
+  position: relative;
   border-top: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+.ai__scene-holder {
+  position: absolute;
+  top: -6%;
+  right: -14%;
+  width: 58%;
+  height: 82%;
+  z-index: 0;
+  opacity: 0.55;
+}
+
+.ai__inner {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 1100px) {
+  /* Behind the card grid at this width it only adds noise. */
+  .ai__scene-holder { display: none; }
 }
 
 .ai__grid {
@@ -738,13 +737,6 @@ onMounted(async () => {
     min-height: auto;
     padding-top: 128px;
     padding-bottom: 96px;
-  }
-
-  /* No room for a side-by-side split — the scene becomes a backdrop. */
-  .hero__scene-holder {
-    right: 0;
-    width: 100%;
-    opacity: 0.45;
   }
 
   .hero__scroll { display: none; }
