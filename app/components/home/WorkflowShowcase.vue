@@ -3,26 +3,19 @@
     <!-- Pinned column: stays put while the steps beside it scroll past. -->
     <aside class="showcase__pinned" aria-hidden="true">
       <div class="showcase__panel">
-        <span class="showcase__index">{{ padded(active + 1) }}</span>
+        <WorkflowVisual :active="active" class="showcase__device" />
 
-        <div class="showcase__stage">
-          <div
-            v-for="(item, i) in items"
-            :key="item.id"
-            class="showcase__art"
-            :class="{ 'showcase__art--on': i === active }"
-          >
-            <div class="showcase__icon" v-html="item.icon" />
+        <div class="showcase__meta">
+          <span class="showcase__index">{{ padded(active + 1) }}</span>
+
+          <div class="showcase__rail">
+            <span
+              v-for="(item, i) in items"
+              :key="`rail-${item.id}`"
+              class="showcase__tick"
+              :class="{ 'showcase__tick--on': i === active }"
+            />
           </div>
-        </div>
-
-        <div class="showcase__rail">
-          <span
-            v-for="(item, i) in items"
-            :key="`rail-${item.id}`"
-            class="showcase__tick"
-            :class="{ 'showcase__tick--on': i === active }"
-          />
         </div>
       </div>
     </aside>
@@ -134,56 +127,29 @@ onBeforeUnmount(() => {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 26px;
+  align-items: center;
 }
 
 .showcase__index {
   font-family: var(--font-display);
-  font-size: clamp(5rem, 13vw, 11rem);
+  font-size: clamp(2.4rem, 4.4vw, 3.6rem);
   font-weight: 900;
   line-height: 0.82;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.05em;
   color: transparent;
-  -webkit-text-stroke: 1.5px rgba(212, 255, 63, 0.55);
+  -webkit-text-stroke: 1.2px rgba(212, 255, 63, 0.6);
 }
 
-/* Fixed-height stage so swapping artwork never reflows the panel. */
-.showcase__stage {
-  position: relative;
-  height: clamp(140px, 20vw, 200px);
+/* The pinned visual: swaps to the active step's animated panel. */
+.showcase__device {
+  width: min(100%, 380px);
 }
 
-.showcase__art {
-  position: absolute;
-  inset: 0;
+.showcase__meta {
   display: flex;
   align-items: center;
-  opacity: 0;
-  transform: translateY(14px) scale(0.96);
-  transition:
-    opacity var(--transition-normal),
-    transform var(--transition-normal);
-}
-
-.showcase__art--on {
-  opacity: 1;
-  transform: none;
-}
-
-.showcase__icon {
-  width: clamp(96px, 13vw, 132px);
-  height: clamp(96px, 13vw, 132px);
-  padding: 22px;
-  border-radius: var(--radius-lg);
-  background: var(--color-accent-soft);
-  border: 1px solid var(--color-border);
-  color: var(--color-accent);
-  box-shadow: var(--glow-accent-soft);
-}
-
-.showcase__icon :deep(svg) {
-  width: 100%;
-  height: 100%;
+  gap: 20px;
 }
 
 .showcase__rail {
@@ -334,6 +300,5 @@ onBeforeUnmount(() => {
     transform: none;
     transition: none;
   }
-  .showcase__art { transition: none; }
 }
 </style>
