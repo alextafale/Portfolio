@@ -149,21 +149,7 @@
           {{ $t('home.ai.title') }}
         </SectionTitle>
 
-        <div class="ai__grid">
-          <SpotlightCard v-for="(item, i) in aiWorkflow" :key="item.id" class="ai__card">
-            <article class="ai__card-body">
-              <header class="ai__card-head">
-                <div class="ai__card-icon" aria-hidden="true" v-html="item.icon" />
-                <span class="ai__card-num mono-label">0{{ i + 1 }}</span>
-              </header>
-              <h3 class="ai__card-title">{{ item.title[locale as 'en' | 'es'] }}</h3>
-              <p class="ai__card-desc">{{ item.description[locale as 'en' | 'es'] }}</p>
-              <div class="ai__card-tools">
-                <span v-for="tool in item.tools" :key="tool" class="ai__tool">{{ tool }}</span>
-              </div>
-            </article>
-          </SpotlightCard>
-        </div>
+        <WorkflowShowcase :items="aiWorkflow" :locale="locale as 'en' | 'es'" />
       </div>
     </section>
   </div>
@@ -213,7 +199,6 @@ onMounted(async () => {
 
   scrollStagger('.stats__item', { y: 28, stagger: 0.1 })
   scrollStagger('.featured__card', { y: 40, stagger: 0.14 })
-  scrollStagger('.ai__card', { y: 30, stagger: 0.1 })
 
   document
     .querySelectorAll<HTMLElement>('.hero__actions .app-btn')
@@ -630,17 +615,21 @@ onMounted(async () => {
 .ai {
   position: relative;
   border-top: 1px solid var(--color-border);
-  overflow: hidden;
+  /* No `overflow: hidden` here: it makes this element a scroll container,
+     which silently disables the showcase's `position: sticky` panel. The
+     backdrop's negative offset is already clipped by `overflow-x` on body. */
 }
 
 .ai__scene-holder {
   position: absolute;
-  top: -6%;
-  right: -14%;
-  width: 58%;
-  height: 82%;
+  top: 0;
+  right: -8%;
+  /* Height-capped to the section header: below it sits the showcase's text
+     column, which the scene would render unreadable. */
+  width: 50%;
+  height: 640px;
   z-index: 0;
-  opacity: 0.55;
+  opacity: 0.5;
 }
 
 .ai__inner {
@@ -651,84 +640,6 @@ onMounted(async () => {
 @media (max-width: 1100px) {
   /* Behind the card grid at this width it only adds noise. */
   .ai__scene-holder { display: none; }
-}
-
-.ai__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 20px;
-}
-
-/* SpotlightCard supplies the surface, border and radius; this only sets the
-   card's box model within the grid. */
-.ai__card {
-  border-radius: var(--radius-md);
-}
-
-.ai__card-body {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  padding: 30px;
-}
-
-.ai__card-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.ai__card-icon {
-  width: 46px;
-  height: 46px;
-  padding: 11px;
-  border-radius: var(--radius-sm);
-  background: var(--color-accent-soft);
-  border: 1px solid var(--color-border);
-  color: var(--color-accent);
-}
-
-.ai__card-icon :deep(svg) {
-  width: 100%;
-  height: 100%;
-}
-
-.ai__card-num {
-  color: var(--color-text-muted);
-}
-
-.ai__card-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--color-ink);
-  margin-bottom: 12px;
-}
-
-.ai__card-desc {
-  flex: 1;
-  font-size: 0.88rem;
-  color: var(--color-text-secondary);
-  line-height: 1.7;
-  margin-bottom: 20px;
-}
-
-.ai__card-tools {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-  padding-top: 16px;
-  border-top: 1px solid var(--color-border);
-}
-
-.ai__tool {
-  padding: 3px 10px;
-  border-radius: var(--radius-pill);
-  font-family: var(--font-mono);
-  font-size: 0.64rem;
-  color: var(--color-accent);
-  background: var(--color-accent-soft);
 }
 
 /* ── Responsive ── */
