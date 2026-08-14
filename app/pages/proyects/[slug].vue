@@ -96,20 +96,17 @@
       <section v-if="project.images?.length" class="project-gallery section" ref="galleryRef">
         <h2 class="section-title-sm" style="text-align: center; margin-bottom: 60px;">{{ $t('projects.detail.showcase') }}</h2>
         
-        <div class="gallery-grid" :class="{ 'gallery-grid--3d': isMobileProject }">
-          <template v-if="isMobileProject">
-            <PhoneMockup 
-              v-for="(img, idx) in project.images" 
-              :key="'phone-'+idx" 
-              :src="img" 
-              :alt="`${project.title} screenshot ${idx + 1}`"
-            />
-          </template>
-          <template v-else>
-            <div v-for="(img, idx) in project.images" :key="'img-'+idx" class="gallery-item">
-              <img :src="img" :alt="`${project.title} screenshot ${idx + 1}`" />
-            </div>
-          </template>
+        <!-- Mobile projects get one carousel of device mockups rather than a
+             grid of separate frames. -->
+        <PhoneCarousel
+          v-if="isMobileProject"
+          :shots="project.images.map((src, idx) => ({ src, alt: `${project.title} screenshot ${idx + 1}` }))"
+        />
+
+        <div v-else class="gallery-grid">
+          <div v-for="(img, idx) in project.images" :key="'img-' + idx" class="gallery-item">
+            <img :src="img" :alt="`${project.title} screenshot ${idx + 1}`" />
+          </div>
         </div>
       </section>
     </main>

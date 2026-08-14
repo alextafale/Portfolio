@@ -2,9 +2,8 @@
   <div class="home">
     <!-- ── Hero ── -->
     <section class="hero">
-      <ClientOnly>
-        <HeroVideo />
-      </ClientOnly>
+      <ImageStream class="hero__stream" :images="streamImages" :speed="20" :axis="52" />
+      <span class="hero__scrim" aria-hidden="true" />
 
       <div class="container hero__inner">
         <div class="hero__content">
@@ -134,7 +133,7 @@
 
     <!-- ── AI workflow ── -->
     <section class="ai section">
-      <!-- The hero's 3D scene lives here now that video carries the hero. -->
+      <!-- The 3D scene lives here now that the hero runs the image corridor. -->
       <ClientOnly>
         <div class="ai__scene-holder">
           <HeroScene />
@@ -173,6 +172,20 @@ const roleRef = ref<HTMLElement | null>(null)
 const bioRef = ref<HTMLElement | null>(null)
 
 const heroTechs = ['TypeScript', 'Vue.js', 'Nuxt', 'React Native', 'FastAPI', 'Supabase', 'Claude API', 'MCP']
+
+// The corridor's cards are portrait, so the phone screenshots read best; the
+// wider mockups are interleaved to break up the rhythm.
+const streamImages = [
+  { src: '/images/kivo/cliente-inicio.jpeg' },
+  { src: '/images/mockups/micompli-hero.png' },
+  { src: '/images/kivo/kivobot.jpeg' },
+  { src: '/images/mockups/projectschool.png' },
+  { src: '/images/kivo/negocio-perfil.jpeg' },
+  { src: '/images/mockups/kivo-hero.png' },
+  { src: '/images/kivo/cliente-pedidos.jpeg' },
+  { src: '/images/mockups/quicksale.png' },
+  { src: '/images/kivo/kivosos.jpeg' },
+]
 
 const featuredProjects = computed(() => projects.filter(p => p.featured))
 
@@ -215,6 +228,41 @@ onMounted(async () => {
   align-items: center;
   overflow: hidden;
   padding-top: 96px;
+}
+
+/* The corridor sits behind everything; the component is relative by default. */
+.hero__stream {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* Weighted to the left, where the headline and body copy sit. The component's
+   own veil is radial and symmetric, which is not enough to keep a paragraph
+   readable with cards rushing straight through it. */
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      to right,
+      var(--color-bg) 0%,
+      rgba(10, 10, 10, 0.94) 30%,
+      rgba(10, 10, 10, 0.62) 54%,
+      rgba(10, 10, 10, 0.3) 100%
+    ),
+    linear-gradient(to bottom, rgba(10, 10, 10, 0.8) 0%, transparent 24%, rgba(10, 10, 10, 0.85) 100%);
+}
+
+@media (max-width: 900px) {
+  /* Copy spans the full width here, so the scrim has to as well. */
+  .hero__scrim {
+    background:
+      linear-gradient(to right, var(--color-bg) 0%, rgba(10, 10, 10, 0.82) 62%, rgba(10, 10, 10, 0.76) 100%),
+      linear-gradient(to bottom, rgba(10, 10, 10, 0.82) 0%, transparent 28%, rgba(10, 10, 10, 0.9) 100%);
+  }
 }
 
 .hero__inner {
