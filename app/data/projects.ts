@@ -2,6 +2,43 @@ import type { Project } from '~/types'
 
 export const projects: Project[] = [
   {
+    id: 0,
+    slug: 'tendero',
+    title: 'Tendero',
+    description: {
+      en: 'SaaS point-of-sale with inventory, reports and an AI assistant, built for Mexican corner shops.',
+      es: 'Punto de venta SaaS con inventario, reportes y asistente IA, hecho para tiendas mexicanas.'
+    },
+    longDescription: {
+      en: 'Tendero is my own SaaS product: a point-of-sale system for small Mexican retailers — grocery shops, stationers, hardware stores — bundling sales, inventory, reporting and an AI assistant into one tool. It runs on Next.js deployed to Vercel, and ships with a 30-day free trial that needs no card and no contract.',
+      es: 'Tendero es mi producto SaaS propio: un sistema de punto de venta para comercios pequeños en México — abarrotes, papelerías, ferreterías — que reúne ventas, inventario, reportes y un asistente IA en una sola herramienta. Corre sobre Next.js desplegado en Vercel, y ofrece 30 días de prueba sin tarjeta y sin contrato.'
+    },
+    tags: ['Next.js', 'React', 'TypeScript', 'Vercel', 'AI', 'SaaS'],
+    features: {
+      en: ['Point of sale', 'Inventory control', 'Sales reporting', 'Built-in AI assistant', '30-day free trial'],
+      es: ['Punto de venta', 'Control de inventario', 'Reportes de ventas', 'Asistente IA integrado', '30 días de prueba gratis']
+    },
+    svgVector: `<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2">
+      <!-- Storefront awning -->
+      <path d="M18 38 L24 24 h52 l6 14 Z" class="anim-shape-1" stroke-linejoin="round" />
+      <path d="M18 38 h64" class="anim-shape-2" />
+      <!-- Shop body -->
+      <path d="M24 38 v38 h52 v-38" class="anim-shape-1" />
+      <!-- Counter / till -->
+      <rect x="36" y="54" width="28" height="16" rx="2" class="anim-shape-3" />
+      <path d="M42 62 h16" class="anim-shape-4" />
+      <!-- AI spark -->
+      <path d="M68 46 l2.5 5 5 2.5 -5 2.5 -2.5 5 -2.5 -5 -5 -2.5 5 -2.5 Z" class="anim-shape-5" fill="currentColor" stroke="none" />
+    </svg>`,
+    cover: '/images/mockups/tendero-hero.png',
+    images: [
+      '/images/mockups/tendero-hero.png',
+    ],
+    liveUrl: 'https://tendero.shop',
+    featured: true,
+    year: '2026',
+  },
+  {
     id: 1,
     slug: 'kivo',
     title: 'Kivo',

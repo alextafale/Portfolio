@@ -125,18 +125,21 @@ const railLeft = `ish-l-${uid}`
 
 const path = computed<Required<CorridorPath>>(() => ({ ...DEFAULT_PATH, ...props.path }))
 
+/** The corridor path at progress `u`, as a CSS transform. */
+function transformAt(dir: 1 | -1, u: number, p: Required<CorridorPath>) {
+  const scale = (p.birthHeight / p.cardHeight) * Math.pow(p.exitHeight / p.birthHeight, u)
+  const z = p.perspective * (1 - 1 / scale)
+  const rail = p.railExit - (p.railExit - p.railBirth) * Math.pow(1 - u, p.fan)
+  const turn = p.turnBirth + (p.turnExit - p.turnBirth) * u
+  return `translate3d(${(dir * rail).toFixed(2)}cqw,0,${z.toFixed(2)}cqw) rotateY(${(-dir * turn).toFixed(2)}deg)`
+}
+
 /** Sample the path once so the CSS keyframes trace the real curve. */
 function keyframes(dir: 1 | -1, name: string, p: Required<CorridorPath>) {
   const steps: string[] = []
   for (let s = 0; s <= p.stops; s++) {
     const u = s / p.stops
-    const scale = (p.birthHeight / p.cardHeight) * Math.pow(p.exitHeight / p.birthHeight, u)
-    const z = p.perspective * (1 - 1 / scale)
-    const rail = p.railExit - (p.railExit - p.railBirth) * Math.pow(1 - u, p.fan)
-    const turn = p.turnBirth + (p.turnExit - p.turnBirth) * u
-    steps.push(
-      `${(u * 100).toFixed(2)}%{transform:translate3d(${(dir * rail).toFixed(2)}cqw,0,${z.toFixed(2)}cqw) rotateY(${(-dir * turn).toFixed(2)}deg)}`,
-    )
+    steps.push(`${(u * 100).toFixed(2)}%{transform:${transformAt(dir, u, p)}}`)
   }
   return `@keyframes ${name}{${steps.join('')}}`
 }
@@ -167,14 +170,25 @@ const cards = computed(() => {
   const list: { key: string; src?: string; style: Record<string, string> }[] = []
 
   for (const name of [railRight, railLeft]) {
+    const dir: 1 | -1 = name === railRight ? 1 : -1
+
     for (let i = 0; i < props.count; i++) {
       // Both rails walk the same sequence, so the left mirrors the right at
       // every depth and the corridor reads as one stream.
       const img = props.images[i % Math.max(props.images.length, 1)]
+
+      // The negative delay below starts card `i` at this progress, so the same
+      // point on the path is also its resting transform. That matters when the
+      // animation never runs: under `prefers-reduced-motion` a global rule
+      // collapses every animation instantly, and without a base transform all
+      // the cards would revert to the same spot and stack into one slab.
+      const u = i / props.count
+
       list.push({
         key: `${name}-${i}`,
         src: img?.src,
         style: {
+          transform: transformAt(dir, u, p),
           left: '50%',
           top: `${props.axis}%`,
           width: `${p.cardWidth}cqw`,

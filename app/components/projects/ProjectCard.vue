@@ -54,6 +54,7 @@
 
       <footer class="project-card__footer">
         <a
+          v-if="project.githubUrl"
           :href="project.githubUrl"
           target="_blank"
           rel="noopener noreferrer"

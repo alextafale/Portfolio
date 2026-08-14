@@ -176,6 +176,7 @@ const heroTechs = ['TypeScript', 'Vue.js', 'Nuxt', 'React Native', 'FastAPI', 'S
 // The corridor's cards are portrait, so the phone screenshots read best; the
 // wider mockups are interleaved to break up the rhythm.
 const streamImages = [
+  { src: '/images/mockups/tendero-hero.png' },
   { src: '/images/kivo/cliente-inicio.jpeg' },
   { src: '/images/mockups/micompli-hero.png' },
   { src: '/images/kivo/kivobot.jpeg' },

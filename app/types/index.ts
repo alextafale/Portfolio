@@ -19,7 +19,8 @@ export interface Project {
   cover?: string
   images?: string[]
   svgVector?: string
-  githubUrl: string
+  /** Omitted for closed-source work. */
+  githubUrl?: string
   liveUrl?: string
   featured?: boolean
   year?: string
