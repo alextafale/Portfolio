@@ -3,59 +3,45 @@ export interface Localized<T = string> {
   es: T
 }
 
-export interface Project {
-  id: number
-  slug: string
-  title: string
-  description: Localized
-  longDescription?: Localized
-  tags: string[]
-  features?: Localized<string[]>
-  /**
-   * Landscape (16:10) card image. Mobile projects render `images` inside phone
-   * frames on the detail page, so those must stay raw portrait screenshots —
-   * `cover` is what the listing cards show instead.
-   */
-  cover?: string
-  images?: string[]
-  svgVector?: string
-  /** Omitted for closed-source work. */
-  githubUrl?: string
-  liveUrl?: string
-  featured?: boolean
-  year?: string
-}
-
-export interface StackItem {
-  name: string
-  category: 'frontend' | 'backend' | 'mobile' | 'database' | 'devops' | 'tools' | 'ai'
-  icon: string
-  level: 'beginner' | 'intermediate' | 'advanced' | 'expert'
-  color: string
-  /** Surfaced in the "what I reach for daily" band at the top of the stack page. */
-  daily?: boolean
-}
-
 export interface Experience {
-  id: number
-  type: 'work' | 'education' | 'certification'
-  title: Localized
   company: string
-  period: string
+  role: Localized
+  period: Localized
+  /** Logo tile: initials on `color`, or the company's own `logo` (inline SVG
+   *  on its own background). `color` also tints the work-section panel. */
+  mark: { text: string; color: string; logo?: { svg: string; background: string } }
+  /** Contract type and modality, e.g. "Part-time · Remote". */
+  summary?: Localized
+  /** What I do there, one or two sentences. */
+  description?: Localized
+  /** Concrete practices and results, shown as bullets on the work cards. */
+  highlights?: Localized<string[]>
+  /** Company website; `image` is a screenshot of it for the work section. */
+  site?: { url: string; image?: string }
+  /** Shorter labels for tight spots such as the hero corner. */
+  short?: { role?: Localized; company?: string }
+  current: boolean
+}
+
+export interface Capability {
+  title: Localized
   description: Localized
-  tags?: string[]
+  tech: string[]
+}
+
+export interface Skill {
+  name: string
+  /** Simple Icons slug in app/assets/tech; omitted when there is no logo. */
+  icon?: string
+}
+
+export interface Credential {
+  issuer: string
+  title: Localized
+  date: string
 }
 
 export interface SocialLink {
   name: string
   url: string
-  icon: string
-}
-
-export interface AiWorkflowItem {
-  id: number
-  icon: string
-  title: Localized
-  description: Localized
-  tools: string[]
 }

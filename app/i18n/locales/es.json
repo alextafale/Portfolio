@@ -1,138 +1,57 @@
 {
   "nav": {
     "home": "Inicio",
+    "work": "Trabajo",
     "about": "Sobre mí",
-    "projects": "Proyectos",
-    "stack": "Stack",
-    "contact": "Contacto"
+    "resume": "CV",
+    "language": "Cambiar idioma",
+    "main": "Navegación principal"
   },
-  "home": {
-    "hero": {
-      "greeting": "Hola, soy",
-      "status": "Disponible para trabajar",
-      "cta_projects": "Ver Proyectos",
-      "cta_contact": "Contactar",
-      "scroll": "Desliza"
-    },
-    "featured": {
-      "eyebrow": "Trabajo seleccionado",
-      "title": "Proyectos destacados",
-      "view_all": "Ver todos"
-    },
-    "ai": {
-      "eyebrow": "Flujo de trabajo",
-      "title": "Cómo integro la IA en mi flujo de trabajo",
-      "subtitle": "La IA no es un accesorio en mi proceso: es la base de cómo desarrollo software. Agentes de código, servidores MCP, subagentes y LLMs en producto — así se ve en la práctica."
-    }
+  "hero": {
+    "connect": "Conectemos",
+    "badge_label": "Gafete de {name}",
+    "verified": "Perfil verificado",
+    "drag": "Puedes arrastrar el gafete",
+    "today": "Hoy",
+    "stack": "Stack"
+  },
+  "work": {
+    "title": "Dónde trabajo hoy",
+    "visit": "Visitar el sitio de {name}",
+    "site_alt": "Sitio web de {name}"
   },
   "about": {
-    "headline": "Quién soy",
     "title": "Sobre mí",
-    "subtitle": "Un poco sobre mi trayectoria, habilidades y lo que me motiva.",
-    "info": {
-      "location": "Ubicación",
-      "status": "Estado",
-      "focus": "Enfoque",
-      "languages": "Idiomas",
-      "available": "Disponible",
-      "experience": "Experiencia",
-      "years": "años",
-      "year": "año",
-      "current_role": "Rol actual",
-      "software_factory": "Fábrica de Software · ITLP"
+    "cv": "Descargar CV",
+    "card": {
+      "now": "{n} roles activos",
+      "base": "Base",
+      "mode": "Modalidad",
+      "mode_value": "Remoto · Híbrido"
     },
-    "timeline": {
-      "title": "Experiencia, Educación y Certificaciones"
+    "facts": {
+      "roles": "Roles activos",
+      "certs": "Certificaciones",
+      "tech": "Tecnologías en mi stack"
     },
-    "built": {
-      "eyebrow": "Producto",
-      "title": "Lo que he construido"
-    }
-  },
-  "projects": {
-    "headline": "Mi Trabajo",
-    "title": "Proyectos",
-    "subtitle": "Una colección de proyectos que he construido.",
-    "filters": {
-      "all": "Todos"
-    },
-    "empty": "Ningún proyecto coincide con este filtro.",
-    "detail": {
-      "back": "Volver a Proyectos",
-      "overview": "Resumen",
-      "features": "Funcionalidades Clave",
-      "showcase": "Galería",
-      "tech": "Tecnologías",
-      "role": "Rol",
-      "year": "Año",
-      "repo": "Repositorio",
-      "live": "Demo en vivo"
-    }
-  },
-  "stack": {
-    "headline": "Herramientas",
-    "title": "Mi Stack",
-    "subtitle": "Tecnologías y herramientas con las que construyo experiencias full-stack web y móviles.",
-    "daily": "Lo que más uso"
-  },
-  "contact": {
-    "headline": "Hablemos",
-    "title": "Contacto",
-    "subtitle": "¿Tienes un proyecto en mente o solo quieres saludar? Me encantaría saber de ti.",
-    "form": {
-      "name": "Nombre",
-      "name_placeholder": "Tu nombre",
-      "email": "Email",
-      "email_placeholder": "tu{'@'}email.com",
-      "subject": "Asunto",
-      "subject_placeholder": "¿De qué se trata?",
-      "message": "Mensaje",
-      "message_placeholder": "Cuéntame sobre tu proyecto o idea...",
-      "send": "Enviar mensaje",
-      "sending": "Enviando…",
-      "sent": "¡Mensaje enviado! ✓"
-    },
-    "errors": {
-      "name": "El nombre es obligatorio.",
-      "email": "Se requiere un email válido.",
-      "message": "El mensaje debe tener al menos 10 caracteres.",
-      "send_failed": "Hubo un error al enviar tu mensaje. Por favor intenta más tarde.",
-      "network": "Fallo de red al intentar enviar. Revisa tu conexión."
-    },
-    "success": "¡Gracias por escribir! Te responderé pronto. 🚀",
-    "info": {
-      "title": "Construyamos algo grande",
-      "text": "Actualmente estoy abierto a proyectos freelance, colaboraciones y oportunidades de tiempo completo. No dudes en escribirme.",
-      "response_time": "Suelo responder en menos de 24 horas"
-    }
+    "past": "Experiencia previa",
+    "caps_title": "Qué hago",
+    "caps_note": "De la primera pantalla al despliegue, con IA donde de verdad aporta.",
+    "stack_title": "Tecnologías",
+    "stack_note": "Con lo que trabajo a diario, agrupado por área.",
+    "formation_title": "Formación",
+    "formation_note": "Ingeniería, experiencia previa, idiomas y certificaciones recientes.",
+    "education": "Educación",
+    "languages": "Idiomas",
+    "certifications": "Certificaciones",
+    "issued": "Emitidas en {years}"
   },
   "footer": {
-    "cta_eyebrow": "¿Tienes un proyecto en mente?",
-    "built_with": "Construido con Nuxt & Vue",
-    "activity": {
-      "last_commit": "Último commit"
-    }
-  },
-  "robot": {
-    "hint": "Haz click en mí 🤖",
-    "dismiss": "Ocultar robot",
-    "greeting": "¡Hola! Soy el copiloto IA de Alex. Te acompaño mientras exploras su portafolio 🤖",
-    "home": "Esta es la base. Baja para ver cómo Alex trabaja con IA todos los días.",
-    "featured": "Kivo y MiCompli: MVPs reales que Alex llevó de la idea a producción.",
-    "ai": "Mi parte favorita: Alex orquesta agentes como yo — Claude Code, servidores MCP y subagentes — en cada proyecto.",
-    "about": "Fábrica de software del ITLP + MVPs para startups. Aquí está su historia completa.",
-    "projects": "Puedes filtrar por tecnología. Cada proyecto tiene su página de detalle.",
-    "project_detail": "Buen ojo. Aquí está el detalle técnico de este proyecto.",
-    "stack": "Estas son sus herramientas. La categoría de IA es donde brillo yo ✨",
-    "contact": "¿Tienes un MVP en mente? Alex suele responder en menos de 24 horas.",
-    "click_0": "Beep boop. Código revisado y verificado ✅",
-    "click_1": "Yo hago el trabajo pesado; Alex pone el criterio y la arquitectura.",
-    "click_2": "¿Sabías? El chatbot de Kivo funciona con la API de Claude + FastAPI."
+    "contact": "Contacto"
   },
   "error": {
-    "title": "¿Te has perdido en el ciberespacio?",
-    "message": "La página que buscas ha sido movida a otra dimensión o simplemente no existe.",
-    "cta_home": "Llévame a Inicio",
-    "cta_projects": "Ver Proyectos"
+    "title": "Esta página no existe",
+    "message": "Puede que la dirección haya cambiado con el rediseño del sitio.",
+    "cta_home": "Volver al inicio"
   }
 }

@@ -1,19 +1,15 @@
 <template>
   <NuxtLayout>
-    <NuxtPage :transition="transitionProps" />
+    <NuxtPage />
   </NuxtLayout>
 </template>
 
 <script setup lang="ts">
-import { useAnimations } from '~/composables/useAnimations'
-
-const { pageTransition } = useAnimations()
-
-const transitionProps = {
-  name: 'custom-gsap',
-  mode: 'out-in' as const,
-  css: false,
-  onEnter: pageTransition.onEnter,
-  onLeave: pageTransition.onLeave
-}
+// Keeps <html lang> and hreflang alternates in sync with the active locale.
+const head = useLocaleHead()
+useHead(() => ({
+  htmlAttrs: { lang: head.value.htmlAttrs?.lang },
+  link: head.value.link,
+  meta: head.value.meta,
+}))
 </script>
