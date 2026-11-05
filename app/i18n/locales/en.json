@@ -1,138 +1,57 @@
 {
   "nav": {
     "home": "Home",
+    "work": "Work",
     "about": "About",
-    "projects": "Projects",
-    "stack": "Stack",
-    "contact": "Contact"
+    "resume": "Resume",
+    "language": "Change language",
+    "main": "Main navigation"
   },
-  "home": {
-    "hero": {
-      "greeting": "Hi, I'm",
-      "status": "Available for work",
-      "cta_projects": "View Projects",
-      "cta_contact": "Contact Me",
-      "scroll": "Scroll"
-    },
-    "featured": {
-      "eyebrow": "Selected work",
-      "title": "Featured projects",
-      "view_all": "View all"
-    },
-    "ai": {
-      "eyebrow": "Workflow",
-      "title": "How I integrate AI into my workflow",
-      "subtitle": "AI is not an accessory in my process: it's the foundation of how I build software. Coding agents, MCP servers, subagents and LLMs in production — this is what it looks like in practice."
-    }
+  "hero": {
+    "connect": "Let's connect",
+    "badge_label": "{name}'s badge",
+    "verified": "Verified profile",
+    "drag": "You can drag the badge",
+    "today": "Today",
+    "stack": "Stack"
+  },
+  "work": {
+    "title": "Where I work today",
+    "visit": "Visit {name}’s website",
+    "site_alt": "{name} website"
   },
   "about": {
-    "headline": "Who I am",
-    "title": "About Me",
-    "subtitle": "A little bit about my journey, skills and what drives me.",
-    "info": {
-      "location": "Location",
-      "status": "Status",
-      "focus": "Focus",
-      "languages": "Languages",
-      "available": "Available",
-      "experience": "Experience",
-      "years": "years",
-      "year": "year",
-      "current_role": "Current role",
-      "software_factory": "Software Factory · ITLP"
+    "title": "About me",
+    "cv": "Download CV",
+    "card": {
+      "now": "{n} active roles",
+      "base": "Base",
+      "mode": "Works",
+      "mode_value": "Remote · Hybrid"
     },
-    "timeline": {
-      "title": "Experience, Education & Certifications"
+    "facts": {
+      "roles": "Active roles",
+      "certs": "Certifications",
+      "tech": "Technologies in my stack"
     },
-    "built": {
-      "eyebrow": "Product",
-      "title": "What I've built"
-    }
-  },
-  "projects": {
-    "headline": "My Work",
-    "title": "Projects",
-    "subtitle": "A collection of projects I've built.",
-    "filters": {
-      "all": "All"
-    },
-    "empty": "No projects match this filter.",
-    "detail": {
-      "back": "Back to Projects",
-      "overview": "Overview",
-      "features": "Key Features",
-      "showcase": "Showcase",
-      "tech": "Tech Stack",
-      "role": "Role",
-      "year": "Year",
-      "repo": "Repository",
-      "live": "Live Demo"
-    }
-  },
-  "stack": {
-    "headline": "Tech Stack",
-    "title": "My Stack",
-    "subtitle": "Technologies and tools I use to build full-stack web and mobile experiences.",
-    "daily": "What I reach for daily"
-  },
-  "contact": {
-    "headline": "Get in touch",
-    "title": "Contact",
-    "subtitle": "Have a project in mind or just want to say hi? I'd love to hear from you.",
-    "form": {
-      "name": "Name",
-      "name_placeholder": "Your name",
-      "email": "Email",
-      "email_placeholder": "your{'@'}email.com",
-      "subject": "Subject",
-      "subject_placeholder": "What's it about?",
-      "message": "Message",
-      "message_placeholder": "Tell me about your project or idea...",
-      "send": "Send message",
-      "sending": "Sending…",
-      "sent": "Message sent! ✓"
-    },
-    "errors": {
-      "name": "Name is required.",
-      "email": "A valid email is required.",
-      "message": "Message must be at least 10 characters.",
-      "send_failed": "Something went wrong sending your message. Please try again later.",
-      "network": "Network error while sending. Check your connection."
-    },
-    "success": "Thanks for reaching out! I'll get back to you soon. 🚀",
-    "info": {
-      "title": "Let's build something great",
-      "text": "I'm currently open to freelance projects, collaborations and full-time opportunities. Don't hesitate to reach out.",
-      "response_time": "Usually responds within 24 hours"
-    }
+    "past": "Previous experience",
+    "caps_title": "What I do",
+    "caps_note": "From the first screen to deployment, with AI where it actually helps.",
+    "stack_title": "Technologies",
+    "stack_note": "What I work with every day, grouped by area.",
+    "formation_title": "Education",
+    "formation_note": "Engineering degree, previous experience, languages and recent certifications.",
+    "education": "Education",
+    "languages": "Languages",
+    "certifications": "Certifications",
+    "issued": "Issued in {years}"
   },
   "footer": {
-    "cta_eyebrow": "Got a project in mind?",
-    "built_with": "Built with Nuxt & Vue",
-    "activity": {
-      "last_commit": "Last commit"
-    }
-  },
-  "robot": {
-    "hint": "Click me 🤖",
-    "dismiss": "Hide robot",
-    "greeting": "Hi! I'm Alex's AI copilot. I'll tag along while you explore his portfolio 🤖",
-    "home": "This is home base. Scroll down to see how Alex works with AI every day.",
-    "featured": "Kivo and MiCompli: real MVPs Alex took from idea to production.",
-    "ai": "My favorite part: Alex orchestrates agents like me — Claude Code, MCP servers and subagents — on every project.",
-    "about": "ITLP's software factory + MVPs for startups. Here's his full story.",
-    "projects": "You can filter by technology. Every project has its own detail page.",
-    "project_detail": "Good pick. Here's the technical breakdown of this project.",
-    "stack": "These are his tools. The AI category is where I shine ✨",
-    "contact": "Got an MVP in mind? Alex usually replies within 24 hours.",
-    "click_0": "Beep boop. Code reviewed and verified ✅",
-    "click_1": "I do the heavy lifting; Alex brings the judgment and architecture.",
-    "click_2": "Fun fact: Kivo's chatbot runs on the Claude API + FastAPI."
+    "contact": "Contact"
   },
   "error": {
-    "title": "Lost in Cyberspace?",
-    "message": "The page you are looking for has been moved to another dimension or simply doesn't exist.",
-    "cta_home": "Take Me Home",
-    "cta_projects": "View Projects"
+    "title": "This page doesn't exist",
+    "message": "The address may have changed with the site redesign.",
+    "cta_home": "Back to home"
   }
 }
